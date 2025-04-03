@@ -74,7 +74,7 @@ const Register = () => {
                         </label>
                     </div>
 
-                    <SubmitButton User={formData}/>
+                    <SubmitButton Account={formData}/>
                 </form>
             </div>
 
