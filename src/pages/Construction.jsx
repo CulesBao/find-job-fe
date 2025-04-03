@@ -1,8 +1,8 @@
 import SocialMedia from "@/components/ui/SocialMedia";
-import { Box, Button, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React from "react";
 
-function Error() {
+function Construction() {
     return (
         <div className="flex justify-center items-center h-screen bg-white overflow-hidden">
             <div className="flex flex-col items-start space-y-6 max-w-lg">
@@ -60,12 +60,11 @@ function Error() {
                 </svg>
                 <span className="text-lg font-semibold">MyJob</span>
             </div>
-            <div
-                className="">
+            <div>
                 <SocialMedia />
             </div>
         </div>
     );
 }
 
-export default Error;
+export default Construction;
