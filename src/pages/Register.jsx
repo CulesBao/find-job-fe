@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Logo from "@/assets/Logo.jsx";
+import Logo from "@/components/layout/Logo.jsx";
 import HomeRightSection from "@/components/layout/HomeRightSection";
 import HomeStatsRow from "@/components/layout/HomeStatsRow";
 import Email from "@/components/ui/Email";
@@ -13,7 +13,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "CANDIDATE",
+    role: "",
   });
 
   const handleRoleChange = (role) => {
@@ -34,11 +34,16 @@ const Register = () => {
     }));
   };
 
+  const emailLabel =
+    formData.role === "CANDIDATE"
+      ? "Personal Email"
+      : formData.role === "EMPLOYER"
+      ? "Company Email"
+      : "Email";
+
   return (
     <div className="flex m-0 p-0 w-full h-screen box-border overflow-hidden">
-      <div className="flex flex-row h-[10%] relative left-[12%] top-[45px]">
-        <Logo />
-      </div>
+      <Logo />
 
       {/* LEFT SECTION */}
       <div className="w-1/2 h-full box-border m-0 flex bg-white">
@@ -61,7 +66,11 @@ const Register = () => {
               </div>
             </div>
             <div>
-              <Email id="email" label="Email" onChange={handleInputChange} />
+              <Email
+                id="email"
+                label={emailLabel}
+                onChange={handleInputChange}
+              />
               <Password
                 id="password"
                 label="Password"
