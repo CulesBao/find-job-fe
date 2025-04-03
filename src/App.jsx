@@ -1,13 +1,12 @@
-import React from "react";
-import Error from "./pages/Error"; // Đảm bảo file Error.jsx tồn tại trong thư mục ./pages
+import "./App.css";
+import Register from "./pages/Register";
+import Error from "./pages/Error";
 
 function App() {
   return (
     <div>
-      {/* Hiển thị trang lỗi */}
+      {/* <Register /> */}
       <Error />
-      {/* Hiển thị Footer */}
-      {/* <Footer /> */}
     </div>
   );
 }
