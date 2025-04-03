@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Logo from "@/components/layout/Logo.jsx";
+import Logo from "@/assets/Logo.jsx";
 import HomeRightSection from "@/components/layout/HomeRightSection";
 import HomeStatsRow from "@/components/layout/HomeStatsRow";
 import Email from "@/components/ui/Email";
