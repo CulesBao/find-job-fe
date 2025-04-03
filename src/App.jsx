@@ -1,11 +1,10 @@
-import { Camera } from "lucide-react";
+
 import "./App.css";
-import { ButtonBase } from "@mui/material";
-import Error from "./pages/Construction";
+import Constructions from "./pages/Constructions.jsx";
 function App() {
   return (
     <div>
-      <Error />
+      <Constructions />;
     </div>
   );
 }

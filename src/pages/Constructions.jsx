@@ -2,7 +2,7 @@ import SocialMedia from "@/components/ui/SocialMedia";
 import { Button, TextField } from "@mui/material";
 import React from "react";
 
-function Construction() {
+function Constructions() {
     return (
         <div className="flex justify-center items-center h-screen bg-white overflow-hidden">
             <div className="flex flex-col items-start space-y-6 max-w-lg">
@@ -67,4 +67,4 @@ function Construction() {
     );
 }
 
-export default Construction;
+export default Constructions;
