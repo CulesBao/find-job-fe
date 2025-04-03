@@ -60,7 +60,6 @@ const ErrorPage = () => {
               >
                 Home Page
               </Button>
-
               <Button
                 component="a"
                 href="#"
