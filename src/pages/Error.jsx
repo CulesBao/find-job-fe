@@ -2,6 +2,10 @@ import React from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
 import errorImage from "../assets/error-robot.png"; // Đảm bảo đường dẫn ảnh chính xác
 import Footer from "../components/layout/Footer"; // Đảm bảo Footer được import đúng cách
+import React from "react";
+import { Button, Container, Typography, Box } from "@mui/material";
+import errorImage from "../assets/error-robot.png"; // Đảm bảo đường dẫn ảnh chính xác
+import Footer from "../components/layout/Footer"; // Đảm bảo Footer được import đúng cách
 
 const ErrorPage = () => {
   return (
@@ -14,8 +18,20 @@ const ErrorPage = () => {
           minHeight: "100vh",
         }}
       >
+      <Box
+        sx={{
+          backgroundColor: "#ffffff",
+          color: "#000000",
+          minHeight: "100vh",
+        }}
+      >
         {/* Nội dung trang lỗi */}
         <Container maxWidth="md">
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            textAlign="center"
           <Box
             display="flex"
             flexDirection="column"
@@ -31,7 +47,21 @@ const ErrorPage = () => {
                 width: "100%",
                 marginBottom: "2rem",
               }}
+            <img
+              src={errorImage}
+              alt="404 Error"
+              style={{
+                maxWidth: "300px",
+                width: "100%",
+                marginBottom: "2rem",
+              }}
             />
+
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{ fontWeight: "bold", mb: 2, color: "#000000" }}
+            >
 
             <Typography
               variant="h3"
@@ -40,6 +70,14 @@ const ErrorPage = () => {
             >
               Oops! Page not found
             </Typography>
+
+            <Typography
+              variant="body1"
+              paragraph
+              sx={{ mb: 4, color: "#000000" }}
+            >
+              Something went wrong. It looks like the link is broken or the page
+              is removed.
 
             <Typography
               variant="body1"
@@ -60,6 +98,7 @@ const ErrorPage = () => {
               >
                 Home Page
               </Button>
+
               <Button
                 component="a"
                 href="#"
@@ -79,6 +118,7 @@ const ErrorPage = () => {
       </Box>
 
       {/* Footer giữ nguyên chế độ dark mode */}
+      <Box sx={{ backgroundColor: "#121212", color: "#ffffff" }}>
       <Box sx={{ backgroundColor: "#121212", color: "#ffffff" }}>
         <Footer />
       </Box>
