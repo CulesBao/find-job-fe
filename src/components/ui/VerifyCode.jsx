@@ -12,19 +12,20 @@ export default function VerificationCode({ onCodeComplete }) {
 
     const handleChange = (index, value) => {
         if (!/^\d?$/.test(value)) return; 
-        
+    
         let newCode = [...code];
         newCode[index] = value;
         setCode(newCode);
-
+    
         if (value && index < code.length - 1) {
             inputsRef.current[index + 1].focus(); 
         }
-
+    
         if (newCode.join("").length === 5) {
-            onCodeComplete(newCode.join(""));
+            onCodeComplete(newCode.join("")); 
         }
     };
+    
 
     const handleKeyDown = (index, e) => {
         if (e.key === "Backspace" && !code[index] && index > 0) {
@@ -53,14 +54,14 @@ export default function VerificationCode({ onCodeComplete }) {
 const styles = {
     codeContainer: {
         display: "flex",
-        gap: "10px",
+        gap: "20px",
         justifyContent: "center",
-        marginTop: "20px",
+        marginTop: "0px",
     },
     codeInput: {
-        width: "40px",
-        height: "40px",
-        fontSize: "18px",
+        width: "50px",
+        height: "60px",
+        fontSize: "20px",
         textAlign: "center",
         border: "2px solid #ccc",
         borderRadius: "5px",

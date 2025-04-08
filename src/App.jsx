@@ -7,10 +7,10 @@ import Accountverify from "./pages/AccountVerify";
 function App() {
   return (
     <div>
-      <Register />
+      {/* <Register /> */}
       {/* <Error /> */}
       {/* <Constructions />; */}
-      {/* <Accountverify /> */}
+      <Accountverify />
     </div>
   );
 }
