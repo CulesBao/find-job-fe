@@ -2,12 +2,12 @@ import Logo from "@/components/layout/Logo";
 
 const Accountverify = () => {
     return (
-        <div className="flex flex-col w-full h-screen overflow-hidden items-center justify-center">
+        <div className="flex flex-col w-full h-[100vh] overflow-hidden items-center justify-center">
             <div className="">
                 <Logo />
             </div>
 
-            <form className="w-1/3 h-4/5 flex flex-col items-center justify-center relative top-1/10 gap-5">
+            <form className="w-1/3 h-full flex flex-col items-center justify-center relative top-0 gap-5">
                 <div className="flex flex-col items-center">
                 <div>
                     <h2 className="text-gray-900 text-4xl font-medium leading-10 mb-8 text-center">Email Verification</h2>
