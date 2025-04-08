@@ -1,16 +1,16 @@
 import "./App.css";
 import Register from "./pages/Register";
 // import Error from "./pages/Error";
-
 import Constructions from "./pages/Constructions.jsx";
 import Accountverify from "./pages/AccountVerify";
+
 function App() {
   return (
     <div>
-      {/* <Register /> */}
+      <Register />
       {/* <Error /> */}
       {/* <Constructions />; */}
-      <Accountverify />
+      {/* <Accountverify /> */}
     </div>
   );
 }
