@@ -1,17 +1,17 @@
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
-// import Error from "./pages/Error";
-import Constructions from "./pages/Constructions.jsx";
+import Constructions from "./pages/Constructions";
 import Accountverify from "./pages/AccountVerify";
 
 function App() {
   return (
-    <div>
-      {/* <Register /> */}
-      {/* <Error /> */}
-      {/* <Constructions />; */}
-      <Accountverify />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Register />} />
+        <Route path="/constructions" element={<Constructions />} />
+        <Route path="/verify" element={<Accountverify />} />
+      </Routes>
+    </Router>
   );
 }
 

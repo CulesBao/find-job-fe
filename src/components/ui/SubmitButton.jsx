@@ -4,12 +4,14 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 export default function SubmitButton({ Account }) {
     const [loading, setLoading] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [userInfo, setUserInfo] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         if (Account.password !== Account.confirmPassword) {
@@ -40,6 +42,9 @@ export default function SubmitButton({ Account }) {
             if (res.status === 201) {
                 setUserInfo(res.data.data);
                 setSnackbarMessage("Registration successful!");
+                setTimeout(() => {
+                    navigate("/verify", { state: { email: Account.email } });
+                }, 2000);
             } else {
                 setSnackbarMessage("Registration failed. Please try again.");
             }

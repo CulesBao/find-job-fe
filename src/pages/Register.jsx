@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Logo from "@/components/layout/Logo.jsx";
 import HomeRightSection from "@/components/layout/HomeRightSection";
@@ -75,8 +76,8 @@ const Register = () => {
                             {" "}I agree to the <a className="text-blue-800" href="#">Terms of Service</a> and <a className="text-blue-800" href="#">Privacy Policy</a>
                         </label>
                     </div>
-
-                    <SubmitButton Account={formData}/>
+                    <Link to="/verify">
+                    <SubmitButton Account={formData}/> </Link>
                 </form>
             </div>
 
