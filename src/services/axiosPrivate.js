@@ -1,8 +1,6 @@
 import axios from "axios";
-
 const axiosPrivate = axios.create({
-  // eslint-disable-next-line no-undef
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   headers: { "Content-Type": "application/json" },
   timeout: 10000,
 });

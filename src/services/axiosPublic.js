@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  // eslint-disable-next-line no-undef
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
