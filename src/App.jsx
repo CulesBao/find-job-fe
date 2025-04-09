@@ -1,18 +1,21 @@
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
-import dotenv from "dotenv";
+import Constructions from "./pages/Constructions";
+import Accountverify from "./pages/AccountVerify";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackBarUtils";
-import Constructions from "./pages/Constructions.jsx";
-// import Error from "./pages/Error";
 
-dotenv.config();
 function App() {
   return (
     <SnackbarProvider maxSnack={3}>
-      <Register />
-      {/* <Error /> */}
-      {/* <Constructions />; */}
+      <SnackbarUtilsConfigurator />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/constructions" element={<Constructions />} />
+          <Route path="/verify" element={<Accountverify />} />
+        </Routes>
+      </Router>
     </SnackbarProvider>
   );
 }

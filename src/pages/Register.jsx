@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Logo from "@/components/layout/Logo.jsx";
 import HomeRightSection from "@/components/layout/HomeRightSection";
@@ -25,9 +26,7 @@ const Register = () => {
 
   const handleInputChange = (e) => {
     if (!e.target) return;
-
     const { id, value } = e.target;
-
     setFormData((prevState) => ({
       ...prevState,
       [id]: value,
@@ -83,6 +82,7 @@ const Register = () => {
               />
             </div>
           </div>
+
           <div className="text-[#767F8C] font-sans text-sm font-normal leading-[20px] py-[20px] gap-[10px]">
             <input type="checkbox" id="terms" required />
             <label
