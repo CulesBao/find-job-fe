@@ -2,13 +2,14 @@ import React from 'react';
 import { Button, Container, Typography, Box } from '@mui/material';
 import errorImage from '../assets/error-robot.png'; // Đảm bảo đường dẫn ảnh chính xác
 import Footer from '../components/layout/Footer'; // Đảm bảo Footer được import đúng cách
+import Navigation from '../components/layout/Navigation'; // Import Navigation
 
 const ErrorPage = () => {
   return (
     <>
-      {/* Light mode cho ErrorPage */}
+      
+      {/* Nội dung trang lỗi */}
       <Box sx={{ backgroundColor: '#ffffff', color: '#000000', minHeight: '100vh' }}>
-        {/* Nội dung trang lỗi */}
         <Container maxWidth="md">
           <Box 
             display="flex" 
