@@ -1,15 +1,19 @@
 import "./App.css";
 import Register from "./pages/Register";
+import dotenv from "dotenv";
+import { SnackbarProvider } from "notistack";
+import { SnackbarUtilsConfigurator } from "./utils/SnackBarUtils";
+import Constructions from "./pages/Constructions.jsx";
 // import Error from "./pages/Error";
 
-import Constructions from "./pages/Constructions.jsx";
+dotenv.config();
 function App() {
   return (
-    <div>
+    <SnackbarProvider maxSnack={3}>
       <Register />
       {/* <Error /> */}
       {/* <Constructions />; */}
-    </div>
+    </SnackbarProvider>
   );
 }
 
