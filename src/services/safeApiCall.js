@@ -1,4 +1,4 @@
-import { snackbar } from "@../utils/SnackbarUtils";
+import { snackbar } from "../utils/SnackbarUtils";
 
 export default async (apiFunction) => {
   try {
@@ -6,20 +6,28 @@ export default async (apiFunction) => {
     snackbar.success(response.data.message || "Success!");
     return response.data;
   } catch (error) {
-    if (error.request) {
-      console.error("No response received:", error.request);
-      snackbar.error(
-        "Failed to connect to the server. Please check your internet connection."
-      );
-    } else if (error.response && error.response.status < 500) {
+    if (error.response) {
+      // Server responded with a status code (4xx or 5xx)
       console.error("Error response:", error.response);
-      snackbar.warning(
-        error.response.data.message || "An error occurred. Please try again."
-      );
+
+      const status = error.response.status;
+      const message = error.response.data?.message || "An error occurred.";
+
+      if (status < 500) {
+        snackbar.warning(message);
+      } else {
+        snackbar.error("A server error occurred. Please try again later.");
+      }
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error("No response received:", error.request);
+      snackbar.error("Failed to connect to the server.");
     } else {
-      console.error("Error message:", error.message);
+      // Something happened in setting up the request
+      console.error("Error setting up the request:", error.message);
       snackbar.error("An unexpected error occurred. Please try again.");
     }
-    return null; // Return null or handle the error as needed
+
+    return null;
   }
 };

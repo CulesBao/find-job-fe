@@ -3,7 +3,7 @@ import Register from "./pages/Register";
 import Constructions from "./pages/Constructions";
 import Accountverify from "./pages/AccountVerify";
 import { SnackbarProvider } from "notistack";
-import { SnackbarUtilsConfigurator } from "./utils/SnackBarUtils";
+import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 
 function App() {
   return (

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../services/authService";
 
 export default function SubmitButton({ Account }) {
   const [loading, setLoading] = useState(false);
@@ -26,43 +26,17 @@ export default function SubmitButton({ Account }) {
       return;
     }
 
-    setLoading(true);
-    const dataUser = {
-      email: Account.email,
-      password: Account.password,
-      role: Account.role,
-      provider: "LOCAL",
-    };
-
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/register", dataUser);
+      setLoading(true);
+      const dataUser = {
+        email: Account.email,
+        password: Account.password,
+        role: Account.role,
+        provider: "LOCAL",
+      };
 
-      if (res.status === 201) {
-        setUserInfo(res.data.data);
-        setSnackbarMessage("Registration successful!");
-
-        setTimeout(() => {
-          navigate("/verify", { state: { email: Account.email } });
-        }, 2000);
-      } else {
-        setSnackbarMessage("Registration failed. Please try again.");
-      }
-    } catch (err) {
-      console.error("Error while sending request:", err);
-
-      const message =
-        err.response?.data?.message ||
-        err.response?.data?.error ||
-        (err.response?.status === 400 && "Bad Request. Please check your input.") ||
-        (err.response?.status === 401 && "Unauthorized. Please check your credentials.") ||
-        (err.response?.status === 403 && "Forbidden. You don't have permission to access this.") ||
-        (err.response?.status === 404 && "Not Found. The requested resource could not be found.") ||
-        (err.response?.status === 500 && "Internal Server Error. Please try again later.") ||
-        "An error occurred. Please try again later.";
-
-      setSnackbarMessage(message);
+      await register(dataUser);
     } finally {
-      setSnackbarOpen(true);
       setLoading(false);
     }
   };
@@ -81,24 +55,6 @@ export default function SubmitButton({ Account }) {
       <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
-
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
-      >
-        <Alert
-          onClose={() => setSnackbarOpen(false)}
-          severity={
-            snackbarMessage === "Registration successful!" ? "success" : "error"
-          }
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </>
   );
 }

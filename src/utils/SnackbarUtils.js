@@ -1,5 +1,5 @@
 // utils/SnackbarUtils.ts
-import { useSnackbar, VariantType, WithSnackbarProps } from "notistack";
+import { useSnackbar } from "notistack";
 
 let useSnackbarRef;
 
@@ -10,15 +10,31 @@ export const SnackbarUtilsConfigurator = () => {
 
 export const snackbar = {
   success(msg) {
-    useSnackbarRef.enqueueSnackbar(msg, { variant: "success" });
+    useSnackbarRef.enqueueSnackbar(msg, {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
   },
   error(msg) {
-    useSnackbarRef.enqueueSnackbar(msg, { variant: "error" });
+    useSnackbarRef.enqueueSnackbar(msg, {
+      variant: "error",
+      autoHideDuration: 2000,
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
   },
   info(msg) {
-    useSnackbarRef.enqueueSnackbar(msg, { variant: "info" });
+    useSnackbarRef.enqueueSnackbar(msg, {
+      variant: "info",
+      autoHideDuration: 2000,
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
   },
   warning(msg) {
-    useSnackbarRef.enqueueSnackbar(msg, { variant: "warning" });
+    useSnackbarRef.enqueueSnackbar(msg, {
+      variant: "warning",
+      autoHideDuration: 2000,
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
   },
 };
