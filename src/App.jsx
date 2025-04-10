@@ -5,7 +5,7 @@ import Accountverify from "./pages/AccountVerify";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 
-function App() {
+export default function App() {
   return (
     <SnackbarProvider maxSnack={3}>
       <SnackbarUtilsConfigurator />
@@ -19,5 +19,3 @@ function App() {
     </SnackbarProvider>
   );
 }
-
-export default App;
