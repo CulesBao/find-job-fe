@@ -8,17 +8,29 @@ export default function VerifyButton({ data, code }) {
     const navigate = useNavigate();
 
     const handleVerify = async () => {
+        const minLoadingTime = 1300; 
+        const startTime = Date.now();
+        setLoading(true);
+    
         try {
-            setLoading(true);
-            const res = await verifyEmail(data.id, { code: code });
-            if (!res || res.error || res.status >= 400) {
-                throw new Error();
-            }
+            const res = await verifyEmail(data.id, { code });
+    
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+            await new Promise(resolve => setTimeout(resolve, remainingTime));
+    
+            navigate("/login", {
+                state: {
+                    data: data,
+                },
+            });
+        } catch (err) {
+            console.error("Verify failed:", err);
         } finally {
             setLoading(false);
         }
     };
-
+    
     return (
         <>
             <button
@@ -32,7 +44,19 @@ export default function VerifyButton({ data, code }) {
                 {loading ? "Verifying..." : "Verify My Account →"}
             </button>
 
-            <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
+            <Backdrop 
+                sx={{ 
+                    color: "#fff", 
+                    zIndex: 1301,
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)"
+                }} 
+                open={loading}
+            >
                 <CircularProgress color="inherit" />
             </Backdrop>
         </>
