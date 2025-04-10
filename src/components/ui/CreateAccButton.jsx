@@ -10,7 +10,6 @@ export default function SubmitButton({ Account }) {
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -19,13 +18,13 @@ export default function SubmitButton({ Account }) {
       setSnackbarOpen(true);
       return;
     }
-
+  
     if (!document.getElementById("terms").checked) {
       setSnackbarMessage("You must accept the terms and conditions.");
       setSnackbarOpen(true);
       return;
     }
-
+  
     try {
       setLoading(true);
       const dataUser = {
@@ -34,8 +33,22 @@ export default function SubmitButton({ Account }) {
         role: Account.role,
         provider: "LOCAL",
       };
+  
+      const res = await register(dataUser);
 
-      await register(dataUser);
+      if (!res || res.error || res.status >= 400) {
+        throw new Error();
+      }
+  
+      setSnackbarMessage("Registration successful!");
+      setSnackbarOpen(true);
+  
+      navigate("/verify", {
+        state: {
+          data: res.data
+        },
+      });
+  
     } finally {
       setLoading(false);
     }
@@ -55,6 +68,22 @@ export default function SubmitButton({ Account }) {
       <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
+
+      <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarOpen(false)}
+      >
+          <Alert
+              onClose={() => setSnackbarOpen(false)}
+              severity={snackbarMessage === "Registration successful, please check your email to verify your account" ? "success" : "error"}
+              variant="filled"
+              sx={{ width: "100%" }}
+          >
+              {snackbarMessage}
+          </Alert>
+      </Snackbar>
     </>
   );
 }

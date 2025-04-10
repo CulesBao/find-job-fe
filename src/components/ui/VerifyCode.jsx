@@ -26,6 +26,17 @@ export default function VerificationCode({ onCodeComplete }) {
         }
     };
     
+    const handlePaste = (e) => {
+        const pasted = e.clipboardData.getData("Text").trim();
+        if (/^\d{5}$/.test(pasted)) {
+            const newCode = pasted.split("");
+            setCode(newCode);
+            onCodeComplete(pasted);
+            newCode.forEach((digit, idx) => {
+                if (inputsRef.current[idx]) inputsRef.current[idx].value = digit;
+            });
+        }
+    };
 
     const handleKeyDown = (index, e) => {
         if (e.key === "Backspace" && !code[index] && index > 0) {
@@ -37,15 +48,17 @@ export default function VerificationCode({ onCodeComplete }) {
         <div style={styles.codeContainer}>
             {code.map((digit, index) => (
                 <input
-                    key={index}
-                    ref={(el) => (inputsRef.current[index] = el)}
-                    type="text"
-                    maxLength="1"
-                    value={digit}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    style={styles.codeInput}
-                />
+                key={index}
+                ref={(el) => (inputsRef.current[index] = el)}
+                type="text"
+                maxLength="1"
+                value={digit}
+                onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
+                onFocus={() => inputsRef.current[index].select()}
+                onPaste={index === 0 ? handlePaste : undefined}
+                style={styles.codeInput}
+            />
             ))}
         </div>
     );
