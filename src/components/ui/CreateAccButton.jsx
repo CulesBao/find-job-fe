@@ -3,7 +3,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import { register } from "../../services/authService";
 
 export default function SubmitButton({ Account }) {
@@ -19,13 +19,13 @@ export default function SubmitButton({ Account }) {
       setSnackbarOpen(true);
       return;
     }
-
+  
     if (!document.getElementById("terms").checked) {
       setSnackbarMessage("You must accept the terms and conditions.");
       setSnackbarOpen(true);
       return;
     }
-
+  
     try {
       setLoading(true);
       const dataUser = {
@@ -34,8 +34,25 @@ export default function SubmitButton({ Account }) {
         role: Account.role,
         provider: "LOCAL",
       };
-
-      await register(dataUser);
+  
+      const res = await register(dataUser);
+  
+      if (!res || res.error || res.status >= 400) {
+        throw new Error();
+      }
+  
+      setSnackbarMessage("Registration successful!");
+      setSnackbarOpen(true);
+  
+      setUserInfo(dataUser);
+  
+      navigate("/verify", {
+        state: {
+          email: dataUser.email,
+          role: dataUser.role,
+        },
+      });
+  
     } finally {
       setLoading(false);
     }
@@ -64,7 +81,7 @@ export default function SubmitButton({ Account }) {
       >
           <Alert
               onClose={() => setSnackbarOpen(false)}
-              severity={snackbarMessage === "Registration successful!" ? "success" : "error"}
+              severity={snackbarMessage === "Registration successful, please check your email to verify your account" ? "success" : "error"}
               variant="filled"
               sx={{ width: "100%" }}
           >
