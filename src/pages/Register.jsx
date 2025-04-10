@@ -7,7 +7,7 @@ import HomeStatsRow from "@/components/layout/HomeStatsRow";
 import Email from "@/components/ui/Email";
 import Password from "@/components/ui/Password";
 import RoleSelect from "@/components/ui/RoleSelect";
-import SubmitButton from "@/components/ui/SubmitButton";
+import SubmitButton from "@/components/ui/CreateAccButton";
 
 const Register = () => {
   const [formData, setFormData] = useState({

@@ -55,6 +55,22 @@ export default function SubmitButton({ Account }) {
       <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
+
+      <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => setSnackbarOpen(false)}
+      >
+          <Alert
+              onClose={() => setSnackbarOpen(false)}
+              severity={snackbarMessage === "Registration successful!" ? "success" : "error"}
+              variant="filled"
+              sx={{ width: "100%" }}
+          >
+              {snackbarMessage}
+          </Alert>
+      </Snackbar>
     </>
   );
 }
