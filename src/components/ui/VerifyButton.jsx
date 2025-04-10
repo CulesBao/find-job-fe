@@ -1,46 +1,40 @@
 import { useState } from "react";
-import axios from "axios";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { verifyEmail } from "@/services/authService";
 
-export default function VerifyButton({ code, email }) {
+export default function VerifyButton({ data, code }) {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleVerify = async () => {
-        if (!code) {
-            alert("Please enter the verification code.");
-            return;
-        }
-
         try {
             setLoading(true);
-            const res = await axios.post("http://localhost:8080/api/auth/verify-email", {
-                email,
-                code,
-            });
-
-            if (res.status === 200) {
-                alert("Account verified successfully!");
-                // Redirect nếu cần: window.location.href = "/login"
-            } else {
-                alert(res.data.message || "Verification failed.");
+            const res = await verifyEmail(data.id, { code: code });
+            if (!res || res.error || res.status >= 400) {
+                throw new Error();
             }
-        } catch (err) {
-            console.error(err);
-            alert(err.response?.data?.message || "Error verifying your account.");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <button
-            type="button"
-            onClick={handleVerify}
-            className={`w-full text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200 ${
-                loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-            }`}
-            disabled={loading}
-        >
-            {loading ? "Verifying..." : "Verify My Account →"}
-        </button>
+        <>
+            <button
+                type="button"
+                onClick={handleVerify}
+                className={`w-full text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200 ${
+                    loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                }`}
+                disabled={loading}
+            >
+                {loading ? "Verifying..." : "Verify My Account →"}
+            </button>
+
+            <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        </>
     );
 }

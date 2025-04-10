@@ -3,14 +3,13 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { register } from "../../services/authService";
 
 export default function SubmitButton({ Account }) {
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -36,7 +35,7 @@ export default function SubmitButton({ Account }) {
       };
   
       const res = await register(dataUser);
-  
+
       if (!res || res.error || res.status >= 400) {
         throw new Error();
       }
@@ -44,12 +43,9 @@ export default function SubmitButton({ Account }) {
       setSnackbarMessage("Registration successful!");
       setSnackbarOpen(true);
   
-      setUserInfo(dataUser);
-  
       navigate("/verify", {
         state: {
-          email: dataUser.email,
-          role: dataUser.role,
+          data: res.data
         },
       });
   
