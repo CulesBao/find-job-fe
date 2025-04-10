@@ -1,10 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Constructions from "./pages/Constructions";
+import Accountverify from "./pages/AccountVerify";
+import { SnackbarProvider } from "notistack";
+import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 
-import SidebarCadidate from "./components/ui/SidebarCadidate";
-function App() {
+export default function App() {
   return (
-    <SidebarCadidate />
-
+    <SnackbarProvider maxSnack={3}>
+      <SnackbarUtilsConfigurator />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/constructions" element={<Constructions />} />
+          <Route path="/verify" element={<Accountverify />} />
+        </Routes>
+      </Router>
+    </SnackbarProvider>
   );
 }
-
-export default App;
