@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
   const RoleSelect = ({ onAccountRoleChange }) => {
-  const [accountRole, setAccountRole] = React.useState("");
+  const [accountRole, setAccountRole] = React.useState("CANDIDATE");
 
   const handleRoleChange = (event) => {
     setAccountRole(event.target.value);

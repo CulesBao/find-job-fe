@@ -14,7 +14,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    role: "CANDIDATE",
   });
 
   const handleRoleChange = (role) => {
@@ -38,7 +38,7 @@ const Register = () => {
       ? "Personal Email"
       : formData.role === "EMPLOYER"
       ? "Company Email"
-      : "Email";
+      : "Personal Email";
 
   return (
     <div className="flex m-0 p-0 w-full h-screen box-border overflow-hidden">
@@ -55,9 +55,9 @@ const Register = () => {
                 </h1>
                 <p className="text-[#5E6670] font-sans text-[16px] font-normal leading-[24px] mt-0 opacity-70">
                   Already have an account?{" "}
-                  <a className="text-blue-800" href="#">
-                    Login
-                  </a>
+                  <Link to="/login" className="text-blue-800">
+                    Log in
+                  </Link>
                 </p>
               </div>
               <div className="pr-10">
