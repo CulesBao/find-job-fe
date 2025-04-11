@@ -46,12 +46,12 @@ const Register = () => {
 
       {/* LEFT SECTION */}
       <div className="w-1/2 h-full box-border m-0 flex bg-white">
-        <form className="w-full h-[80%] p-[25%_10%_0_40px] gap-[20px]">
+        <form className="w-[80%] h-[80%] pt-[28%] flex flex-col justify-start">
           <div className="inline-block gap-[10px] items-center mb-0">
             <div className="flex pl-5 justify-between items-center w-full mb-5">
               <div className="flex-1 w-full">
                 <h1 className="text-[#18191C] font-sans text-4xl font-normal leading-[40px] mb-[10px]">
-                  Create Account.
+                  Create Account
                 </h1>
                 <p className="text-[#5E6670] font-sans text-[16px] font-normal leading-[24px] mt-0 opacity-70">
                   Already have an account?{" "}
@@ -102,6 +102,14 @@ const Register = () => {
           </div>
 
           <SubmitButton Account={formData} />
+
+          <p className="text-center mt-0 opacity-60">or</p>
+            <div className="flex justify-center items-center mt-3">
+                <button className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white">
+                    <img src="src/assets/Google.svg" alt="Google" width={20} height={20}/>
+                    Sign in with Google
+                </button>
+            </div>
         </form>
       </div>
 

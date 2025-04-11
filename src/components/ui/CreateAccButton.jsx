@@ -57,7 +57,7 @@ export default function SubmitButton({ Account }) {
   return (
     <>
       <button
-        className="w-[95%] bg-[#007bff] text-white py-4 mb-[10px] border-none rounded-md cursor-pointer text-lg font-sans"
+        className="bg-[#007bff] text-white py-4 mb-[10px] border-none rounded-md cursor-pointer text-lg font-sans"
         type="button"
         onClick={handleSubmit}
         disabled={loading}
