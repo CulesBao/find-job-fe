@@ -5,13 +5,11 @@ import Logo from "@/components/layout/Logo.jsx";
 import HomeRightSection from "@/components/layout/HomeRightSection";
 import HomeStatsRow from "@/components/layout/HomeStatsRow";
 import Email from "@/components/ui/Email";
-import Password from "@/components/ui/Password";
 import SignInButton from "@/components/ui/SignInButton";
 
-const Login = () => {
+const ForgotPassword = () => {
 const [formData, setFormData] = useState({
     email: "",
-    password: "",
 });
 
 const handleInputChange = (e) => {
@@ -34,8 +32,16 @@ return (
                 <div className="flex pl-5 justify-between items-center w-full mb-5">
                     <div className="flex-1 w-full">
                         <h1 className="text-[#18191C] font-sans text-4xl font-normal leading-[40px] mb-[10px]">
-                        Sign in
+                        Forgot Password
                         </h1>
+                        <div className="flex items-center gap-2 mb-1">
+                            <p className="text-[#5E6670] font-sans text-[16px] font-normal leading-[24px] mt-0 opacity-70">
+                            Go back to
+                            </p>
+                            <Link to="/" className="text-blue-800">
+                                Sign In
+                            </Link>
+                        </div>
                         <div className="flex items-center gap-2 mb-2">
                             <p className="text-[#5E6670] font-sans text-[16px] font-normal leading-[24px] mt-0 opacity-70">
                             Don{"'"}t have an account?
@@ -52,28 +58,9 @@ return (
                     label="Email"
                     onChange={handleInputChange}
                 />
-                <Password
-                    id="password"
-                    label="Password"
-                    onChange={handleInputChange}
-                    className="mb-2"
-                />
                 </div>
             </div>
-            <div className="flex items-center justify-between">
-                <label htmlFor="terms" className="text-[#5E6670] font-sans text-[16px] font-normal leading-[24px] mt-0 opacity-70">
-                <input
-                type="checkbox"
-                id="terms"
-                className="mr-2"
-                    />
-                Remember me
-                </label>
 
-                <Link to="/forgot-password" className="text-blue-800">
-                Forgot Password?
-                </Link>
-            </div>
 
             <SignInButton Account={formData} />
 
@@ -103,4 +90,4 @@ return (
 );
 };
 
-export default Login;
+export default ForgotPassword;
