@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
+import ForgotPassword from "./pages/ForgotPassword";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/constructions" element={<Constructions />} />
             <Route path="/verify" element={<Accountverify />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>
         </Router>
       </AuthProvider>

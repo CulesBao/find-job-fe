@@ -1,4 +1,3 @@
-import { data } from "react-router-dom";
 import { snackbar } from "../utils/SnackbarUtils";
 
 export default async (apiFunction) => {
