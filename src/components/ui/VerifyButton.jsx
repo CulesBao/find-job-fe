@@ -13,19 +13,22 @@ export default function VerifyButton({ data, code }) {
         setLoading(true);
     
         try {
-            const res = await verifyEmail(data.id, { code });
-    
+            const res = await verifyEmail(data.data.id, { code });
+
             const elapsedTime = Date.now() - startTime;
             const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
             await new Promise(resolve => setTimeout(resolve, remainingTime));
-    
+
+            if (!res || res.error || res.status >= 400) {
+                throw new Error();
+            }
+
             navigate("/login", {
                 state: {
                     data: data,
                 },
             });
-        } catch (err) {
-            console.error("Verify failed:", err);
+
         } finally {
             setLoading(false);
         }

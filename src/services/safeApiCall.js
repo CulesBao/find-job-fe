@@ -1,10 +1,15 @@
+import { data } from "react-router-dom";
 import { snackbar } from "../utils/SnackbarUtils";
 
 export default async (apiFunction) => {
   try {
     const response = await apiFunction();
     snackbar.success(response.data.message || "Success!");
-    return response.data;
+    return {
+      error: false,
+      status: response.status,
+      data: response.data,
+    }
   } catch (error) {
     if (error.response) {
       // Server responded with a status code (4xx or 5xx)
@@ -17,6 +22,11 @@ export default async (apiFunction) => {
         snackbar.warning(message);
       } else {
         snackbar.error("A server error occurred. Please try again later.");
+      }
+      return {
+        error: true,
+        status,
+        data: error.response.data,
       }
     } else if (error.request) {
       // Request was made but no response received
