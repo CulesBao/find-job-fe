@@ -13,7 +13,7 @@ export default function VerifyButton({ data, code }) {
         setLoading(true);
     
         try {
-            const res = await verifyEmail(data.data.id, { code });
+            const res = await verifyEmail(data.id, { code });
 
             const elapsedTime = Date.now() - startTime;
             const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
