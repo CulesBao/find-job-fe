@@ -7,5 +7,6 @@ export const register = (data) =>
 export const login = (data) =>
   safeApiCall(() => axiosPublic.post("/auth/login", data));
 
-export const verifyEmail = (accountId, data) =>
-  safeApiCall(() => axiosPublic.post(`/auth/verify-email/${accountId}`, data));
+export const verifyEmail = (accountId, data) => {
+  return safeApiCall(() => axiosPublic.put(`/auth/verify/${accountId}`, data));
+}
