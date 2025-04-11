@@ -7,6 +7,7 @@ import Email from "@/components/ui/Email";
 import Password from "@/components/ui/Password";
 import RoleSelect from "@/components/ui/RoleSelect";
 import SubmitButton from "@/components/ui/CreateAccButton";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -103,12 +104,17 @@ const Register = () => {
           <SubmitButton Account={formData} />
 
           <p className="text-center mt-0 opacity-60">or</p>
-            <div className="flex justify-center items-center mt-3">
-                <button className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white">
-                    <img src="src/assets/Google.svg" alt="Google" width={20} height={20}/>
-                    Sign in with Google
-                </button>
-            </div>
+          <div className="flex justify-center items-center mt-3">
+            <button className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white">
+              <img
+                src="src/assets/Google.svg"
+                alt="Google"
+                width={20}
+                height={20}
+              />
+              Sign in with Google
+            </button>
+          </div>
         </form>
       </div>
 
