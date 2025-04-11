@@ -13,7 +13,7 @@ export default function VerificationCode({ onCodeComplete }) {
     const handleChange = (index, value) => {
         if (!/^\d?$/.test(value)) return; 
     
-        let newCode = [...code];
+        const newCode = [...code];
         newCode[index] = value;
         setCode(newCode);
     

@@ -1,14 +1,21 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
 import { useAuth } from "@/hooks/useAuth";
+import useStorage from "@/hooks/useStorage";
 
 export default function SignInButton({ Account }) {
 const [loading, setLoading] = useState(false);
 const navigate = useNavigate();
 const { login: loginUser} = useAuth();
+// eslint-disable-next-line no-unused-vars
+const [accessToken, setAccessToken] = useStorage(
+    import.meta.env.VITE_APP_ACCESS_TOKEN,
+    "",
+);
 
 const handleSubmit = async () => {
     
@@ -26,10 +33,11 @@ const handleSubmit = async () => {
     if (!res || res.error || res.status >= 400) {
         throw new Error();
     }
-
-    loginUser(res.data);
+    if (res.data.data.is_new_account)
+        navigate("/");
+    setAccessToken(res.data.data.token);
+    loginUser(res.data.data.account_dto)
     navigate("#");
-
     } finally {
     setLoading(false);
     }

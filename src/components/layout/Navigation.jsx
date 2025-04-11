@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -10,7 +9,7 @@ import {
   IconButton,
   Divider
 } from '@mui/material';
-import { Mic,  Instagram, Notifications } from '@mui/icons-material';
+import {  Instagram, Notifications } from '@mui/icons-material';
 
 const Navigation = () => {
   return (

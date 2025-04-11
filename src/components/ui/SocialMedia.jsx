@@ -1,4 +1,3 @@
-import React from "react";
 import { FacebookOutlined, Instagram, Twitter, YouTube } from "@mui/icons-material";
 function SocialMedia() {
   return (
