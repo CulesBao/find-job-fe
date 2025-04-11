@@ -33,10 +33,10 @@ const handleSubmit = async () => {
     if (!res || res.error || res.status >= 400) {
         throw new Error();
     }
-    if (res.data.data.is_new_account)
+    if (res.data.is_new_account)
         navigate("/");
-    setAccessToken(res.data.data.token);
-    loginUser(res.data.data.account_dto)
+    setAccessToken(res.data.token);
+    loginUser(res.data.account_dto)
     navigate("#");
     } finally {
     setLoading(false);

@@ -7,7 +7,7 @@ export default async (apiFunction) => {
     return {
       error: false,
       status: response.status,
-      data: response.data,
+      data: response.data.data,
     }
   } catch (error) {
     if (error.response) {
