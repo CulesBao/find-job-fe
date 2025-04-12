@@ -5,7 +5,7 @@ import Logo from "@/components/layout/Logo.jsx";
 import HomeRightSection from "@/components/layout/HomeRightSection";
 import HomeStatsRow from "@/components/layout/HomeStatsRow";
 import Email from "@/components/ui/Email";
-import SignInButton from "@/components/ui/SignInButton";
+import ForgetButton from "@/components/ui/ForgetButton";
 
 const ForgotPassword = () => {
 const [formData, setFormData] = useState({
@@ -61,8 +61,9 @@ return (
                 </div>
             </div>
 
-
-            <SignInButton Account={formData} />
+            <Link to ="/reset-password">
+            <ForgetButton />
+            </Link>
 
             <p className="text-center mt-0 opacity-60">or</p>
             <div className="flex justify-center items-center">

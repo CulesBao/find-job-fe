@@ -3,6 +3,7 @@ import Register from "./pages/Register";
 import Constructions from "./pages/Constructions";
 import Accountverify from "./pages/AccountVerify";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/verify" element={<Accountverify />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </Router>
       </AuthProvider>
