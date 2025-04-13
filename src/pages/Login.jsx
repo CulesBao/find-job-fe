@@ -40,7 +40,7 @@ return (
                             <p className="text-[#5E6670] font-sans text-[16px] font-normal leading-[24px] mt-0 opacity-70">
                             Don{"'"}t have an account?
                             </p>
-                            <Link to="/" className="text-blue-800">
+                            <Link to="/register" className="text-blue-800">
                                 Create Account
                             </Link>
                         </div>

@@ -8,6 +8,8 @@ import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
 import ForgotPassword from "./pages/ForgotPassword";
+import AuthRedirect from "./hooks/AuthRedirect";
+import PrivateRoute from "./hooks/PrivateRoute";
 
 export default function App() {
   return (
@@ -16,9 +18,17 @@ export default function App() {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Register />} />
-            <Route path="/constructions" element={<Constructions />} />
-            <Route path="/verify" element={<Accountverify />} />
+            <Route path="/" element={<AuthRedirect />} />
+            <Route path ="/register" element={<Register />} />
+            <Route 
+              path="/constructions" 
+              element={
+                <PrivateRoute>
+                  <Constructions />
+                </PrivateRoute>
+              } 
+            />
+            <Route path="/verify/:id" element={<Accountverify />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />

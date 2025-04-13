@@ -6,6 +6,7 @@ import VerifyButton from "@/components/ui/VerifyButton";
 
 const Accountverify = () => {
     const [code, setCode] = useState("");
+    
     const location = useLocation();
 
     const data = location.state?.data;
