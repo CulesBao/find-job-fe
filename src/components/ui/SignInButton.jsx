@@ -8,55 +8,53 @@ import { useAuth } from "@/hooks/useAuth";
 import useStorage from "@/hooks/useStorage";
 
 export default function SignInButton({ Account }) {
-const [loading, setLoading] = useState(false);
-const navigate = useNavigate();
-const { login: loginUser} = useAuth();
-// eslint-disable-next-line no-unused-vars
-const [accessToken, setAccessToken] = useStorage(
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login: loginUser } = useAuth();
+  // eslint-disable-next-line no-unused-vars
+  const [accessToken, setAccessToken] = useStorage(
     import.meta.env.VITE_APP_ACCESS_TOKEN,
-    "",
-);
+    ""
+  );
 
-const handleSubmit = async () => {
-    
+  const handleSubmit = async () => {
     try {
-    setLoading(true);
-    const dataUser = {
+      setLoading(true);
+      const dataUser = {
         email: Account.email,
         password: Account.password,
         role: Account.role,
         provider: "LOCAL",
-    };
+      };
 
-    const res = await login(dataUser);
+      const res = await login(dataUser);
 
-    if (!res || res.error || res.status >= 400) {
+      if (!res || res.error || res.status >= 400) {
         throw new Error();
-    }
-    if (res.data.is_new_account)
-        navigate("/");
-    setAccessToken(res.data.token);
-    loginUser(res.data.account_dto)
-    navigate("#");
+      }
+      if (res.data.is_new_account) navigate("/");
+      setAccessToken(res.data.token);
+      loginUser(res.data.account_dto);
+      navigate("#");
     } finally {
-    setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
-return (
+  return (
     <>
-    <button
+      <button
         className="bg-[#007bff] text-white py-4 border-none rounded-md cursor-pointer text-lg font-sans"
         type="button"
         onClick={handleSubmit}
         disabled={loading}
-    >
+      >
         Sign In →
-    </button>
+      </button>
 
-    <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
+      <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
         <CircularProgress color="inherit" />
-    </Backdrop>
+      </Backdrop>
     </>
-);
+  );
 }
