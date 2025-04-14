@@ -15,22 +15,22 @@ export default function SubmitButton({ Account }) {
       snackbar.warning("Passwords do not match.");
       return;
     }
-  
+
     if (!document.getElementById("terms").checked) {
       snackbar.warning("Please accept the terms and conditions.");
       return;
     }
-  
+
     const dataUser = {
       email: Account.email,
       password: Account.password,
       role: Account.role,
       provider: "LOCAL",
     };
-  
-    setSubmitData(dataUser);  
+
+    setSubmitData(dataUser);
   };
-  
+
   useEffect(() => {
     const submit = async () => {
       if (!submitData) return;
@@ -45,10 +45,10 @@ export default function SubmitButton({ Account }) {
         });
       } finally {
         setLoading(false);
-        setSubmitData(null);  
+        setSubmitData(null);
       }
     };
-  
+
     submit();
   }, [submitData, navigate]);
 

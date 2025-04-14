@@ -1,4 +1,12 @@
-import { Box, List, ListItem, ListItemIcon, ListItemText, Divider, Typography } from '@mui/material';
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Typography,
+} from "@mui/material";
 import {
   Dashboard,
   Person,
@@ -8,19 +16,19 @@ import {
   Business,
   Settings,
   Logout,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 const Sidebar = () => {
   return (
     <Box
       sx={{
         width: 240, // Chiều rộng Sidebar
-        height: '100vh', // Chiều cao toàn màn hình
-        backgroundColor: '#f9f9f9', // Màu nền
-        borderRight: '1px solid #ddd', // Đường viền bên phải
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        height: "100vh", // Chiều cao toàn màn hình
+        backgroundColor: "#f9f9f9", // Màu nền
+        borderRight: "1px solid #ddd", // Đường viền bên phải
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       {/* Phần trên: Danh sách các mục */}
@@ -28,10 +36,10 @@ const Sidebar = () => {
         <Typography
           variant="h6"
           sx={{
-            fontWeight: 'bold',
-            textAlign: 'center',
+            fontWeight: "bold",
+            textAlign: "center",
             py: 2,
-            borderBottom: '1px solid #ddd',
+            borderBottom: "1px solid #ddd",
           }}
         >
           EMPLOYERS DASHBOARD

@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-  const RoleSelect = ({ onAccountRoleChange }) => {
+const RoleSelect = ({ onAccountRoleChange }) => {
   const [accountRole, setAccountRole] = React.useState("CANDIDATE");
 
   const handleRoleChange = (event) => {
@@ -30,6 +30,6 @@ import Select from "@mui/material/Select";
       </FormControl>
     </Box>
   );
-}
+};
 
 export default RoleSelect;
