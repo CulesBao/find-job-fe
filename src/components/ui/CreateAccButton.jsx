@@ -14,12 +14,12 @@ export default function SubmitButton({ Account }) {
       snackbar.warning("Passwords do not match.");
       return;
     }
-  
+
     if (!document.getElementById("terms").checked) {
       snackbar.warning("Please accept the terms and conditions.");
       return;
     }
-  
+
     try {
       setLoading(true);
       const dataUser = {
@@ -28,19 +28,18 @@ export default function SubmitButton({ Account }) {
         role: Account.role,
         provider: "LOCAL",
       };
-  
+
       const res = await register(dataUser);
 
       if (!res || res.error || res.status >= 400) {
         throw new Error();
       }
-  
+
       navigate("/verify", {
         state: {
-          data: res.data
+          data: res.data,
         },
       });
-  
     } finally {
       setLoading(false);
     }
