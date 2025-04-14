@@ -1,5 +1,4 @@
-/* eslint-disable unused-imports/no-unused-vars */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   CircularProgress,
   Typography,
@@ -9,9 +8,12 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { getAllProvinces, getDistrictsByProvinceId } from "@/services/addressService";
+import {
+  getAllProvinces,
+  getDistrictsByProvinceId,
+} from "@/services/addressService";
 
-export default function SelectCombo() {
+export default function ProvinceSelectButton() {
   const [loadingProvinces, setLoadingProvinces] = useState(false);
   const [loadingDistricts, setLoadingDistricts] = useState(false);
   const [provinces, setProvinces] = useState([]);
@@ -20,11 +22,6 @@ export default function SelectCombo() {
   const [selectedDistrictCode, setSelectedDistrictCode] = useState("");
   const [error, setError] = useState("");
 
-  // Nếu cần dùng đối tượng tỉnh/quận để hiển thị thêm thông tin
-  const selectedProvince = provinces.find((p) => p.code === selectedProvinceCode);
-  const selectedDistrict = districts.find((d) => d.code === selectedDistrictCode);
-
-  // Hàm chuyển đổi dữ liệu trả về thành mảng nếu cần
   const extractArray = (res) => {
     if (Array.isArray(res)) {
       return res;
@@ -34,23 +31,16 @@ export default function SelectCombo() {
     return null;
   };
 
-  // Fetch danh sách tỉnh từ API
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
         setLoadingProvinces(true);
         setError("");
         const res = await getAllProvinces();
-        console.log("API response for provinces:", res);
 
         const provincesData = extractArray(res);
-        if (!provincesData) {
-          throw new Error("Không có dữ liệu tỉnh/thành phố để hiển thị");
-        }
-
         setProvinces(provincesData);
       } catch (err) {
-        console.error("Error fetching provinces:", err);
         setError(err.message || "Lỗi khi tải danh sách tỉnh/thành phố");
       } finally {
         setLoadingProvinces(false);
@@ -59,22 +49,15 @@ export default function SelectCombo() {
     fetchProvinces();
   }, []);
 
-  // Fetch danh sách huyện dựa vào provinceId từ API
   const fetchDistricts = async (provinceId) => {
     try {
       setLoadingDistricts(true);
       setError("");
       const res = await getDistrictsByProvinceId(provinceId);
-      console.log(`API response for districts (provinceId: ${provinceId}):`, res);
 
       const districtsData = extractArray(res);
-      if (!districtsData) {
-        throw new Error("Không có dữ liệu quận/huyện để hiển thị");
-      }
-
       setDistricts(districtsData);
     } catch (err) {
-      console.error("Error fetching districts:", err);
       setError(err.message || "Lỗi khi tải danh sách quận/huyện");
       setDistricts([]);
     } finally {
@@ -102,14 +85,13 @@ export default function SelectCombo() {
         </Typography>
       )}
 
-      {/* ComboBox chọn Tỉnh/Thành phố */}
       <FormControl fullWidth sx={{ mt: 2 }}>
-        <InputLabel>Tỉnh/Thành phố</InputLabel>
+        <InputLabel>Province/City</InputLabel>
         <Select
           value={selectedProvinceCode}
           onChange={handleProvinceChange}
           disabled={loadingProvinces}
-          label="Tỉnh/Thành phố"
+          label="Province/City"
         >
           {loadingProvinces ? (
             <MenuItem disabled>
@@ -118,21 +100,20 @@ export default function SelectCombo() {
           ) : (
             provinces.map((province) => (
               <MenuItem key={province.code} value={province.code}>
-                {province.full_name}
+                {province.full_name_en}
               </MenuItem>
             ))
           )}
         </Select>
       </FormControl>
 
-      {/* ComboBox chọn Huyện/Quận */}
       <FormControl fullWidth sx={{ mt: 2 }}>
-        <InputLabel>Huyện/Quận</InputLabel>
+        <InputLabel>District</InputLabel>
         <Select
           value={selectedDistrictCode}
           onChange={handleDistrictChange}
           disabled={!selectedProvinceCode || loadingDistricts}
-          label="Huyện/Quận"
+          label="District"
         >
           {loadingDistricts ? (
             <MenuItem disabled>
@@ -141,11 +122,11 @@ export default function SelectCombo() {
           ) : districts.length > 0 ? (
             districts.map((district) => (
               <MenuItem key={district.code} value={district.code}>
-                {district.full_name}
+                {district.full_name_en}
               </MenuItem>
             ))
           ) : (
-            <MenuItem disabled>Chưa có dữ liệu</MenuItem>
+            <MenuItem disabled>Not found data</MenuItem>
           )}
         </Select>
       </FormControl>
