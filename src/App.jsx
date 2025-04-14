@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Register from "./pages/Register";
 import Constructions from "./pages/Constructions";
 import Accountverify from "./pages/AccountVerify";
-import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
-import ForgotPassword from "./pages/ForgotPassword";
 import AuthRedirect from "./hooks/AuthRedirect";
 import PrivateRoute from "./hooks/PrivateRoute";
+import AuthPage from "./pages/AuthPage";
 
 export default function App() {
   return (
@@ -18,8 +16,11 @@ export default function App() {
       <AuthProvider>
         <Router>
           <Routes>
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/login" element={<AuthPage />} />
+            <Route path="/register" element={<AuthPage />} />
+            <Route path="/forgot-password" element={<AuthPage />} />
             <Route path="/" element={<AuthRedirect />} />
-            <Route path ="/register" element={<Register />} />
             <Route 
               path="/constructions" 
               element={
@@ -29,8 +30,6 @@ export default function App() {
               } 
             />
             <Route path="/verify/:id" element={<Accountverify />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </Router>

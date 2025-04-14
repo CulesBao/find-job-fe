@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Logo from "@/components/layout/Logo";
 import Password from "@/components/ui/Password";
 import ResetPwButton from "@/components/ui/ResetPwButton";
