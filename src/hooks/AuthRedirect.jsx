@@ -10,7 +10,7 @@ export default function AuthRedirect() {
         if (token) {
         navigate("/constructions"); 
         } else {
-        navigate("/login"); 
+        navigate("/auth"); 
         }
     }, [navigate]);
 
