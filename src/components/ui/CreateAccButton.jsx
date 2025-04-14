@@ -1,58 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import { snackbar } from "@/utils/SnackbarUtils";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../services/authService";
 
 export default function SubmitButton({ Account }) {
   const [loading, setLoading] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [submitData, setSubmitData] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (Account.password !== Account.confirmPassword) {
-      setSnackbarMessage("Passwords do not match!");
-      setSnackbarOpen(true);
+      snackbar.warning("Passwords do not match.");
       return;
     }
-  
-    if (!document.getElementById("terms").checked) {
-      setSnackbarMessage("You must accept the terms and conditions.");
-      setSnackbarOpen(true);
-      return;
-    }
-  
-    try {
-      setLoading(true);
-      const dataUser = {
-        email: Account.email,
-        password: Account.password,
-        role: Account.role,
-        provider: "LOCAL",
-      };
-  
-      const res = await register(dataUser);
 
-      if (!res || res.error || res.status >= 400) {
-        throw new Error();
-      }
-  
-      setSnackbarMessage("Registration successful!");
-      setSnackbarOpen(true);
-  
-      navigate("/verify", {
-        state: {
-          data: res.data
-        },
-      });
-  
-    } finally {
-      setLoading(false);
+    if (!document.getElementById("terms").checked) {
+      snackbar.warning("Please accept the terms and conditions.");
+      return;
     }
+
+    const dataUser = {
+      email: Account.email,
+      password: Account.password,
+      role: Account.role,
+      provider: "LOCAL",
+    };
+
+    setSubmitData(dataUser);
   };
+
+  useEffect(() => {
+    const submit = async () => {
+      if (!submitData) return;
+      setLoading(true);
+      try {
+        const res = await register(submitData);
+        if (!res || res.error || res.status >= 400) {
+          throw new Error();
+        }
+        navigate(`/verify/${res.data.id}`, {
+          state: { data: res.data },
+        });
+      } finally {
+        setLoading(false);
+        setSubmitData(null);
+      }
+    };
+
+    submit();
+  }, [submitData, navigate]);
 
   return (
     <>
@@ -68,22 +66,6 @@ export default function SubmitButton({ Account }) {
       <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
-
-      <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={snackbarOpen}
-          autoHideDuration={3000}
-          onClose={() => setSnackbarOpen(false)}
-      >
-          <Alert
-              onClose={() => setSnackbarOpen(false)}
-              severity={snackbarMessage === "Registration successful, please check your email to verify your account" ? "success" : "error"}
-              variant="filled"
-              sx={{ width: "100%" }}
-          >
-              {snackbarMessage}
-          </Alert>
-      </Snackbar>
     </>
   );
 }

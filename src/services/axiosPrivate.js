@@ -5,7 +5,7 @@ const axiosPrivate = axios.create({
   timeout: 10000,
 });
 axiosPrivate.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = JSON.parse(localStorage.getItem(import.meta.env.VITE_APP_ACCESS_TOKEN));
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -1,4 +1,3 @@
-import { data } from "react-router-dom";
 import { snackbar } from "../utils/SnackbarUtils";
 
 export default async (apiFunction) => {
@@ -8,7 +7,7 @@ export default async (apiFunction) => {
     return {
       error: false,
       status: response.status,
-      data: response.data,
+      data: response.data.data,
     }
   } catch (error) {
     if (error.response) {
