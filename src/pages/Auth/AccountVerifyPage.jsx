@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/components/layout/Logo";
-import VerificationCode from "@/components/ui/VerifyCode";
-import VerifyButton from "@/components/ui/VerifyButton";
+import VerificationCode from "@/pages/Auth/VerifyCodePage";
+import VerifyButton from "@/components/button/VerifyButton";
 
 const Accountverify = () => {
   const [code, setCode] = useState("");

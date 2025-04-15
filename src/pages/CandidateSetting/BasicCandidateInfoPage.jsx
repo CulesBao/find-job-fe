@@ -7,7 +7,7 @@ import {
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const BasicCandidateProfilePage = ({ initialData }) => {
+const BaiscCandidateInfoPage = ({ initialData }) => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -199,4 +199,4 @@ const BasicCandidateProfilePage = ({ initialData }) => {
   );
 };
 
-export default BasicCandidateProfilePage;
+export default BaiscCandidateInfoPage;

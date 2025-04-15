@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PublicIcon from "@mui/icons-material/Public";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Avatar, Box, Divider, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Tab, Tabs } from "@mui/material";
 
 const tabData = [
   { label: "Avatar", icon: <Avatar />, path: "avatar" },
@@ -11,7 +11,7 @@ const tabData = [
   { label: "Reset password", icon: <SettingsIcon />, path: "reset-password" },
 ];
 
-const ProfileSetting = () => {
+const CandidateSettingHeader = () => {
   const location = useLocation();
 
   const pathSegment = location.pathname.split("/").pop();
@@ -19,10 +19,6 @@ const ProfileSetting = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      <Typography variant="h4" color="text.primary" sx={{ fontWeight: "bold" }}>
-        Settings
-      </Typography>
-
       <Box sx={{ width: "100%" }}>
         <Tabs
           value={currentTab !== -1 ? currentTab : 0}
@@ -40,7 +36,7 @@ const ProfileSetting = () => {
               icon={tab.icon}
               label={tab.label}
               component={Link}
-              to={`/settings/${tab.path}`}
+              to={`/candidate/settings/${tab.path}`}
               sx={{
                 textTransform: "none",
                 minHeight: 48,
@@ -65,4 +61,4 @@ const ProfileSetting = () => {
   );
 };
 
-export default ProfileSetting;
+export default CandidateSettingHeader;
