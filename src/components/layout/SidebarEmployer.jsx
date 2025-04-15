@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Drawer,
@@ -8,16 +7,16 @@ import {
   ListItemText,
   Divider,
   Typography,
-} from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PersonIcon from '@mui/icons-material/Person';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import WorkIcon from '@mui/icons-material/Work';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline'; // Biểu tượng mới cho Founding Info
-import SettingsIcon from '@mui/icons-material/Settings';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+} from "@mui/material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import WorkIcon from "@mui/icons-material/Work";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline"; // Biểu tượng mới cho Founding Info
+import SettingsIcon from "@mui/icons-material/Settings";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const drawerWidth = 280;
 
@@ -28,11 +27,11 @@ const SidebarEmployer = () => {
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
+        "& .MuiDrawer-paper": { width: drawerWidth, boxSizing: "border-box" },
       }}
     >
       {/* Header */}
-      <Box sx={{ padding: 2, textAlign: 'center' }}>
+      <Box sx={{ padding: 2, textAlign: "center" }}>
         <Typography variant="subtitle2" color="textSecondary">
           EMPLOYERS DASHBOARD
         </Typography>
@@ -45,14 +44,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Overview" />
@@ -60,14 +59,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Employers Profile" />
@@ -75,14 +74,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <PostAddIcon />
           </ListItemIcon>
           <ListItemText primary="Post a Job" />
@@ -90,14 +89,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <WorkIcon />
           </ListItemIcon>
           <ListItemText primary="My Jobs" />
@@ -105,14 +104,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <BookmarkIcon />
           </ListItemIcon>
           <ListItemText primary="Saved Candidate" />
@@ -120,14 +119,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <CreditCardIcon />
           </ListItemIcon>
           <ListItemText primary="Plans & Billing" />
@@ -135,14 +134,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <PersonOutlineIcon /> {/* Biểu tượng mới */}
           </ListItemIcon>
           <ListItemText primary="Founding Info" />
@@ -150,14 +149,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary="Settings" />
@@ -171,14 +170,14 @@ const SidebarEmployer = () => {
         <ListItem
           button
           sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'rgba(25, 118, 210, 0.1)',
-              color: '#1976d2',
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(25, 118, 210, 0.1)",
+              color: "#1976d2",
             },
           }}
         >
-          <ListItemIcon sx={{ color: 'inherit' }}>
+          <ListItemIcon sx={{ color: "inherit" }}>
             <ExitToAppIcon />
           </ListItemIcon>
           <ListItemText primary="Log-out" />

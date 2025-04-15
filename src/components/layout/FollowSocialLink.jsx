@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import SocialButton from "./SocialButton";
+import SocialButton from "../button/SocialButton";
 
 const FollowSocialLink = ({ socialLinks }) => {
   return (

@@ -1,6 +1,6 @@
 import Logo from "@/components/layout/Logo";
-import Password from "@/components/ui/Password";
-import ResetPwButton from "@/components/ui/ResetPwButton";
+import Password from "@/components/input/Password";
+import ResetPwButton from "@/components/button/ResetPwButton";
 
 const ResetPassword = () => {
   return (

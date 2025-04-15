@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import SocialLinkRow from "../ui/SocialLinkRow";
+import SocialLinkRow from "../../components/layout/SocialLinkRow";
 
 const AddSocialLink = ({ data }) => {
   const [socials, setSocials] = useState(data || []);
