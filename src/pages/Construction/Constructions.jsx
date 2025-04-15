@@ -1,5 +1,5 @@
 import Logo from "@/components/layout/Logo";
-import SocialMedia from "@/components/ui/SocialMedia";
+import SocialMedia from "@/components/layout/SocialMedia";
 import { Button, TextField } from "@mui/material";
 
 function Constructions() {

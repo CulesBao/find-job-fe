@@ -3,12 +3,18 @@ import { snackbar } from "../utils/SnackbarUtils";
 export default async (apiFunction) => {
   try {
     const response = await apiFunction();
-    snackbar.success(response.data.message || "Success!");
+    if (
+      !(
+        response.data.message == "Get provices successfully" ||
+        response.data.message == "Get districts successfully"
+      )
+    )
+      snackbar.success(response.data.message || "Success!");
     return {
       error: false,
       status: response.status,
       data: response.data.data,
-    }
+    };
   } catch (error) {
     if (error.response) {
       // Server responded with a status code (4xx or 5xx)
@@ -26,7 +32,7 @@ export default async (apiFunction) => {
         error: true,
         status,
         data: error.response.data,
-      }
+      };
     } else if (error.request) {
       // Request was made but no response received
       console.error("No response received:", error.request);
