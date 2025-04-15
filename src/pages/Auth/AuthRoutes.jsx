@@ -10,6 +10,7 @@ function AuthRoutes() {
       <Route path="register" element={<AuthPage />} />
       <Route path="verify/:id" element={<Accountverify />} />
       <Route path="reset-password" element={<ResetPassword />} />
+      <Route path="forgot-password" element={<AuthPage />} />
     </Routes>
   );
 }

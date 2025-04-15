@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import AddSocialLink from "../shared/AddSocialLinkPage";
+import CandidateSettingLayout from "./CandidateSettingLayout";
 import BasicCandidateProfilePage from "./BasicCandidateInfoPage";
-import CandidateProfileSettingHeader from "./CandidateSettingHeader";
+import AddSocialLink from "../shared/AddSocialLinkPage";
 import AvatarCandidatePage from "./AvatarCandidatePage";
 import ChangePasswordPage from "./ChangePasswordPage";
 
 function CandidateSettingRoutes() {
   return (
     <Routes>
-      <Route path="settings" element={<CandidateProfileSettingHeader />}>
+      <Route path="settings" element={<CandidateSettingLayout />}>
         <Route index element={<BasicCandidateProfilePage />} />
         <Route path="profile" element={<BasicCandidateProfilePage />} />
         <Route path="social" element={<AddSocialLink />} />
