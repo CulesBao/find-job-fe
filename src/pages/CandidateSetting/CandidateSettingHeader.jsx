@@ -8,21 +8,22 @@ const tabData = [
   { label: "Avatar", icon: <Avatar />, path: "avatar" },
   { label: "Profile", icon: <AccountCircleIcon />, path: "profile" },
   { label: "Social links", icon: <PublicIcon />, path: "social" },
-  { label: "Reset password", icon: <SettingsIcon />, path: "reset-password" },
+  { label: "Reset password", icon: <SettingsIcon />, path: "change-password" },
 ];
 
 const CandidateSettingHeader = () => {
   const location = useLocation();
-
   const pathSegment = location.pathname.split("/").pop();
   const currentTab = tabData.findIndex((tab) => tab.path === pathSegment);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <Tabs
           value={currentTab !== -1 ? currentTab : 0}
           aria-label="settings tabs"
+          variant="fullWidth"
+          sx={{ maxWidth: 800, width: "100%" }} // Optional: giới hạn độ rộng nếu muốn
           TabIndicatorProps={{
             style: {
               backgroundColor: "#0a65cc",
@@ -40,7 +41,6 @@ const CandidateSettingHeader = () => {
               sx={{
                 textTransform: "none",
                 minHeight: 48,
-                padding: "6px 20px",
                 color: index === currentTab ? "#0a65cc" : "text.secondary",
                 fontWeight: index === currentTab ? 600 : 500,
                 "&.Mui-selected": {
@@ -51,8 +51,9 @@ const CandidateSettingHeader = () => {
             />
           ))}
         </Tabs>
-        <Divider />
       </Box>
+
+      <Divider />
 
       <Box sx={{ mt: 4 }}>
         <Outlet />

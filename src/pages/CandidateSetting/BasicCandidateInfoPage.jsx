@@ -192,9 +192,7 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
           borderRadius: "5px",
         }}
       />
-      <Button variant="contained" size="large">
-        Save Changes
-      </Button>
+      <Button variant="contained">Save Changes</Button>
     </Stack>
   );
 };
