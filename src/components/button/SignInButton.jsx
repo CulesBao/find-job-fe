@@ -32,10 +32,22 @@ export default function SignInButton({ Account }) {
       if (!res || res.error || res.status >= 400) {
         throw new Error();
       }
-      if (res.data.is_new_account) navigate("/");
+
       setAccessToken(res.data.token);
       loginUser(res.data.account_dto);
-      navigate("#");
+
+      if (res.data.is_new_account) {
+        const path = res.data.account_dto.role === "EMPLOYER"
+          ? "/employer/settings"
+          : "/candidate/settings";
+        navigate(path, { replace: true });
+    } else {
+        const path = res.data.account_dto.role === "EMPLOYER"
+          ? "/dashboard"
+          : "/dashboard";
+        navigate(path, { replace: true });
+    }
+
     } finally {
       setLoading(false);
     }

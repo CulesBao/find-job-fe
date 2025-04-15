@@ -1,5 +1,6 @@
 import Email from "@/components/input/Email";
 import ForgetButton from "@/components/button/ForgetButton";
+import GoogleIcon from "@/assets/Google.svg";
 
 const ForgotPasswordForm = ({ formData, onInputChange, onModeChange }) => {
   return (
@@ -44,7 +45,7 @@ const ForgotPasswordForm = ({ formData, onInputChange, onModeChange }) => {
       <p className="text-center mt-0 opacity-60">or</p>
       <div className="flex justify-center items-center">
         <button className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white">
-          <img src="src/assets/Google.svg" alt="Google" width={20} height={20} />
+          <img src={GoogleIcon} alt="Google" width={20} height={20} />
           Sign in with Google
         </button>
       </div>

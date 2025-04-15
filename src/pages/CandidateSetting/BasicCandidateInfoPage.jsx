@@ -77,123 +77,126 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
   };
 
   return (
-    <Stack spacing={2.25}>
-      <Stack direction="row" spacing={2.25} width="100%">
-        <TextField
-          label="First Name"
-          value={formData.first_name}
-          onChange={handleChange("first_name")}
-          fullWidth
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        />
-        <TextField
-          label="Last name"
-          value={formData.last_name}
-          onChange={handleChange("last_name")}
-          fullWidth
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        />
-      </Stack>
+    <div className="flex justify-center">
+      <div className="align-middle flex flex-col gap-4 w-full justify-center">
+        <Stack spacing={2.25}>
+          <Stack direction="row" spacing={2.25} width="100%">
+            <TextField
+              label="First Name"
+              value={formData.first_name}
+              onChange={handleChange("first_name")}
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            />
+            <TextField
+              label="Last name"
+              value={formData.last_name}
+              onChange={handleChange("last_name")}
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            />
+          </Stack>
 
-      <Stack direction="row" spacing={2.25} width="100%">
-        <TextField
-          label="Date of birth"
-          type="date"
-          value={formData.day_of_birth}
-          onChange={handleChange("day_of_birth")}
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        />
-        <TextField
-          select
-          label="Education"
-          value={formData.education}
-          onChange={handleChange("education")}
-          fullWidth
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        >
-          {Object.values(Education).map((option) => (
-            <MenuItem key={option.upperCaseName} value={option.upperCaseName}>
-              {option.name}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Stack>
+          <Stack direction="row" spacing={2.25} width="100%">
+            <TextField
+              label="Date of birth"
+              type="date"
+              value={formData.day_of_birth}
+              onChange={handleChange("day_of_birth")}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            />
+            <TextField
+              select
+              label="Education"
+              value={formData.education}
+              onChange={handleChange("education")}
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            >
+              {Object.values(Education).map((option) => (
+                <MenuItem key={option.upperCaseName} value={option.upperCaseName}>
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Stack>
 
-      <Stack direction="row" spacing={2.25} width="100%">
-        <TextField
-          select
-          label="Gender"
-          value={formData.gender}
-          onChange={handleChange("gender")}
-          fullWidth
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        >
-          {Object.values(GenderType).map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.name}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          label="Phone Number"
-          value={formData.phone}
-          onChange={handleChange("phone")}
-          placeholder="+00 000 000 0000"
-          fullWidth
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        />
-      </Stack>
+          <Stack direction="row" spacing={2.25} width="100%">
+            <TextField
+              select
+              label="Gender"
+              value={formData.gender}
+              onChange={handleChange("gender")}
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            >
+              {Object.values(GenderType).map((option) => (
+                <MenuItem key={option.id} value={option.id}>
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              label="Phone Number"
+              value={formData.phone}
+              onChange={handleChange("phone")}
+              placeholder="+00 000 000 0000"
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            />
+          </Stack>
 
-      <Stack direction={"row"} spacing={2.25} width="100%">
-        <TextField
-          select
-          label="City/Province"
-          value={formData.province_code}
-          onChange={handleChange("province_code")}
-          fullWidth
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        >
-          {provinceList.map((option) => (
-            <MenuItem key={option.code} value={option.code}>
-              {option.full_name_en}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          select
-          label="District"
-          value={formData.district_code}
-          onChange={handleChange("district_code")}
-          fullWidth
-          disabled={!isEnabledDistrictSelect}
-          sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-        >
-          {districtList.map((option) => (
-            <MenuItem key={option.code} value={option.code}>
-              {option.full_name_en}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Stack>
+          <Stack direction={"row"} spacing={2.25} width="100%">
+            <TextField
+              select
+              label="City/Province"
+              value={formData.province_code}
+              onChange={handleChange("province_code")}
+              fullWidth
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            >
+              {provinceList.map((option) => (
+                <MenuItem key={option.code} value={option.code}>
+                  {option.full_name_en}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              select
+              label="District"
+              value={formData.district_code}
+              onChange={handleChange("district_code")}
+              fullWidth
+              disabled={!isEnabledDistrictSelect}
+              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
+            >
+              {districtList.map((option) => (
+                <MenuItem key={option.code} value={option.code}>
+                  {option.full_name_en}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Stack>
 
-      <TextField
-        label="Biography"
-        multiline
-        rows={10}
-        value={formData.bio}
-        onChange={handleChange("bio")}
-        placeholder="Write down your biography here. Let the employers know who you are..."
-        fullWidth
-        sx={{
-          maxWidth: "984px",
-          bgcolor: "background.paper",
-          borderRadius: "5px",
-        }}
-      />
-      <Button variant="contained">Save Changes</Button>
-    </Stack>
+          <TextField
+            label="Biography"
+            multiline
+            rows={10}
+            value={formData.bio}
+            onChange={handleChange("bio")}
+            placeholder="Write down your biography here. Let the employers know who you are..."
+            fullWidth
+            sx={{
+              bgcolor: "background.paper",
+              borderRadius: "5px",
+            }}
+          />
+          <Button variant="contained">Save Changes</Button>
+        </Stack>
+      </div>
+    </div>
   );
 };
 

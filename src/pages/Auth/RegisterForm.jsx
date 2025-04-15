@@ -2,6 +2,7 @@ import Email from "@/components/input/Email";
 import Password from "@/components/input/Password";
 import RoleSelect from "@/components/select/RoleSelect";
 import SubmitButton from "@/components/button/CreateAccButton";
+import GoogleIcon from "@/assets/Google.svg";
 
 const RegisterForm = ({ formData, onInputChange, onRoleChange, onModeChange }) => {
   const emailLabel = formData.role === "EMPLOYER" ? "Company Email" : "Personal Email";
@@ -51,7 +52,7 @@ const RegisterForm = ({ formData, onInputChange, onRoleChange, onModeChange }) =
       <p className="text-center mt-0 opacity-60">or</p>
       <div className="flex justify-center items-center mt-3">
         <button className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white">
-        <img src="src/assets/Google.svg" alt="Google" width={20} height={20} />
+        <img src={GoogleIcon} alt="Google" width={20} height={20} />
           Sign in with Google
         </button>
       </div>
