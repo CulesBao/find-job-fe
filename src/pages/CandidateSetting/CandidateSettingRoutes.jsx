@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import AddSocialLink from "../shared/AddSocialLinkPage";
-import BasicCandidateProfilePage from "./BasicCandidateProfilePage";
-import CandidateProfileSettingHeader from "./CandidateProfileSettingHeader";
+import BasicCandidateProfilePage from "./BasicCandidateInfoPage";
+import CandidateProfileSettingHeader from "./CandidateSettingHeader";
 
-function CandidateProfileSettingRoutes() {
+function CandidateSettingRoutes() {
   return (
     <Routes>
       <Route path="settings" element={<CandidateProfileSettingHeader />}>
@@ -15,4 +15,4 @@ function CandidateProfileSettingRoutes() {
   );
 }
 
-export default CandidateProfileSettingRoutes;
+export default CandidateSettingRoutes;

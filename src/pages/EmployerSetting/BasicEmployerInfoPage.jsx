@@ -1,8 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Box, TextField, Button, Typography, Select, MenuItem, Stack } from "@mui/material";
-import { getAllProvinces, getDistrictsByProvinceId } from "@/services/addressService";
+import { useState, useEffect } from "react";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Select,
+  MenuItem,
+  Stack,
+} from "@mui/material";
+import {
+  getAllProvinces,
+  getDistrictsByProvinceId,
+} from "@/services/addressService";
 
-const EmployerProfilePage = () => {
+const BasicEmployerInfoPage = () => {
   const [formData, setFormData] = useState({
     about: "",
     established_in: "",
@@ -37,7 +48,9 @@ const EmployerProfilePage = () => {
     const fetchDistricts = async () => {
       if (formData.province_code) {
         try {
-          const districtsResponse = await getDistrictsByProvinceId(formData.province_code);
+          const districtsResponse = await getDistrictsByProvinceId(
+            formData.province_code
+          );
           setDistrictList(districtsResponse.data);
 
           // Reset district_code if it's no longer valid
@@ -199,4 +212,4 @@ const EmployerProfilePage = () => {
   );
 };
 
-export default EmployerProfilePage;
+export default BasicEmployerInfoPage;

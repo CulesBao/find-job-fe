@@ -11,7 +11,7 @@ const tabData = [
   { label: "Reset password", icon: <SettingsIcon />, path: "reset-password" },
 ];
 
-const CandidateProfileSettingHeader = () => {
+const CandidateSettingHeader = () => {
   const location = useLocation();
 
   const pathSegment = location.pathname.split("/").pop();
@@ -61,4 +61,4 @@ const CandidateProfileSettingHeader = () => {
   );
 };
 
-export default CandidateProfileSettingHeader;
+export default CandidateSettingHeader;

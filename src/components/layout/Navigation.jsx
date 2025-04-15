@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppBar, Toolbar, Box, Button, IconButton } from '@mui/material';
 import { Instagram, Notifications } from '@mui/icons-material';
 import Logo from '../layout/Logo'; // Import Logo.jsx

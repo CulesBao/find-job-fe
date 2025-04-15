@@ -3,7 +3,7 @@ import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
 import AuthRoutes from "./pages/auth/AuthRoutes";
-import CandidateProfileSettingRoutes from "./pages/CandidateProfileSetting/CandidateProfileSettingRoutes";
+import CandidateProfileSettingRoutes from "./pages/CandidateSetting/CandidateSettingRoutes";
 
 export default function App() {
   return (
