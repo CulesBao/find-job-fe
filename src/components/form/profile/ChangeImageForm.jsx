@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
 
 const AvatarCandidateForm = ({ fn }) => {
   const { avatar, setAvatar } = useCandidateProfileContext();
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(avatar || null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
@@ -24,13 +25,17 @@ const AvatarCandidateForm = ({ fn }) => {
   }, [file]);
 
   const handleSave = async () => {
+    setLoading(true);
     try {
       await fn(file);
       setAvatar(URL.createObjectURL(file));
     } catch (err) {
       console.error(err);
       return;
+    } finally {
+      setLoading(false);
     }
+    
   };
   return (
     <Box
@@ -40,6 +45,9 @@ const AvatarCandidateForm = ({ fn }) => {
       minHeight="100vh"
       mt={8}
     >
+      <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Stack spacing={3} alignItems="center">
         <Paper
           variant="outlined"
