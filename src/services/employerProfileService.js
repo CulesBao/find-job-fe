@@ -10,6 +10,13 @@ export const getEmployerProfile = (employerProfileId) =>
 export const updateEmployerProfile = (data) =>
   safeApiCall(() => axiosPrivate.put("/employer-profile", data));
 
+export const updateSocialLinks = (social_links) => {
+  console.log("social_links", social_links);
+  return safeApiCall(() =>
+    axiosPrivate.put("/employer-profile/social-links", { social_links })
+  );
+};
+
 export const updateEmployerProfileLogo = (data) =>
   safeApiCall(() =>
     axiosPrivate.put("/employer-profile/logo", data, {

@@ -7,6 +7,7 @@ import CandidateProfileSettingRoutes from "./pages/CandidateSetting/CandidateSet
 import PrivateRoute from "./hooks/PrivateRoute";
 import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes";
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
+import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
 
 export default function App() {
   return (
@@ -31,7 +32,22 @@ export default function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/employer/*" element={<EmployerSettingRoutes />} />
+          <Route 
+            path="/employer/settings/*" 
+            element={
+              <PrivateRoute>
+                <EmployerSettingRoutes />
+              </PrivateRoute>
+            } 
+          />
+          <Route
+            path = "/employer/set-up/*" 
+            element={
+              <PrivateRoute>
+                <EmployerCreateRoutes />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </SnackbarProvider>

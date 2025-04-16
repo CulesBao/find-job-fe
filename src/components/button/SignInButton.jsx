@@ -20,6 +20,9 @@ export default function SignInButton({ Account }) {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      const minLoadingTime = 1300;
+      const startTime = Date.now();
+
       const dataUser = {
         email: Account.email,
         password: Account.password,
@@ -28,6 +31,9 @@ export default function SignInButton({ Account }) {
       };
 
       const res = await login(dataUser);
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
 
       if (!res || res.error || res.status >= 400) {
         throw new Error();
