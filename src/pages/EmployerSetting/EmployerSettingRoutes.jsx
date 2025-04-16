@@ -4,14 +4,17 @@ import BasicEmployerInfoPage from "../../components/form/profile/BasicEmployerIn
 import AddSocialLink from "../../components/form/profile/AddSocialLinkForm";
 import ChangePasswordPage from "../../components/form/profile/ChangePasswordForm";
 import ChangeImagePage from "../../components/form/profile/ChangeImageForm";
-
+import { updateEmployerProfile } from "@/services/employerProfileService";
 function EmployerSettingRoutes() {
   return (
     <Routes>
       <Route path="/" element={<EmployerSettingLayout />}>
         <Route index element={<Navigate to="logo" replace />} />
         <Route path="logo" element={<ChangeImagePage />} />
-        <Route path="profile" element={<BasicEmployerInfoPage />} />
+        <Route
+          path="profile"
+          element={<BasicEmployerInfoPage fn={updateEmployerProfile} />}
+        />
         <Route path="social" element={<AddSocialLink />} />
         <Route path="change-password" element={<ChangePasswordPage />} />
       </Route>

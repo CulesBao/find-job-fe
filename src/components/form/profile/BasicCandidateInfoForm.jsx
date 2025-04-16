@@ -1,6 +1,6 @@
+import { useProfileContext } from "@/components/context/ProfileContext";
 import Education from "@/constants/Education";
 import GenderType from "@/constants/GenderType";
-import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
 import {
   getAllProvinces,
   getDistrictsByProvinceId,
@@ -10,18 +10,7 @@ import { useEffect, useState } from "react";
 
 const BaiscCandidateInfoForm = ({ fn }) => {
   const { basicCandidateProfile, setBasicCandidateProfile } =
-    useCandidateProfileContext();
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    date_of_birth: "",
-    education: "",
-    gender: "",
-    phone_number: "",
-    bio: "",
-    province_code: "",
-    district_code: "",
-  });
+    useProfileContext();
 
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
@@ -37,53 +26,46 @@ const BaiscCandidateInfoForm = ({ fn }) => {
     fetchProvinces();
   }, []);
 
-  // Fetch districts based on province selection
   useEffect(() => {
     const fetchDistricts = async () => {
-      if (formData.province_code) {
+      if (basicCandidateProfile.province_code) {
         const districtsResponse = await getDistrictsByProvinceId(
-          formData.province_code
+          basicCandidateProfile.province_code
         );
         setDistrictList(districtsResponse.data);
 
-        // If the district_code from formData is no longer valid, reset it
+        // Reset district_code nếu không hợp lệ
         if (
           districtsResponse.data.every(
-            (district) => district.code !== formData.district_code
+            (district) => district.code !== basicCandidateProfile.district_code
           )
         ) {
-          setFormData((prev) => ({ ...prev, district_code: "" }));
+          setBasicCandidateProfile((prev) => ({ ...prev, district_code: "" }));
         }
 
         setIsEnabledDistrictSelect(true);
       } else {
         setDistrictList([]);
+        setBasicCandidateProfile((prev) => ({ ...prev, district_code: "" }));
         setIsEnabledDistrictSelect(false);
       }
     };
 
     fetchDistricts();
-  }, [formData.province_code]);
-
-  // Set form data when initialData changes
-  useEffect(() => {
-    if (basicCandidateProfile) {
-      setFormData((prev) => ({
-        ...prev,
-        ...basicCandidateProfile,
-      }));
-    }
-  }, [basicCandidateProfile]);
+  }, [basicCandidateProfile.province_code]);
 
   const handleChange = (key) => (event) => {
-    setFormData((prev) => ({ ...prev, [key]: event.target.value }));
+    setBasicCandidateProfile((prev) => ({
+      ...prev,
+      [key]: event.target.value,
+    }));
   };
   const onSubmit = async () => {
     try {
-      await fn(formData);
+      await fn(basicCandidateProfile);
       setBasicCandidateProfile((prev) => ({
         ...prev,
-        ...formData,
+        ...basicCandidateProfile,
       }));
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -96,14 +78,14 @@ const BaiscCandidateInfoForm = ({ fn }) => {
           <Stack direction="row" spacing={2.25} width="100%">
             <TextField
               label="First Name"
-              value={formData.first_name}
+              value={basicCandidateProfile.first_name}
               onChange={handleChange("first_name")}
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
             />
             <TextField
               label="Last name"
-              value={formData.last_name}
+              value={basicCandidateProfile.last_name}
               onChange={handleChange("last_name")}
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
@@ -114,7 +96,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             <TextField
               label="Date of birth"
               type="date"
-              value={formData.date_of_birth}
+              value={basicCandidateProfile.date_of_birth}
               onChange={handleChange("date_of_birth")}
               fullWidth
               InputLabelProps={{ shrink: true }}
@@ -123,7 +105,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             <TextField
               select
               label="Education"
-              value={formData.education}
+              value={basicCandidateProfile.education}
               onChange={handleChange("education")}
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
@@ -143,7 +125,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             <TextField
               select
               label="Gender"
-              value={formData.gender}
+              value={basicCandidateProfile.gender ?? ""}
               onChange={handleChange("gender")}
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
@@ -156,7 +138,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             </TextField>
             <TextField
               label="Phone Number"
-              value={formData.phone_number}
+              value={basicCandidateProfile.phone_number}
               onChange={handleChange("phone_number")}
               placeholder="+00 000 000 0000"
               fullWidth
@@ -168,7 +150,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             <TextField
               select
               label="City/Province"
-              value={formData.province_code}
+              value={basicCandidateProfile.province_code || ""}
               onChange={handleChange("province_code")}
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
@@ -179,10 +161,11 @@ const BaiscCandidateInfoForm = ({ fn }) => {
                 </MenuItem>
               ))}
             </TextField>
+
             <TextField
               select
               label="District"
-              value={formData.district_code}
+              value={basicCandidateProfile.district_code || ""}
               onChange={handleChange("district_code")}
               fullWidth
               disabled={!isEnabledDistrictSelect}
@@ -200,7 +183,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             label="Biography"
             multiline
             rows={10}
-            value={formData.bio}
+            value={basicCandidateProfile.bio}
             onChange={handleChange("bio")}
             placeholder="Write down your biography here. Let the employers know who you are..."
             fullWidth

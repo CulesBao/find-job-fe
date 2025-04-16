@@ -5,7 +5,6 @@ import AddSocialLink from "../../components/form/profile/AddSocialLinkForm";
 import ChangeImagePage from "../../components/form/profile/ChangeImageForm";
 import {
   createEmployerProfile,
-  updateEmployerProfileLogo,
   updateSocialLinks,
 } from "@/services/employerProfileService";
 function EmployerCreateRoutes() {
@@ -21,10 +20,7 @@ function EmployerCreateRoutes() {
           path="social"
           element={<AddSocialLink fn={updateSocialLinks} />}
         />
-        <Route
-          path="logo"
-          element={<ChangeImagePage fn={updateEmployerProfileLogo} />}
-        />
+        <Route path="logo" element={<ChangeImagePage />} />
       </Route>
     </Routes>
   );

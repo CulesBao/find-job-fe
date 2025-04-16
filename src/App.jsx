@@ -8,47 +8,50 @@ import PrivateRoute from "./hooks/PrivateRoute";
 import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes";
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
+import { ProfileProvider } from "./components/context/ProfileContext";
 
 export default function App() {
   return (
     <SnackbarProvider maxSnack={3}>
       <SnackbarUtilsConfigurator />
       <AuthProvider>
-        <Routes>
-          <Route path="/auth/*" element={<AuthRoutes />} />
-          <Route
-            path="/candidate/set-up/*"
-            element={
-              <PrivateRoute>
-                <CandidateCreateRoutes />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/candidate/settings/*"
-            element={
-              <PrivateRoute>
-                <CandidateProfileSettingRoutes />
-              </PrivateRoute>
-            }
-          />
-          <Route 
-            path="/employer/settings/*" 
-            element={
-              <PrivateRoute>
-                <EmployerSettingRoutes />
-              </PrivateRoute>
-            } 
-          />
-          <Route
-            path = "/employer/set-up/*" 
-            element={
-              <PrivateRoute>
-                <EmployerCreateRoutes />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+        <ProfileProvider>
+          <Routes>
+            <Route path="/auth/*" element={<AuthRoutes />} />
+            <Route
+              path="/candidate/set-up/*"
+              element={
+                <PrivateRoute>
+                  <CandidateCreateRoutes />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/candidate/settings/*"
+              element={
+                <PrivateRoute>
+                  <CandidateProfileSettingRoutes />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/employer/settings/*"
+              element={
+                <PrivateRoute>
+                  <EmployerSettingRoutes />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/employer/set-up/*"
+              element={
+                <PrivateRoute>
+                  <EmployerCreateRoutes />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </ProfileProvider>
       </AuthProvider>
     </SnackbarProvider>
   );
