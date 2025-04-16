@@ -9,6 +9,8 @@ import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
 import { ProfileProvider } from "./components/context/ProfileContext";
+import AuthPage from "./pages/Auth/AuthPage";
+import SaveProfileCongrats from "./pages/Congratulation/SaveProfileCongrats";
 
 export default function App() {
   return (
@@ -17,6 +19,7 @@ export default function App() {
       <AuthProvider>
         <ProfileProvider>
           <Routes>
+            <Route path="/" element={<AuthPage/>} />
             <Route path="/auth/*" element={<AuthRoutes />} />
             <Route
               path="/candidate/set-up/*"
@@ -47,6 +50,14 @@ export default function App() {
               element={
                 <PrivateRoute>
                   <EmployerCreateRoutes />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/congrats"
+              element={
+                <PrivateRoute>
+                  <SaveProfileCongrats />
                 </PrivateRoute>
               }
             />

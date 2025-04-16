@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import { useProfileContext } from "@/components/context/ProfileContext";
 
 const ChangeImageForm = ({ fn }) => {
   const { image, setImage } = useProfileContext();
   const [preview, setPreview] = useState(image || null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
@@ -23,11 +24,14 @@ const ChangeImageForm = ({ fn }) => {
   }, [image]);
 
   const handleSave = async () => {
+    setLoading(true);
     try {
       await fn(image);
     } catch (err) {
       console.error(err);
       return;
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -38,6 +42,9 @@ const ChangeImageForm = ({ fn }) => {
       minHeight="100vh"
       mt={8}
     >
+      <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Stack spacing={3} alignItems="center">
         <Paper
           variant="outlined"
@@ -100,7 +107,7 @@ const ChangeImageForm = ({ fn }) => {
           variant="contained"
           onClick={handleSave}
           disabled={!image}
-          sx={{ textTransform: "none" }}
+          className="w-full h-15 text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200"
         >
           Save Changes
         </Button>
