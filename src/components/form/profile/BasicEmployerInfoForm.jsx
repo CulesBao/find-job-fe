@@ -87,7 +87,7 @@ const BasicEmployerInfoForm = () => {
         gap: 2,
         maxWidth: "100%", // Chiều rộng tối đa là 100% của trang
         margin: "20px auto", // Thay padding bằng margin
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#fff",
         borderRadius: 2,
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       }}

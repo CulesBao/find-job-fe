@@ -1,18 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Box, Divider, Tab, Tabs } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import PublicIcon from "@mui/icons-material/Public";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { Photo } from "@mui/icons-material";
 
-const tabData = [
-  { label: "Logo", icon: <Photo />, path: "logo" },
-  { label: "Company Info", icon: <PersonIcon />, path: "profile" },
-  { label: "Social media", icon: <PublicIcon />, path: "social" },
-  { label: "Reset password", icon: <SettingsIcon />, path: "change-password" },
-];
-
-const EmployerSettingHeader = () => {
+const EmployerSettingHeader = ({tabData ,basePath}) => {
   const location = useLocation();
   const pathSegment = location.pathname.split("/").pop();
   const currentTab = tabData.findIndex((tab) => tab.path === pathSegment);
@@ -42,7 +31,7 @@ const EmployerSettingHeader = () => {
               icon={tab.icon}
               label={tab.label}
               component={Link}
-              to={`/employer/settings/${tab.path}`}
+              to={`${basePath}/${tab.path}`}
               sx={{
                 textTransform: "none",
                 minHeight: 44,

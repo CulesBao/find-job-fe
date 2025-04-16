@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import EmployerSettingLayout from "./EmployerSettingPage";
 import BasicEmployerInfoPage from "../../components/form/profile/BasicEmployerInfoForm";
 import AddSocialLink from "../../components/form/profile/AddSocialLinkForm";
@@ -8,7 +8,8 @@ import ChangeImagePage from "../../components/form/profile/ChangeImageForm";
 function EmployerSettingRoutes() {
   return (
     <Routes>
-      <Route path="settings" element={<EmployerSettingLayout />}>
+      <Route path="/" element={<EmployerSettingLayout />}>
+        <Route index element={<Navigate to="logo" replace />} />
         <Route path="logo" element={<ChangeImagePage />} />
         <Route path="profile" element={<BasicEmployerInfoPage />} />
         <Route path="social" element={<AddSocialLink />} />
