@@ -4,7 +4,7 @@ import { Button, Paper, Stack, Typography, Box } from "@mui/material";
 
 const SaveProfileCongrats = () => {
   return (
-    <>
+    <div className="relative flex items-center justify-center w-full h-screen overflow-hidden bg-primary-50">
       <div className="absolute top-0 left-[34%] w-full h-full bg-primary-50">
         <Logo />
       </div>
@@ -12,7 +12,7 @@ const SaveProfileCongrats = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        minHeight="100vh"  
+        minHeight="100vh"
         overflow={"hidden"}
         p={2}
       >
@@ -47,8 +47,10 @@ const SaveProfileCongrats = () => {
               align="center"
               sx={{ maxWidth: "536px" }}
             >
-              Your profile is all set and ready to go! You can now explore everything we have to offer, enjoy a seamless
-              experience, and make the most of all the features available to you. The possibilities are endless!
+              Your profile is all set and ready to go! You can now explore
+              everything we have to offer, enjoy a seamless experience, and make
+              the most of all the features available to you. The possibilities
+              are endless!
             </Typography>
           </Stack>
 
@@ -75,7 +77,7 @@ const SaveProfileCongrats = () => {
           </Stack>
         </Stack>
       </Box>
-    </>
+    </div>
   );
 };
 
