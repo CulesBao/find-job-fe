@@ -129,13 +129,11 @@ const BasicEmployerInfoForm = ({ fn }) => {
           <Select
             value={basicEmployerProfile.province_code}
             onChange={handleChange("province_code")}
+            label="City/Province"
             required
             fullWidth
             displayEmpty
           >
-            <MenuItem value="" disabled>
-              Select Province
-            </MenuItem>
             {provinceList.map((province) => (
               <MenuItem key={province.code} value={province.code}>
                 {province.full_name_en}
@@ -144,15 +142,13 @@ const BasicEmployerInfoForm = ({ fn }) => {
           </Select>
           <Select
             value={basicEmployerProfile.district_code}
+            label="District"
             onChange={handleChange("district_code")}
             required
             fullWidth
             displayEmpty
             disabled={!isEnabledDistrictSelect}
           >
-            <MenuItem value="" disabled>
-              Select District
-            </MenuItem>
             {districtList.map((district) => (
               <MenuItem key={district.code} value={district.code}>
                 {district.full_name_en}

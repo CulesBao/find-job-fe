@@ -150,12 +150,11 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             <TextField
               select
               label="City/Province"
-              value={basicCandidateProfile.province_code || ""} // Giá trị mặc định ""
+              value={basicCandidateProfile.province_code || ""}
               onChange={handleChange("province_code")}
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
             >
-              <MenuItem value="">Select a province</MenuItem>
               {provinceList.map((option) => (
                 <MenuItem key={option.code} value={option.code}>
                   {option.full_name_en}
@@ -172,7 +171,6 @@ const BaiscCandidateInfoForm = ({ fn }) => {
               disabled={!isEnabledDistrictSelect}
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
             >
-              <MenuItem value="">Select a district</MenuItem>
               {districtList.map((option) => (
                 <MenuItem key={option.code} value={option.code}>
                   {option.full_name_en}
