@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SocialLinkRow from "../../layout/SocialLinkRow";
+import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
 
-const AddSocialLinkForm = ({ data, fn }) => {
-  const [socials, setSocials] = useState(data || []);
+const AddSocialLinkForm = ({ fn }) => {
+  const { socialLinks, setSocialLinks } = useCandidateProfileContext();
+  const [socials, setSocials] = useState(socialLinks || []);
   const handleAdd = () => {
     const nextId = socials.length > 0 ? socials[socials.length - 1].id + 1 : 1;
     setSocials([...socials, { id: nextId, type: "FACEBOOK", url: "" }]);
@@ -26,6 +28,7 @@ const AddSocialLinkForm = ({ data, fn }) => {
       return rest;
     });
     await fn(social_links);
+    setSocialLinks(social_links);
   };
 
   return (

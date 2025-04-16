@@ -23,7 +23,6 @@ export const updateCandidateProfile = (data) =>
 export const updateCandidateProfileAvatar = (file) => {
   const formData = new FormData();
   formData.append("avatar", file);
-
   return safeApiCall(() =>
     axiosPrivate.put("/candidate-profile/update-avatar", formData, {
       headers: { "Content-Type": "multipart/form-data" },

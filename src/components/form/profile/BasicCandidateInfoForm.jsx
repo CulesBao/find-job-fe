@@ -1,5 +1,6 @@
 import Education from "@/constants/Education";
 import GenderType from "@/constants/GenderType";
+import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
 import {
   getAllProvinces,
   getDistrictsByProvinceId,
@@ -7,7 +8,9 @@ import {
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const BaiscCandidateInfoForm = ({ initialData, fn }) => {
+const BaiscCandidateInfoForm = ({ fn }) => {
+  const { basicCandidateProfile, setBasicCandidateProfile } =
+    useCandidateProfileContext();
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -64,20 +67,24 @@ const BaiscCandidateInfoForm = ({ initialData, fn }) => {
 
   // Set form data when initialData changes
   useEffect(() => {
-    if (initialData) {
+    if (basicCandidateProfile) {
       setFormData((prev) => ({
         ...prev,
-        ...initialData,
+        ...basicCandidateProfile,
       }));
     }
-  }, [initialData]);
+  }, [basicCandidateProfile]);
 
   const handleChange = (key) => (event) => {
     setFormData((prev) => ({ ...prev, [key]: event.target.value }));
   };
   const onSubmit = async () => {
     try {
-      const response = await fn(formData);
+      await fn(formData);
+      setBasicCandidateProfile((prev) => ({
+        ...prev,
+        ...formData,
+      }));
     } catch (error) {
       console.error("Error submitting form:", error);
     }

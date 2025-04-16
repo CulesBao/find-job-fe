@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
 
-const AvatarCandidateForm = ({ initialUrl, fn }) => {
+const AvatarCandidateForm = ({ fn }) => {
+  const { avatar, setAvatar } = useCandidateProfileContext();
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(initialUrl || null);
+  const [preview, setPreview] = useState(avatar || null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
@@ -24,6 +26,7 @@ const AvatarCandidateForm = ({ initialUrl, fn }) => {
   const handleSave = async () => {
     try {
       await fn(file);
+      setAvatar(URL.createObjectURL(file));
     } catch (err) {
       console.error(err);
       return;
