@@ -23,7 +23,7 @@ export default function VerifyButton({ data, code }) {
         throw new Error();
       }
 
-      navigate("/login", {
+      navigate("/auth/login", {
         state: {
           data: data,
         },

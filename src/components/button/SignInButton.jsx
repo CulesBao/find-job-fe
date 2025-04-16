@@ -37,17 +37,18 @@ export default function SignInButton({ Account }) {
       loginUser(res.data.account_dto);
 
       if (res.data.is_new_account) {
-        const path = res.data.account_dto.role === "EMPLOYER"
-          ? "/employer/settings"
-          : "/candidate/settings";
+        const path =
+          res.data.account_dto.role === "EMPLOYER"
+            ? "/employer/set-up"
+            : "/candidate/set-up";
         navigate(path, { replace: true });
-    } else {
-        const path = res.data.account_dto.role === "EMPLOYER"
-          ? "/dashboard"
-          : "/dashboard";
+      } else {
+        const path =
+          res.data.account_dto.role === "EMPLOYER"
+            ? "/dashboard"
+            : "/dashboard";
         navigate(path, { replace: true });
-    }
-
+      }
     } finally {
       setLoading(false);
     }

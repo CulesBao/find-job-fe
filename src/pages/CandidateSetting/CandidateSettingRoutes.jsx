@@ -1,19 +1,19 @@
-import { Routes, Route } from "react-router-dom";
-import CandidateSettingLayout from "./CandidateSettingLayout";
-import BasicCandidateProfilePage from "./BasicCandidateInfoPage";
-import AddSocialLink from "../shared/AddSocialLinkPage";
-import AvatarCandidatePage from "./AvatarCandidatePage";
-import ChangePasswordPage from "./ChangePasswordPage";
+import { Routes, Route, Navigate } from "react-router-dom";
+import CandidateSettingLayout from "./CandidateSettingPage";
+import BasicCandidateInfoForm from "../../components/form/profile/BasicCandidateInfoForm";
+import AddSocialLink from "../../components/form/profile/AddSocialLinkForm";
+import ChangeImageForm from "../../components/form/profile/ChangeImageForm";
+import ChangePasswordForm from "../../components/form/profile/ChangePasswordForm";
 
 function CandidateSettingRoutes() {
   return (
     <Routes>
-      <Route path="settings" element={<CandidateSettingLayout />}>
-        <Route index element={<BasicCandidateProfilePage />} />
-        <Route path="profile" element={<BasicCandidateProfilePage />} />
+      <Route path="/" element={<CandidateSettingLayout />}>
+        <Route index element={<Navigate to="avatar" replace />} />
+        <Route path="profile" element={<BasicCandidateInfoForm />} />
         <Route path="social" element={<AddSocialLink />} />
-        <Route path="avatar" element={<AvatarCandidatePage />} />
-        <Route path="change-password" element={<ChangePasswordPage />} />
+        <Route path="avatar" element={<ChangeImageForm />} />
+        <Route path="change-password" element={<ChangePasswordForm />} />
       </Route>
     </Routes>
   );
