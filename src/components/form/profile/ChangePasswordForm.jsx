@@ -2,7 +2,7 @@ import { useState } from "react";
 import Password from "@/components/input/Password";
 import { Button, Stack } from "@mui/material";
 
-const ChangePasswordPage = () => {
+const ChangePasswordForm = () => {
   const [password, setPassword] = useState({
     oldPassword: "",
     newPassword: "",
@@ -49,4 +49,4 @@ const ChangePasswordPage = () => {
   );
 };
 
-export default ChangePasswordPage;
+export default ChangePasswordForm;

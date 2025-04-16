@@ -7,14 +7,14 @@ import {
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const BaiscCandidateInfoPage = ({ initialData }) => {
+const BaiscCandidateInfoForm = ({ initialData, fn }) => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    day_of_birth: "",
+    date_of_birth: "",
     education: "",
     gender: "",
-    phone: "",
+    phone_number: "",
     bio: "",
     province_code: "",
     district_code: "",
@@ -75,7 +75,13 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
   const handleChange = (key) => (event) => {
     setFormData((prev) => ({ ...prev, [key]: event.target.value }));
   };
-
+  const onSubmit = async () => {
+    try {
+      const response = await fn(formData);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
   return (
     <div className="flex justify-center">
       <div className="align-middle flex flex-col gap-4 w-full justify-center">
@@ -101,8 +107,8 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
             <TextField
               label="Date of birth"
               type="date"
-              value={formData.day_of_birth}
-              onChange={handleChange("day_of_birth")}
+              value={formData.date_of_birth}
+              onChange={handleChange("date_of_birth")}
               fullWidth
               InputLabelProps={{ shrink: true }}
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
@@ -116,7 +122,10 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
             >
               {Object.values(Education).map((option) => (
-                <MenuItem key={option.upperCaseName} value={option.upperCaseName}>
+                <MenuItem
+                  key={option.upperCaseName}
+                  value={option.upperCaseName}
+                >
                   {option.name}
                 </MenuItem>
               ))}
@@ -140,8 +149,8 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
             </TextField>
             <TextField
               label="Phone Number"
-              value={formData.phone}
-              onChange={handleChange("phone")}
+              value={formData.phone_number}
+              onChange={handleChange("phone_number")}
               placeholder="+00 000 000 0000"
               fullWidth
               sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
@@ -193,11 +202,13 @@ const BaiscCandidateInfoPage = ({ initialData }) => {
               borderRadius: "5px",
             }}
           />
-          <Button variant="contained">Save Changes</Button>
+          <Button variant="contained" onClick={onSubmit}>
+            Save Changes
+          </Button>
         </Stack>
       </div>
     </div>
   );
 };
 
-export default BaiscCandidateInfoPage;
+export default BaiscCandidateInfoForm;

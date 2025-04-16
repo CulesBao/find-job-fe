@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
-import { snackbar } from "@/utils/SnackbarUtils";
 
-const AvatarCandidatePage = ({ initialUrl }) => {
+const AvatarCandidateForm = ({ initialUrl, fn }) => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(initialUrl || null);
 
@@ -22,14 +21,14 @@ const AvatarCandidatePage = ({ initialUrl }) => {
     }
   }, [file]);
 
-  const handleSave = () => {
-    if (file) {
-      snackbar.success("Profile picture updated successfully!");
-    } else {
-      snackbar.error("Please select a file to upload.");
+  const handleSave = async () => {
+    try {
+      await fn(file);
+    } catch (err) {
+      console.error(err);
+      return;
     }
   };
-
   return (
     <Box
       display="flex"
@@ -109,4 +108,4 @@ const AvatarCandidatePage = ({ initialUrl }) => {
   );
 };
 
-export default AvatarCandidatePage;
+export default AvatarCandidateForm;

@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Select,
-  MenuItem,
-  Stack,
-} from "@mui/material";
+import { Box, TextField, Button, Select, MenuItem, Stack } from "@mui/material";
 import {
   getAllProvinces,
   getDistrictsByProvinceId,
 } from "@/services/addressService";
 
-const BasicEmployerInfoPage = () => {
+const BasicEmployerInfoForm = () => {
   const [formData, setFormData] = useState({
     about: "",
     established_in: "",
@@ -100,10 +92,6 @@ const BasicEmployerInfoPage = () => {
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Typography variant="h5" sx={{ textAlign: "center", marginBottom: 2 }}>
-        Employer Profile
-      </Typography>
-
       <Stack spacing={2.25}>
         {/* Name and Established In */}
         <Stack direction="row" spacing={2.25} width="100%">
@@ -212,4 +200,4 @@ const BasicEmployerInfoPage = () => {
   );
 };
 
-export default BasicEmployerInfoPage;
+export default BasicEmployerInfoForm;

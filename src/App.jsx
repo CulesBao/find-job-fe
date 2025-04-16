@@ -5,25 +5,34 @@ import { AuthProvider } from "./hooks/AuthProvider";
 import AuthRoutes from "./pages/auth/AuthRoutes";
 import CandidateProfileSettingRoutes from "./pages/CandidateSetting/CandidateSettingRoutes";
 import PrivateRoute from "./hooks/PrivateRoute";
-import AuthRedirect from "./hooks/AuthRedirect";
+import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes";
+import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 
 export default function App() {
   return (
     <SnackbarProvider maxSnack={3}>
       <SnackbarUtilsConfigurator />
       <AuthProvider>
-      <Routes>
-        <Route path="/" element={<AuthRedirect />} />
-        <Route path="/auth/*" element={<AuthRoutes />} />
-        <Route 
-          path="/candidate/*" 
-          element={
-            <PrivateRoute>
-              <CandidateProfileSettingRoutes />
-            </PrivateRoute>
-          } 
-        />
-      </Routes>
+        <Routes>
+          <Route path="/auth/*" element={<AuthRoutes />} />
+          <Route
+            path="/candidate/set-up/*"
+            element={
+              <PrivateRoute>
+                <CandidateCreateRoutes />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/candidate/settings/*"
+            element={
+              <PrivateRoute>
+                <CandidateProfileSettingRoutes />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/employer/*" element={<EmployerSettingRoutes />} />
+        </Routes>
       </AuthProvider>
     </SnackbarProvider>
   );

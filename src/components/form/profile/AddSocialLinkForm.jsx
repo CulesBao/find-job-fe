@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import SocialLinkRow from "../../components/layout/SocialLinkRow";
+import SocialLinkRow from "../../layout/SocialLinkRow";
 
-const AddSocialLink = ({ data }) => {
+const AddSocialLinkForm = ({ data, fn }) => {
   const [socials, setSocials] = useState(data || []);
   const handleAdd = () => {
     const nextId = socials.length > 0 ? socials[socials.length - 1].id + 1 : 1;
@@ -18,6 +18,14 @@ const AddSocialLink = ({ data }) => {
 
   const handleRemove = (id) => {
     setSocials((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const handleSubmit = async () => {
+    const social_links = socials.map((item) => {
+      const { id, ...rest } = item;
+      return rest;
+    });
+    await fn(social_links);
   };
 
   return (
@@ -49,8 +57,24 @@ const AddSocialLink = ({ data }) => {
       >
         Add New Social Link
       </Button>
+      <Button
+        variant="contained"
+        fullWidth
+        onClick={handleSubmit}
+        sx={{
+          bgcolor: "primary.main",
+          height: 44,
+          justifyContent: "center",
+          "&:hover": {
+            bgcolor: "primary.dark",
+          },
+          textTransform: "none",
+        }}
+      >
+        Save Changes
+      </Button>
     </Stack>
   );
 };
 
-export default AddSocialLink;
+export default AddSocialLinkForm;
