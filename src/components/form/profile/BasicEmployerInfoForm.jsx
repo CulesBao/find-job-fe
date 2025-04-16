@@ -4,18 +4,10 @@ import {
   getAllProvinces,
   getDistrictsByProvinceId,
 } from "@/services/addressService";
+import { useProfileContext } from "@/components/context/ProfileContext";
 
-const BasicEmployerInfoForm = () => {
-  const [formData, setFormData] = useState({
-    about: "",
-    established_in: "",
-    name: "",
-    vision: "",
-    website_url: "",
-    province_code: "",
-    district_code: "",
-    location: "",
-  });
+const BasicEmployerInfoForm = ({ fn }) => {
+  const { basicEmployerProfile, setBasicEmployerProfile } = useProfileContext();
 
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
@@ -38,20 +30,20 @@ const BasicEmployerInfoForm = () => {
   // Fetch districts based on province selection
   useEffect(() => {
     const fetchDistricts = async () => {
-      if (formData.province_code) {
+      if (basicEmployerProfile.province_code) {
         try {
           const districtsResponse = await getDistrictsByProvinceId(
-            formData.province_code
+            basicEmployerProfile.province_code
           );
           setDistrictList(districtsResponse.data);
 
           // Reset district_code if it's no longer valid
           if (
             districtsResponse.data.every(
-              (district) => district.code !== formData.district_code
+              (district) => district.code !== basicEmployerProfile.district_code
             )
           ) {
-            setFormData((prev) => ({ ...prev, district_code: "" }));
+            setBasicEmployerProfile((prev) => ({ ...prev, district_code: "" }));
           }
 
           setIsEnabledDistrictSelect(true);
@@ -65,15 +57,15 @@ const BasicEmployerInfoForm = () => {
     };
 
     fetchDistricts();
-  }, [formData.province_code]);
+  }, [basicEmployerProfile.province_code]);
 
   const handleChange = (key) => (event) => {
-    setFormData((prev) => ({ ...prev, [key]: event.target.value }));
+    setBasicEmployerProfile((prev) => ({ ...prev, [key]: event.target.value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
+    console.log("Submitted Data:", basicEmployerProfile);
     // Add API call or form submission logic here
   };
 
@@ -97,7 +89,7 @@ const BasicEmployerInfoForm = () => {
         <Stack direction="row" spacing={2.25} width="100%">
           <TextField
             label="Name"
-            value={formData.name}
+            value={basicEmployerProfile.name}
             onChange={handleChange("name")}
             required
             inputProps={{ maxLength: 255 }}
@@ -106,7 +98,7 @@ const BasicEmployerInfoForm = () => {
           <TextField
             label="Established In"
             type="date"
-            value={formData.established_in}
+            value={basicEmployerProfile.established_in}
             onChange={handleChange("established_in")}
             InputLabelProps={{ shrink: true }}
             fullWidth
@@ -118,14 +110,14 @@ const BasicEmployerInfoForm = () => {
           <TextField
             label="Website URL"
             type="url"
-            value={formData.website_url}
+            value={basicEmployerProfile.website_url}
             onChange={handleChange("website_url")}
             inputProps={{ maxLength: 255 }}
             fullWidth
           />
           <TextField
             label="Location"
-            value={formData.location}
+            value={basicEmployerProfile.location}
             onChange={handleChange("location")}
             required
             fullWidth
@@ -135,15 +127,13 @@ const BasicEmployerInfoForm = () => {
         {/* Province and District */}
         <Stack direction="row" spacing={2.25} width="100%">
           <Select
-            value={formData.province_code}
+            value={basicEmployerProfile.province_code}
             onChange={handleChange("province_code")}
+            label="City/Province"
             required
             fullWidth
             displayEmpty
           >
-            <MenuItem value="" disabled>
-              Select Province
-            </MenuItem>
             {provinceList.map((province) => (
               <MenuItem key={province.code} value={province.code}>
                 {province.full_name_en}
@@ -151,16 +141,14 @@ const BasicEmployerInfoForm = () => {
             ))}
           </Select>
           <Select
-            value={formData.district_code}
+            value={basicEmployerProfile.district_code}
+            label="District"
             onChange={handleChange("district_code")}
             required
             fullWidth
             displayEmpty
             disabled={!isEnabledDistrictSelect}
           >
-            <MenuItem value="" disabled>
-              Select District
-            </MenuItem>
             {districtList.map((district) => (
               <MenuItem key={district.code} value={district.code}>
                 {district.full_name_en}
@@ -172,7 +160,7 @@ const BasicEmployerInfoForm = () => {
         {/* About */}
         <TextField
           label="About"
-          value={formData.about}
+          value={basicEmployerProfile.about}
           onChange={handleChange("about")}
           multiline
           rows={8} // Tăng số dòng để làm cho trường lớn hơn
@@ -183,7 +171,7 @@ const BasicEmployerInfoForm = () => {
         {/* Vision */}
         <TextField
           label="Vision"
-          value={formData.vision}
+          value={basicEmployerProfile.vision}
           onChange={handleChange("vision")}
           multiline
           rows={8} // Tăng số dòng để làm cho trường lớn hơn
@@ -193,7 +181,19 @@ const BasicEmployerInfoForm = () => {
       </Stack>
 
       {/* Submit Button */}
-      <Button type="submit" variant="contained" color="primary" fullWidth>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={async () => {
+          try {
+            await fn(basicEmployerProfile);
+          } catch (error) {
+            console.error("Error submitting data:", error);
+          }
+        }}
+      >
         Save Changes
       </Button>
     </Box>

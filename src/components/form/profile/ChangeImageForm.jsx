@@ -1,41 +1,37 @@
 import { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Backdrop, Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
-import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { useProfileContext } from "@/components/context/ProfileContext";
 
-const AvatarCandidateForm = ({ fn }) => {
-  const { avatar, setAvatar } = useCandidateProfileContext();
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(avatar || null);
-  const [loading, setLoading] = useState(false);
+const ChangeImageForm = ({ fn }) => {
+  const { image, setImage } = useProfileContext();
+  const [preview, setPreview] = useState(image || null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      setFile(selectedFile);
+      setImage(selectedFile);
     }
   };
 
   useEffect(() => {
-    if (file) {
-      const objectUrl = URL.createObjectURL(file);
+    if (image) {
+      const objectUrl = URL.createObjectURL(image);
       setPreview(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [file]);
+  }, [image]);
 
   const handleSave = async () => {
     setLoading(true);
     try {
-      await fn(file);
-      setAvatar(URL.createObjectURL(file));
+      await fn(image);
     } catch (err) {
       console.error(err);
       return;
     } finally {
       setLoading(false);
     }
-    
   };
   return (
     <Box
@@ -66,12 +62,12 @@ const AvatarCandidateForm = ({ fn }) => {
             overflow: "hidden",
             position: "relative",
           }}
-          onClick={() => document.getElementById("avatar-input").click()}
+          onClick={() => document.getElementById("image-input").click()}
         >
           <input
             type="file"
             accept="image/*"
-            id="avatar-input"
+            id="image-input"
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
@@ -109,7 +105,7 @@ const AvatarCandidateForm = ({ fn }) => {
         <Button
           variant="contained"
           onClick={handleSave}
-          disabled={!file}
+          disabled={!image}
           sx={{ textTransform: "none" }}
         >
           Save Changes
@@ -119,4 +115,4 @@ const AvatarCandidateForm = ({ fn }) => {
   );
 };
 
-export default AvatarCandidateForm;
+export default ChangeImageForm;
