@@ -5,13 +5,13 @@ import safeApiCall from "./safeApiCall";
 export const createCandidateProfile = (data) =>
   safeApiCall(() => axiosPrivate.post("/candidate-profile/", data));
 
-export const getCandidateProfile = (candidateProfileId) =>
-  safeApiCall(() =>
+export const getCandidateProfile = (candidateProfileId) => {
+  return safeApiCall(() =>
     axiosPublic.get(`/candidate-profile/${candidateProfileId}`)
   );
+};
 
 export const updateSocialLinks = (social_links) => {
-  console.log("social_links", social_links);
   return safeApiCall(() =>
     axiosPrivate.put("/candidate-profile/social-links", { social_links })
   );
