@@ -6,13 +6,8 @@ export default function AuthRedirect() {
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
-
-        if (token) {
-        navigate("/constructions"); 
-        } else {
-        navigate("/auth"); 
-        }
+        navigate(token ? "/dashboard" : "/auth/login", { replace: true });
     }, [navigate]);
 
-    return null; 
+    return null;
 }

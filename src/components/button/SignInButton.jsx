@@ -20,6 +20,9 @@ export default function SignInButton({ Account }) {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      const minLoadingTime = 1300;
+      const startTime = Date.now();
+
       const dataUser = {
         email: Account.email,
         password: Account.password,
@@ -28,14 +31,30 @@ export default function SignInButton({ Account }) {
       };
 
       const res = await login(dataUser);
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
 
       if (!res || res.error || res.status >= 400) {
         throw new Error();
       }
-      if (res.data.is_new_account) navigate("/");
+
       setAccessToken(res.data.token);
       loginUser(res.data.account_dto);
-      navigate("#");
+
+      if (res.data.is_new_account) {
+        const path =
+          res.data.account_dto.role === "EMPLOYER"
+            ? "/employer/set-up"
+            : "/candidate/set-up";
+        navigate(path, { replace: true });
+      } else {
+        const path =
+          res.data.account_dto.role === "EMPLOYER"
+            ? "/dashboard"
+            : "/dashboard";
+        navigate(path, { replace: true });
+      }
     } finally {
       setLoading(false);
     }

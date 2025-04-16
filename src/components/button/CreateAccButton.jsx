@@ -40,7 +40,7 @@ export default function SubmitButton({ Account }) {
         if (!res || res.error || res.status >= 400) {
           throw new Error();
         }
-        navigate(`/verify/${res.data.id}`, {
+        navigate(`/auth/verify/${res.data.id}`, {
           state: { data: res.data },
         });
       } finally {
