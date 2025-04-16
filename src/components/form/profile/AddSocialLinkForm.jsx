@@ -1,29 +1,28 @@
-import { useState } from "react";
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SocialLinkRow from "../../layout/SocialLinkRow";
-import { useCandidateProfileContext } from "@/pages/CandidateCreate/CandidateCreateRoutes";
+import { useProfileContext } from "@/components/context/ProfileContext";
 
 const AddSocialLinkForm = ({ fn }) => {
-  const { socialLinks, setSocialLinks } = useCandidateProfileContext();
-  const [socials, setSocials] = useState(socialLinks || []);
+  const { socialLinks, setSocialLinks } = useProfileContext();
   const handleAdd = () => {
-    const nextId = socials.length > 0 ? socials[socials.length - 1].id + 1 : 1;
-    setSocials([...socials, { id: nextId, type: "FACEBOOK", url: "" }]);
+    const nextId =
+      socialLinks.length > 0 ? socialLinks[socialLinks.length - 1].id + 1 : 1;
+    setSocialLinks([...socialLinks, { id: nextId, type: "FACEBOOK", url: "" }]);
   };
 
   const handleChange = (id, newData) => {
-    setSocials((prev) =>
+    setSocialLinks((prev) =>
       prev.map((item) => (item.id === id ? { ...item, ...newData } : item))
     );
   };
 
   const handleRemove = (id) => {
-    setSocials((prev) => prev.filter((item) => item.id !== id));
+    setSocialLinks((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleSubmit = async () => {
-    const social_links = socials.map((item) => {
+    const social_links = socialLinks.map((item) => {
       const { id, ...rest } = item;
       return rest;
     });
@@ -33,7 +32,7 @@ const AddSocialLinkForm = ({ fn }) => {
 
   return (
     <Stack spacing={2.5}>
-      {socials.map((item) => (
+      {socialLinks.map((item) => (
         <SocialLinkRow
           key={item.id}
           data={item}

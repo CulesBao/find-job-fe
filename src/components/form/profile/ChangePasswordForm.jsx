@@ -2,7 +2,7 @@ import { useState } from "react";
 import Password from "@/components/input/Password";
 import { Button, Stack } from "@mui/material";
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({ fn }) => {
   const [password, setPassword] = useState({
     oldPassword: "",
     newPassword: "",
@@ -38,9 +38,16 @@ const ChangePasswordForm = () => {
         variant="contained"
         color="primary"
         sx={{ width: "100%", height: 50, borderRadius: 2 }}
-        onClick={() => {
-          // Handle password change logic here
-          console.log("Change password clicked", password);
+        onClick={async () => {
+          try {
+            await fn({
+              old_password: password.oldPassword,
+              new_password: password.newPassword,
+              confirm_password: password.confirmPassword,
+            });
+          } catch (error) {
+            console.error("Error changing password:", error);
+          }
         }}
       >
         Change password

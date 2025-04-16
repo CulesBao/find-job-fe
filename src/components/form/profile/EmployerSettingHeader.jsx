@@ -1,13 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { Box, Divider, Tab, Tabs } from "@mui/material";
 
-const EmployerSettingHeader = ({tabData ,basePath}) => {
+const EmployerSettingHeader = ({ tabData, basePath }) => {
   const location = useLocation();
   const pathSegment = location.pathname.split("/").pop();
   const currentTab = tabData.findIndex((tab) => tab.path === pathSegment);
   const selectedTab =
     currentTab === -1
-      ? tabData.findIndex((tab) => tab.path === "company-info")
+      ? tabData.findIndex((tab) => tab.path === "profile")
       : currentTab;
 
   return (
