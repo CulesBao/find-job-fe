@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-const SidebarCadidate = () => {
+const SidebarCandidate = () => {
   const [active, setActive] = useState("Job Alert");
 
   const menu = [
@@ -22,7 +22,7 @@ const SidebarCadidate = () => {
   ];
 
   return (
-    <div className="absolute top-40 left-[300px] w-64 bg-white shadow-md p-4 text-sm text-gray-700">
+    <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-screen sticky top-0">
       <div className="mb-6 font-semibold text-gray-500 uppercase text-xs">
         Candidate Dashboard
       </div>
@@ -45,9 +45,9 @@ const SidebarCadidate = () => {
               >
                 {item.icon}
               </div>
-              <span> {item.name} </span>
+              <span>{item.name}</span>
             </div>
-            {item.badge && (
+            {item.badge !== undefined && (
               <span className="bg-gray-200 text-xs font-semibold px-2 py-0.5 rounded">
                 {item.badge.toString().padStart(2, "0")}
               </span>
@@ -59,4 +59,4 @@ const SidebarCadidate = () => {
   );
 };
 
-export default SidebarCadidate;
+export default SidebarCandidate;

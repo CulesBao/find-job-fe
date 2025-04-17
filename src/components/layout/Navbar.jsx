@@ -52,6 +52,7 @@ const Navbar = () => {
               sx={{
                 cursor: "pointer",
                 position: "relative",
+                left: '80%',
                 color:
                   selectedMenu === menu.label
                     ? theme.palette.primary.main
