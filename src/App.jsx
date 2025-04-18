@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
-import { ProfileProvider } from "./components/context/ProfileContext";
 
 import AuthRoutes from "./pages/auth/AuthRoutes";
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
@@ -26,6 +25,7 @@ import EmployerSavedCdd from "./pages/EmployerSavedCdd/EmployerSavedCdd";
 import CandidateAppliedJobs from "./pages/CandidateAppliedJobs/CandidateAppliedJobs";
 import CandidateFavoriteJob from "./pages/CandidateFavoriteJob/CandidateFavoriteJob";
 import CandidateJobAlert from "./pages/CandidateJobAlert/CandidateJobAlert";
+import { ProfileProvider } from "./context/ProfileContext";
 
 export default function App() {
   return (
@@ -49,7 +49,7 @@ export default function App() {
               path="/candidate/set-up/*"
               element={
                 <PrivateRoute>
-                  <RoleBasedRoute allowedRoles={['candidate']}>
+                  <RoleBasedRoute allowedRoles={["candidate"]}>
                     <CandidateCreateRoutes />
                   </RoleBasedRoute>
                 </PrivateRoute>
@@ -60,7 +60,7 @@ export default function App() {
               path="/employer/set-up/*"
               element={
                 <PrivateRoute>
-                  <RoleBasedRoute allowedRoles={['employer']}>
+                  <RoleBasedRoute allowedRoles={["employer"]}>
                     <EmployerCreateRoutes />
                   </RoleBasedRoute>
                 </PrivateRoute>
@@ -72,7 +72,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['candidate']}>
+                    <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateProfileSettingRoutes />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -85,7 +85,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['employer']}>
+                    <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerSettingRoutes />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -115,7 +115,7 @@ export default function App() {
               path="/employer/dashboard/*"
               element={
                 <PrivateRoute>
-                  <RoleBasedRoute allowedRoles={['employer']}>
+                  <RoleBasedRoute allowedRoles={["employer"]}>
                     <DashboardRedirect />
                   </RoleBasedRoute>
                 </PrivateRoute>
@@ -126,7 +126,7 @@ export default function App() {
               path="/candidate/dashboard/*"
               element={
                 <PrivateRoute>
-                  <RoleBasedRoute allowedRoles={['candidate']}>
+                  <RoleBasedRoute allowedRoles={["candidate"]}>
                     <DashboardRedirect />
                   </RoleBasedRoute>
                 </PrivateRoute>
@@ -137,13 +137,12 @@ export default function App() {
               path="/admin/dashboard/*"
               element={
                 <PrivateRoute>
-                  <RoleBasedRoute allowedRoles={['admin']}>
+                  <RoleBasedRoute allowedRoles={["admin"]}>
                     <DashboardRedirect />
                   </RoleBasedRoute>
                 </PrivateRoute>
               }
             />
-
 
             {/* CAC TRANG NAY DE TEST */}
             <Route
@@ -151,7 +150,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['employer']}>
+                    <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerMyJobs />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -163,7 +162,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['employer']}>
+                    <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerPostJob />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -175,7 +174,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['employer']}>
+                    <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerSavedCdd />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -187,7 +186,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['candidate']}>
+                    <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateAppliedJobs />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -199,7 +198,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['candidate']}>
+                    <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateFavoriteJob />
                     </RoleBasedRoute>
                   </PrivateRoute>
@@ -211,7 +210,7 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <RoleBasedRoute allowedRoles={['candidate']}>
+                    <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateJobAlert />
                     </RoleBasedRoute>
                   </PrivateRoute>

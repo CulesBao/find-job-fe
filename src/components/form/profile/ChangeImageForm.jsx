@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Backdrop, Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
-import { useProfileContext } from "@/components/context/ProfileContext";
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useProfileContext } from "@/context/ProfileContext";
 
 const ChangeImageForm = ({ fn }) => {
   const { image, setImage } = useProfileContext();
