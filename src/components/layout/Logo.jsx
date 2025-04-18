@@ -1,6 +1,6 @@
 export default function Logo() {
   return (
-    <div className="flex flex-row h-[10%] relative left-[12%] top-[45px]">
+    <div className="flex flex-row h-[10%] relative left-[12%] top-[10px]">
       <div className="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"

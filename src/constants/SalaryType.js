@@ -50,5 +50,8 @@ const SalaryType = {
     upperCaseName: "PROFIT_SHARING",
   },
 };
+export const formatSalaryType = (salaryType) => {
+  return salaryType ? SalaryType[salaryType]?.name : "Unknown";
+};
 
 export default SalaryType;

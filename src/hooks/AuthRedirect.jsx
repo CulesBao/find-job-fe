@@ -6,7 +6,9 @@ export default function AuthRedirect() {
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
-        navigate(token ? "/dashboard" : "/auth/login", { replace: true });
+        const user = JSON.parse(localStorage.getItem("user"));
+        const role = user?.role?.toLowerCase();
+        navigate(token ? `${role}/dashboard` : "/auth/login", { replace: true });
     }, [navigate]);
 
     return null;

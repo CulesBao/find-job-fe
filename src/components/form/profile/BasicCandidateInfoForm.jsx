@@ -1,4 +1,4 @@
-import { useProfileContext } from "@/components/context/ProfileContext";
+import { useProfileContext } from "@/context/ProfileContext";
 import Education from "@/constants/Education";
 import GenderType from "@/constants/GenderType";
 import {
