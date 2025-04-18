@@ -9,8 +9,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useProfileContext } from "@/components/context/ProfileContext";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { useProfileContext } from "@/context/ProfileContext";
 
 const ChangeImageForm = ({ fn }) => {
