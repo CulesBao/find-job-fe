@@ -4,7 +4,7 @@ import {
   getAllProvinces,
   getDistrictsByProvinceId,
 } from "@/services/addressService";
-import { useProfileContext } from "@/components/context/ProfileContext";
+import { useProfileContext } from "@/context/ProfileContext";
 
 const BasicEmployerInfoForm = ({ fn }) => {
   const { basicEmployerProfile, setBasicEmployerProfile } = useProfileContext();

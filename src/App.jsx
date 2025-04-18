@@ -8,7 +8,7 @@ import PrivateRoute from "./hooks/PrivateRoute";
 import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes";
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
-import { ProfileProvider } from "./components/context/ProfileContext";
+import { ProfileProvider } from "./context/ProfileContext";
 
 export default function App() {
   return (

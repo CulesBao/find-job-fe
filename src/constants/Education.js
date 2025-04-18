@@ -25,4 +25,7 @@ const Education = {
     upperCaseName: "BACHELOR_DEGREE",
   },
 };
+export const formatEducation = (education) => {
+  return education ? Education[education]?.name || "Unknown" : "Unknown";
+};
 export default Education;
