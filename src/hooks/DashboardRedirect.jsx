@@ -16,7 +16,7 @@ const DashboardRedirect = () => {
       return;
     }
     if (role === "candidate") {
-      navigate("/candidate/dashboard", { replace: true });
+      navigate("/candidate/dashboard/applied-jobs", { replace: true });
       return;
     }
 }, [navigate]);

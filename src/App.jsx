@@ -2,18 +2,30 @@ import { Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
+import { ProfileProvider } from "./components/context/ProfileContext";
+
 import AuthRoutes from "./pages/auth/AuthRoutes";
-import CandidateProfileSettingRoutes from "./pages/CandidateSetting/CandidateSettingRoutes";
-import PrivateRoute from "./hooks/PrivateRoute";
-import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes";
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
-import { ProfileProvider } from "./components/context/ProfileContext";
+import CandidateProfileSettingRoutes from "./pages/CandidateSetting/CandidateSettingRoutes";
+import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes";
+
 import SaveProfileCongrats from "./pages/Congratulation/SaveProfileCongrats";
+
 import MainLayout from "./components/layout/MainLayout";
+import PrivateRoute from "./hooks/PrivateRoute";
+import PublicRoute from "./hooks/PublicRoute";
 import AuthRedirect from "./hooks/AuthRedirect";
 import DashboardRedirect from "./hooks/DashboardRedirect";
-import PublicRoute from "./hooks/PublicRoute";
+import RoleBasedRoute from "./hooks/RoleBasedRoute";
+
+// TESTTTTTTTTTTTTTTTTTTTTTTTT
+import EmployerMyJobs from "./pages/EmployerMyJobs/EmployerMyJobs";
+import EmployerPostJob from "./pages/EmployerPostJob/EmployerPostJob";
+import EmployerSavedCdd from "./pages/EmployerSavedCdd/EmployerSavedCdd";
+import CandidateAppliedJobs from "./pages/CandidateAppliedJobs/CandidateAppliedJobs";
+import CandidateFavoriteJob from "./pages/CandidateFavoriteJob/CandidateFavoriteJob";
+import CandidateJobAlert from "./pages/CandidateJobAlert/CandidateJobAlert";
 
 export default function App() {
   return (
@@ -23,27 +35,34 @@ export default function App() {
         <ProfileProvider>
           <Routes>
             <Route path="/" element={<AuthRedirect />} />
-            <Route 
-              path="/auth/*" 
+
+            <Route
+              path="/auth/*"
               element={
                 <PublicRoute>
                   <AuthRoutes />
                 </PublicRoute>
-              } 
+              }
             />
+
             <Route
               path="/candidate/set-up/*"
               element={
                 <PrivateRoute>
-                  <CandidateCreateRoutes />
+                  <RoleBasedRoute allowedRoles={['candidate']}>
+                    <CandidateCreateRoutes />
+                  </RoleBasedRoute>
                 </PrivateRoute>
               }
             />
+
             <Route
               path="/employer/set-up/*"
               element={
                 <PrivateRoute>
-                  <EmployerCreateRoutes />
+                  <RoleBasedRoute allowedRoles={['employer']}>
+                    <EmployerCreateRoutes />
+                  </RoleBasedRoute>
                 </PrivateRoute>
               }
             />
@@ -53,55 +72,154 @@ export default function App() {
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <CandidateProfileSettingRoutes />
+                    <RoleBasedRoute allowedRoles={['candidate']}>
+                      <CandidateProfileSettingRoutes />
+                    </RoleBasedRoute>
                   </PrivateRoute>
                 </MainLayout>
               }
             />
+
             <Route
               path="/employer/dashboard/settings/*"
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <EmployerSettingRoutes />
+                    <RoleBasedRoute allowedRoles={['employer']}>
+                      <EmployerSettingRoutes />
+                    </RoleBasedRoute>
+                  </PrivateRoute>
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/congrats"
+              element={
+                <PrivateRoute>
+                  <SaveProfileCongrats />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <DashboardRedirect />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/employer/dashboard/*"
+              element={
+                <PrivateRoute>
+                  <RoleBasedRoute allowedRoles={['employer']}>
+                    <DashboardRedirect />
+                  </RoleBasedRoute>
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/candidate/dashboard/*"
+              element={
+                <PrivateRoute>
+                  <RoleBasedRoute allowedRoles={['candidate']}>
+                    <DashboardRedirect />
+                  </RoleBasedRoute>
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/admin/dashboard/*"
+              element={
+                <PrivateRoute>
+                  <RoleBasedRoute allowedRoles={['admin']}>
+                    <DashboardRedirect />
+                  </RoleBasedRoute>
+                </PrivateRoute>
+              }
+            />
+
+
+            {/* CAC TRANG NAY DE TEST */}
+            <Route
+              path="employer/dashboard/my-job"
+              element={
+                <MainLayout>
+                  <PrivateRoute>
+                    <RoleBasedRoute allowedRoles={['employer']}>
+                      <EmployerMyJobs />
+                    </RoleBasedRoute>
                   </PrivateRoute>
                 </MainLayout>
               }
             />
             <Route
-              path="/congrats"
+              path="employer/dashboard/post-job"
               element={
                 <MainLayout>
                   <PrivateRoute>
-                    <SaveProfileCongrats />
+                    <RoleBasedRoute allowedRoles={['employer']}>
+                      <EmployerPostJob />
+                    </RoleBasedRoute>
                   </PrivateRoute>
                 </MainLayout>
               }
             />
-            <Route 
-              path="employer/dashboard" 
+            <Route
+              path="employer/dashboard/saved-candidate"
               element={
-                <PrivateRoute>
-                  <DashboardRedirect />
-                </PrivateRoute>
-              } 
-            />
-            <Route 
-              path="candidate/dashboard" 
-              element={
-                <PrivateRoute>
-                  <DashboardRedirect />
-                </PrivateRoute>
+                <MainLayout>
+                  <PrivateRoute>
+                    <RoleBasedRoute allowedRoles={['employer']}>
+                      <EmployerSavedCdd />
+                    </RoleBasedRoute>
+                  </PrivateRoute>
+                </MainLayout>
               }
             />
-            <Route 
-              path="admin/dashboard" 
+            <Route
+              path="candidate/dashboard/applied-jobs"
               element={
-                <PrivateRoute>
-                  <DashboardRedirect />
-                </PrivateRoute>
+                <MainLayout>
+                  <PrivateRoute>
+                    <RoleBasedRoute allowedRoles={['candidate']}>
+                      <CandidateAppliedJobs />
+                    </RoleBasedRoute>
+                  </PrivateRoute>
+                </MainLayout>
               }
             />
+            <Route
+              path="candidate/dashboard/favorite-jobs"
+              element={
+                <MainLayout>
+                  <PrivateRoute>
+                    <RoleBasedRoute allowedRoles={['candidate']}>
+                      <CandidateFavoriteJob />
+                    </RoleBasedRoute>
+                  </PrivateRoute>
+                </MainLayout>
+              }
+            />
+            <Route
+              path="candidate/dashboard/job-alert"
+              element={
+                <MainLayout>
+                  <PrivateRoute>
+                    <RoleBasedRoute allowedRoles={['candidate']}>
+                      <CandidateJobAlert />
+                    </RoleBasedRoute>
+                  </PrivateRoute>
+                </MainLayout>
+              }
+            />
+
+            {/* CAC TRANG TREN DE TEST */}
           </Routes>
         </ProfileProvider>
       </AuthProvider>
