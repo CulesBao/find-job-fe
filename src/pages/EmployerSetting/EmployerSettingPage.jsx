@@ -12,9 +12,9 @@ const tabData = [
 
 const EmployerSettingPage = () => {
   return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Setting</h1>
-      <EmployerSettingHeader tabData={tabData} basePath="/employer/settings"/>
+    <div className="p-0 max-w-5xl">
+      <h1 className="text-2xl font-bold mb-4">Settings</h1>
+      <EmployerSettingHeader tabData={tabData} basePath="/employer/dashboard/settings"/>
       <div className="mt-6">
         <Outlet />
       </div>

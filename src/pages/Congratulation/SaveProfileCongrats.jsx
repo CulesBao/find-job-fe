@@ -1,6 +1,7 @@
 import Logo from "@/components/layout/Logo";
 import CheckIcon from "@mui/icons-material/Check";
 import { Button, Paper, Stack, Typography, Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const SaveProfileCongrats = () => {
   return (
@@ -60,20 +61,22 @@ const SaveProfileCongrats = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <Button
-              variant="text"
-              sx={{
-                backgroundColor: "primary.50",
-                color: "primary.main",
-                px: 4,
-                py: 2,
-                "&:hover": {
-                  backgroundColor: "primary.100",
-                },
-              }}
-            >
-              View Dashboard
-            </Button>
+            <Link to="/dashboard">
+              <Button
+                variant="text"
+                sx={{
+                  backgroundColor: "primary.50",
+                  color: "primary.main",
+                  px: 4,
+                  py: 2,
+                  "&:hover": {
+                    backgroundColor: "primary.100",
+                  },
+                }}
+              >
+                View Dashboard
+              </Button>
+            </Link>
           </Stack>
         </Stack>
       </Box>
