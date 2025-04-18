@@ -11,10 +11,10 @@ const SidebarEmployer = () => {
   const navigate = useNavigate();
 
   const menu = [
-    { name: "Post a Job", icon: <PostAddIcon fontSize="small" />, path: "/employer/post-job" },
-    { name: "My Jobs", icon: <WorkIcon fontSize="small" />, path: "/employer/my-jobs" },
-    { name: "Saved Candidate", icon: <BookmarkIcon fontSize="small" />, path: "/employer/saved-candidate" },
-    { name: "Settings", icon: <SettingsIcon fontSize="small" />, path: "/employer/settings" },
+    { name: "Post a Job", icon: <PostAddIcon fontSize="small" />, path: "/employer/dashboard/post-job" },
+    { name: "My Jobs", icon: <WorkIcon fontSize="small" />, path: "/employer/dashboard/my-jobs" },
+    { name: "Saved Candidate", icon: <BookmarkIcon fontSize="small" />, path: "/employer/dashboard/saved-candidate" },
+    { name: "Settings", icon: <SettingsIcon fontSize="small" />, path: "/employer/dashboard/settings" },
   ];
 
   return (

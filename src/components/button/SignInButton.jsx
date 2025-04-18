@@ -51,8 +51,8 @@ export default function SignInButton({ Account }) {
       } else {
         const path =
           res.data.account_dto.role === "EMPLOYER"
-            ? "/dashboard"
-            : "/dashboard";
+            ? "/employer/dashboard/my-jobs"
+            : "/candidate/dashboard/find-job";
         navigate(path, { replace: true });
       }
     } finally {

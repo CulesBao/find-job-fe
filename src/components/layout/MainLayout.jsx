@@ -7,9 +7,9 @@ import { useLocation } from "react-router-dom";
 export default function MainLayout({ children }) {
   const location = useLocation();
 
-  const isCandidatePage = location.pathname.startsWith("/candidate/") && 
+  const isCandidatePage = location.pathname.startsWith("/candidate/dashboard/") && 
                           !location.pathname.includes("set-up");
-  const isEmployerPage = location.pathname.startsWith("/employer/") &&
+  const isEmployerPage = location.pathname.startsWith("/employer/dashboard/") &&
                           !location.pathname.includes("set-up");
 
   const hasSidebar = isCandidatePage || isEmployerPage;

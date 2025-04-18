@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Box, Typography, useTheme } from "@mui/material";
 import { Phone } from "@mui/icons-material";
 
+const user = JSON.parse(localStorage.getItem("user"));
+const role = user?.role?.toLowerCase();
+
 const menus = [
-  { label: "Dashboard", path: "/dashboard" },
-  { label: "Find Candidate", path: "/candidate" },
-  { label: "Find Employer", path: "/employer" },
-  { label: "Find Job", path: "/job" },
+  { label: "Dashboard", path: `/${role}/dashboard` },
+  { label: "Find Candidate", path: `/${role}/find-candidate` },
+  { label: "Find Employer", path: `/${role}/find-employer` },
+  { label: "Find Job", path: `/${role}/find-job` },
 ];
 
 const Navbar = () => {

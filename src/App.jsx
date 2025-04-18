@@ -9,9 +9,11 @@ import EmployerSettingRoutes from "./pages/EmployerSetting/EmployerSettingRoutes
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
 import { ProfileProvider } from "./components/context/ProfileContext";
-import AuthPage from "./pages/Auth/AuthPage";
 import SaveProfileCongrats from "./pages/Congratulation/SaveProfileCongrats";
 import MainLayout from "./components/layout/MainLayout";
+import AuthRedirect from "./hooks/AuthRedirect";
+import DashboardRedirect from "./hooks/DashboardRedirect";
+import PublicRoute from "./hooks/PublicRoute";
 
 export default function App() {
   return (
@@ -20,8 +22,15 @@ export default function App() {
       <AuthProvider>
         <ProfileProvider>
           <Routes>
-            <Route path="/" element={<AuthPage />} />
-            <Route path="/auth/*" element={<AuthRoutes />} />
+            <Route path="/" element={<AuthRedirect />} />
+            <Route 
+              path="/auth/*" 
+              element={
+                <PublicRoute>
+                  <AuthRoutes />
+                </PublicRoute>
+              } 
+            />
             <Route
               path="/candidate/set-up/*"
               element={
@@ -40,7 +49,7 @@ export default function App() {
             />
 
             <Route
-              path="/candidate/settings/*"
+              path="/candidate/dashboard/settings/*"
               element={
                 <MainLayout>
                   <PrivateRoute>
@@ -50,7 +59,7 @@ export default function App() {
               }
             />
             <Route
-              path="/employer/settings/*"
+              path="/employer/dashboard/settings/*"
               element={
                 <MainLayout>
                   <PrivateRoute>
@@ -67,6 +76,30 @@ export default function App() {
                     <SaveProfileCongrats />
                   </PrivateRoute>
                 </MainLayout>
+              }
+            />
+            <Route 
+              path="employer/dashboard" 
+              element={
+                <PrivateRoute>
+                  <DashboardRedirect />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="candidate/dashboard" 
+              element={
+                <PrivateRoute>
+                  <DashboardRedirect />
+                </PrivateRoute>
+              }
+            />
+            <Route 
+              path="admin/dashboard" 
+              element={
+                <PrivateRoute>
+                  <DashboardRedirect />
+                </PrivateRoute>
               }
             />
           </Routes>
