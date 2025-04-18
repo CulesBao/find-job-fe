@@ -192,7 +192,11 @@ const BaiscCandidateInfoForm = ({ fn }) => {
               borderRadius: "5px",
             }}
           />
-          <Button variant="contained" onClick={onSubmit}>
+          <Button 
+            variant="contained" 
+            onClick={onSubmit}
+            className="w-[50%] h-15 self-center text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200"
+            >
             Save Changes
           </Button>
         </Stack>

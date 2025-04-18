@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, TextField, Button, Select, MenuItem, Stack } from "@mui/material";
+import { Box, TextField, Button, Select, MenuItem, Stack, FormControl, InputLabel } from "@mui/material";
 import {
   getAllProvinces,
   getDistrictsByProvinceId,
@@ -126,35 +126,36 @@ const BasicEmployerInfoForm = ({ fn }) => {
 
         {/* Province and District */}
         <Stack direction="row" spacing={2.25} width="100%">
-          <Select
-            value={basicEmployerProfile.province_code}
-            onChange={handleChange("province_code")}
-            label="City/Province"
-            required
-            fullWidth
-            displayEmpty
-          >
-            {provinceList.map((province) => (
-              <MenuItem key={province.code} value={province.code}>
-                {province.full_name_en}
-              </MenuItem>
-            ))}
-          </Select>
-          <Select
-            value={basicEmployerProfile.district_code}
-            label="District"
-            onChange={handleChange("district_code")}
-            required
-            fullWidth
-            displayEmpty
-            disabled={!isEnabledDistrictSelect}
-          >
-            {districtList.map((district) => (
-              <MenuItem key={district.code} value={district.code}>
-                {district.full_name_en}
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl fullWidth required>
+            <InputLabel id="province-label">City/Province</InputLabel>
+            <Select
+              labelId="province-label"
+              value={basicEmployerProfile.province_code || ""}
+              onChange={handleChange("province_code")}
+              label="City/Province"
+            >
+              {provinceList.map((province) => (
+                <MenuItem key={province.code} value={province.code}>
+                  {province.full_name_en}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth required disabled={!isEnabledDistrictSelect}>
+            <InputLabel id="district-label">District</InputLabel>
+            <Select
+              labelId="district-label"
+              value={basicEmployerProfile.district_code || ""}
+              onChange={handleChange("district_code")}
+              label="District"
+            >
+              {districtList.map((district) => (
+                <MenuItem key={district.code} value={district.code}>
+                  {district.full_name_en}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Stack>
 
         {/* About */}

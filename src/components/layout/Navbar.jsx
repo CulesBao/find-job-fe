@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Box, Typography, useTheme } from "@mui/material";
 import { Phone } from "@mui/icons-material";
 
+const user = JSON.parse(localStorage.getItem("user"));
+const role = user?.role?.toLowerCase();
+
 const menus = [
-  { label: "Dashboard", path: "/dashboard" },
-  { label: "Find Candidate", path: "/candidate" },
-  { label: "Find Employer", path: "/employer" },
-  { label: "Find Job", path: "/job" },
+  { label: "Dashboard", path: `/${role}/dashboard` },
+  { label: "Find Candidate", path: `/${role}/find-candidate` },
+  { label: "Find Employer", path: `/${role}/find-employer` },
+  { label: "Find Job", path: `/${role}/find-job` },
 ];
 
 const Navbar = () => {
@@ -40,10 +43,10 @@ const Navbar = () => {
           minHeight: 44,
           height: 44,
           px: 2,
+          flexWrap: "wrap",  
         }}
       >
-        {/* Menu Section */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3, flexGrow: 1, marginLeft: 10 }}>
           {menus.map((menu) => (
             <Typography
               key={menu.label}
@@ -79,8 +82,8 @@ const Navbar = () => {
           ))}
         </Box>
 
-        {/* Contact Section */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, marginRight: 10 }}>
           <Phone fontSize="small" sx={{ color: theme.palette.primary.main }} />
           <Typography variant="caption" sx={{ fontWeight: 500 }}>
             +84-795-629-257

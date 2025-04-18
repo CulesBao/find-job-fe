@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Box, Button, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Box, IconButton } from '@mui/material';
 import { Instagram, Notifications } from '@mui/icons-material';
 import Logo from '../layout/Logo'; // Import Logo.jsx
 
@@ -7,30 +7,28 @@ const Navigation = () => {
     <AppBar
       position="static"
       elevation={0}
-      sx={{ backgroundColor: '#ffffff', color: '#333', boxShadow: 'none' }}
+      sx={{ backgroundColor: '#ffffff', color: '#333', boxShadow: 0, borderBottom: '1px solid #e0e0e0' }}
     >
       <Toolbar
         sx={{
-          height: 70, // Chiều cao cố định
+          height: 70,
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center', // Căn giữa theo trục dọc
+          alignItems: 'center',
+          px: { xs: 2, md: 10 }
         }}
       >
-        {/* Logo */}
-        <Box sx={{ display: 'flex', alignItems: 'center', maxHeight: '100%' }}>
-          <Logo style={{ maxHeight: 50 }} /> {/* Giới hạn chiều cao logo */}
+        <Box sx={{ display: 'flex', alignItems: 'center', maxHeight: '100%', marginLeft: 10 }}>
+          <Logo style={{ maxHeight: 50}} />
         </Box>
 
-        {/* Các icon và nút Post A Jobs */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {/* Icon Notifications */}
+        <Box sx={{ display: 'flex', gap: 2, marginRight: 5 }}>
           <IconButton sx={{ color: '#333', position: 'relative', display: 'flex', alignItems: 'center' }}>
             <Notifications fontSize="medium" />
             <Box
               sx={{
                 position: 'absolute',
-                top: 8, // Điều chỉnh vị trí cho phù hợp
+                top: 8,
                 right: 8,
                 width: 8,
                 height: 8,
@@ -40,26 +38,8 @@ const Navigation = () => {
             />
           </IconButton>
 
-          {/* Nút Post A Jobs */}
-          <Button
-            variant="outlined"
-            sx={{
-              textTransform: 'none',
-              fontSize: 14,
-              borderColor: '#1976d2',
-              color: '#1976d2',
-              '&:hover': {
-                borderColor: '#1565c0',
-                backgroundColor: 'rgba(21,101,192,0.04)',
-              },
-            }}
-          >
-            Post A Jobs
-          </Button>
-
-          {/* Icon Instagram */}
           <IconButton sx={{ color: '#E4405F', display: 'flex', alignItems: 'center' }}>
-            <Instagram fontSize="medium" />
+            <Instagram fontSize="large" />
           </IconButton>
         </Box>
       </Toolbar>

@@ -1,9 +1,14 @@
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SocialLinkRow from "../../layout/SocialLinkRow";
+import { useProfileContext } from "@/components/context/ProfileContext";
+import { useNavigate } from "react-router-dom";
+
 import { useProfileContext } from "@/context/ProfileContext";
 
 const AddSocialLinkForm = ({ fn }) => {
+  const navigate = useNavigate();
+
   const { socialLinks, setSocialLinks } = useProfileContext();
   const handleAdd = () => {
     const nextId =
@@ -28,10 +33,11 @@ const AddSocialLinkForm = ({ fn }) => {
     });
     await fn(social_links);
     setSocialLinks(social_links);
+    navigate("/congrats");
   };
 
   return (
-    <Stack spacing={2.5}>
+    <Stack spacing={2.5} mb={3}>
       {socialLinks.map((item) => (
         <SocialLinkRow
           key={item.id}
@@ -61,17 +67,8 @@ const AddSocialLinkForm = ({ fn }) => {
       </Button>
       <Button
         variant="contained"
-        fullWidth
         onClick={handleSubmit}
-        sx={{
-          bgcolor: "primary.main",
-          height: 44,
-          justifyContent: "center",
-          "&:hover": {
-            bgcolor: "primary.dark",
-          },
-          textTransform: "none",
-        }}
+        className="w-[50%] h-15 self-center align-middle text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200"
       >
         Save Changes
       </Button>
