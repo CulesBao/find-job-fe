@@ -1,30 +1,24 @@
 import { useState } from "react";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PersonIcon from "@mui/icons-material/Person";
+import { useNavigate } from "react-router-dom";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import WorkIcon from "@mui/icons-material/Work";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const SidebarEmployer = () => {
   const [active, setActive] = useState("Overview");
+  const navigate = useNavigate();
 
   const menu = [
-    { name: "Overview", icon: <DashboardIcon fontSize="small" /> },
-    { name: "Employers Profile", icon: <PersonIcon fontSize="small" /> },
-    { name: "Post a Job", icon: <PostAddIcon fontSize="small" /> },
-    { name: "My Jobs", icon: <WorkIcon fontSize="small" /> },
-    { name: "Saved Candidate", icon: <BookmarkIcon fontSize="small" /> },
-    { name: "Plans & Billing", icon: <CreditCardIcon fontSize="small" /> },
-    { name: "Founding Info", icon: <PersonOutlineIcon fontSize="small" /> },
-    { name: "Settings", icon: <SettingsIcon fontSize="small" /> },
+    { name: "Post a Job", icon: <PostAddIcon fontSize="small" />, path: "/employer/post-job" },
+    { name: "My Jobs", icon: <WorkIcon fontSize="small" />, path: "/employer/my-jobs" },
+    { name: "Saved Candidate", icon: <BookmarkIcon fontSize="small" />, path: "/employer/saved-candidate" },
+    { name: "Settings", icon: <SettingsIcon fontSize="small" />, path: "/employer/settings" },
   ];
 
   return (
-    <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-screen sticky top-0">
+    <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-85 relative left-1/10 top-20">
       <div className="mb-6 font-semibold text-gray-500 uppercase text-xs">
         Employers Dashboard
       </div>
@@ -32,7 +26,10 @@ const SidebarEmployer = () => {
         {menu.map((item) => (
           <li
             key={item.name}
-            onClick={() => setActive(item.name)}
+            onClick={() => {
+              setActive(item.name);
+              navigate(item.path);
+            }}
             className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-all ${
               active === item.name
                 ? "bg-blue-100 text-blue-600"
@@ -54,7 +51,10 @@ const SidebarEmployer = () => {
       </ul>
       <div className="border-t mt-4 pt-4">
         <li
-          onClick={() => setActive("Log-out")}
+          onClick={() => {
+            setActive("Log-out");
+            navigate("/logout");
+          }}
           className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-all ${
             active === "Log-out"
               ? "bg-blue-100 text-blue-600"

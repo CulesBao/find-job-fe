@@ -2,7 +2,6 @@ import EmployerSettingHeader from "../../components/form/profile/EmployerSetting
 import { Outlet } from "react-router-dom";
 import { Business, Photo, Settings } from "@mui/icons-material";
 import PublicIcon from "@mui/icons-material/Public";
-import Navigation from "@/components/layout/Navigation";
 
 const tabData = [
   { label: "Company Logo", icon: <Photo />, path: "logo" },
@@ -13,16 +12,13 @@ const tabData = [
 
 const EmployerSettingPage = () => {
   return (
-    <>
-    <Navigation />
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Setting</h1>
+    <div className="p-0 max-w-5xl">
+      <h1 className="text-2xl font-bold mb-4">Settings</h1>
       <EmployerSettingHeader tabData={tabData} basePath="/employer/settings"/>
       <div className="mt-6">
         <Outlet />
       </div>
     </div>
-    </>
   );
 };
 

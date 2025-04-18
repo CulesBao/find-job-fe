@@ -19,52 +19,57 @@ export default function App() {
       <SnackbarUtilsConfigurator />
       <AuthProvider>
         <ProfileProvider>
-          <MainLayout>
-            <Routes>
-              <Route path="/" element={<AuthPage/>} />
-              <Route path="/auth/*" element={<AuthRoutes />} />
-              <Route
-                path="/candidate/set-up/*"
-                element={
-                  <PrivateRoute>
-                    <CandidateCreateRoutes />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/candidate/settings/*"
-                element={
+          <Routes>
+            <Route path="/" element={<AuthPage />} />
+            <Route path="/auth/*" element={<AuthRoutes />} />
+            <Route
+              path="/candidate/set-up/*"
+              element={
+                <PrivateRoute>
+                  <CandidateCreateRoutes />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/employer/set-up/*"
+              element={
+                <PrivateRoute>
+                  <EmployerCreateRoutes />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/candidate/settings/*"
+              element={
+                <MainLayout>
                   <PrivateRoute>
                     <CandidateProfileSettingRoutes />
                   </PrivateRoute>
-                }
-              />
-              <Route
-                path="/employer/settings/*"
-                element={
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/employer/settings/*"
+              element={
+                <MainLayout>
                   <PrivateRoute>
                     <EmployerSettingRoutes />
                   </PrivateRoute>
-                }
-              />
-              <Route
-                path="/employer/set-up/*"
-                element={
-                  <PrivateRoute>
-                    <EmployerCreateRoutes />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/congrats"
-                element={
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/congrats"
+              element={
+                <MainLayout>
                   <PrivateRoute>
                     <SaveProfileCongrats />
                   </PrivateRoute>
-                }
-              />
-            </Routes>
-          </MainLayout>
+                </MainLayout>
+              }
+            />
+          </Routes>
         </ProfileProvider>
       </AuthProvider>
     </SnackbarProvider>

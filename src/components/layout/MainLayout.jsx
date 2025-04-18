@@ -1,24 +1,14 @@
-import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
+import Navigation from "./Navigation";
 import SidebarCandidate from "./SidebarCadidate";
 import SidebarEmployer from "./SidebarEmployer";
+import { useLocation } from "react-router-dom";
 
 export default function MainLayout({ children }) {
   const location = useLocation();
 
-  const hideNavbarPaths = [
-    "/auth",
-    "/candidate/set-up",
-    "/employer/set-up",
-  ];
-
-  const shouldHideNavbar = hideNavbarPaths.some((path) =>
-    location.pathname.startsWith(path)
-  );
-
-  const isCandidatePage = location.pathname.startsWith("/candidate/") &&
+  const isCandidatePage = location.pathname.startsWith("/candidate/") && 
                           !location.pathname.includes("set-up");
-
   const isEmployerPage = location.pathname.startsWith("/employer/") &&
                           !location.pathname.includes("set-up");
 
@@ -26,15 +16,15 @@ export default function MainLayout({ children }) {
 
   return (
     <>
-      {!shouldHideNavbar && <Navbar />}
+      <Navbar />
+      <Navigation />
       <div className="flex">
-  {isCandidatePage && <SidebarCandidate />}
-  {isEmployerPage && <SidebarEmployer />}
-  <main className={`p-4 ${hasSidebar ? "" : ""} flex-1`}>
-    {children}
-  </main>
-</div>
-
+        {isCandidatePage && <SidebarCandidate />}
+        {isEmployerPage && <SidebarEmployer />}
+        <main className={`p-4 ${hasSidebar ? "relative left-50 max-w-[60%]" : ""} flex-1`}>
+          {children}
+        </main>
+      </div>
     </>
   );
 }
