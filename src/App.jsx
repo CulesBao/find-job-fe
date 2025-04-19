@@ -26,6 +26,7 @@ import CandidateAppliedJobs from "./pages/CandidateAppliedJobs/CandidateAppliedJ
 import CandidateFavoriteJob from "./pages/CandidateFavoriteJob/CandidateFavoriteJob";
 import CandidateJobAlert from "./pages/CandidateJobAlert/CandidateJobAlert";
 import { ProfileProvider } from "./context/ProfileContext";
+import FilterJob from "./pages/FindJob/FilterJob";
 
 export default function App() {
   return (
@@ -48,22 +49,18 @@ export default function App() {
             <Route
               path="/candidate/set-up/*"
               element={
-                <PrivateRoute>
                   <RoleBasedRoute allowedRoles={["candidate"]}>
                     <CandidateCreateRoutes />
                   </RoleBasedRoute>
-                </PrivateRoute>
               }
             />
 
             <Route
               path="/employer/set-up/*"
               element={
-                <PrivateRoute>
                   <RoleBasedRoute allowedRoles={["employer"]}>
                     <EmployerCreateRoutes />
                   </RoleBasedRoute>
-                </PrivateRoute>
               }
             />
 
@@ -71,11 +68,9 @@ export default function App() {
               path="/candidate/dashboard/settings/*"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateProfileSettingRoutes />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -84,11 +79,9 @@ export default function App() {
               path="/employer/dashboard/settings/*"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerSettingRoutes />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -96,51 +89,41 @@ export default function App() {
             <Route
               path="/congrats"
               element={
-                <PrivateRoute>
                   <SaveProfileCongrats />
-                </PrivateRoute>
               }
             />
 
             <Route
               path="/dashboard"
               element={
-                <PrivateRoute>
                   <DashboardRedirect />
-                </PrivateRoute>
               }
             />
 
             <Route
               path="/employer/dashboard/*"
               element={
-                <PrivateRoute>
                   <RoleBasedRoute allowedRoles={["employer"]}>
                     <DashboardRedirect />
                   </RoleBasedRoute>
-                </PrivateRoute>
               }
             />
 
             <Route
               path="/candidate/dashboard/*"
               element={
-                <PrivateRoute>
                   <RoleBasedRoute allowedRoles={["candidate"]}>
                     <DashboardRedirect />
                   </RoleBasedRoute>
-                </PrivateRoute>
               }
             />
 
             <Route
               path="/admin/dashboard/*"
               element={
-                <PrivateRoute>
                   <RoleBasedRoute allowedRoles={["admin"]}>
                     <DashboardRedirect />
                   </RoleBasedRoute>
-                </PrivateRoute>
               }
             />
 
@@ -149,11 +132,9 @@ export default function App() {
               path="employer/dashboard/my-job"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerMyJobs />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -161,11 +142,9 @@ export default function App() {
               path="employer/dashboard/post-job"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerPostJob />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -173,11 +152,9 @@ export default function App() {
               path="employer/dashboard/saved-candidate"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["employer"]}>
                       <EmployerSavedCdd />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -185,11 +162,9 @@ export default function App() {
               path="candidate/dashboard/applied-jobs"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateAppliedJobs />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -197,11 +172,9 @@ export default function App() {
               path="candidate/dashboard/favorite-jobs"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateFavoriteJob />
                     </RoleBasedRoute>
-                  </PrivateRoute>
                 </MainLayout>
               }
             />
@@ -209,11 +182,20 @@ export default function App() {
               path="candidate/dashboard/job-alert"
               element={
                 <MainLayout>
-                  <PrivateRoute>
                     <RoleBasedRoute allowedRoles={["candidate"]}>
                       <CandidateJobAlert />
                     </RoleBasedRoute>
-                  </PrivateRoute>
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="employer/find-job"
+              element={
+                <MainLayout>
+                    <RoleBasedRoute allowedRoles={["employer"]}>
+                      <FilterJob />
+                    </RoleBasedRoute>
                 </MainLayout>
               }
             />
