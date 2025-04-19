@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Stack, TextField, MenuItem, Button } from "@mui/material";
+import { Stack, TextField, MenuItem, Button, FormControl, Select, InputLabel } from "@mui/material";
 import Education from "@/constants/Education";
 import SalaryType from "@/constants/SalaryType";
 import JobType from "@/constants/JobType";
 import { getAllProvinces } from "@/services/addressService";
+import { AttachMoneyOutlined, LocationOnOutlined, SchoolOutlined, WorkOutline } from "@mui/icons-material";
 
 const FilterJob = () => {
   const [filters, setFilters] = useState({
@@ -56,7 +57,7 @@ const FilterJob = () => {
         <TextField
           label="Job Title"
           placeholder="Job Title, Keyword..."
-          variant="outlined"
+          variant="standard"
           value={filters.jobTitle}
           onChange={handleChange("jobTitle")}
           fullWidth
@@ -65,65 +66,121 @@ const FilterJob = () => {
           }
         />
 
-        <TextField
-          select
-          label="Province"
-          value={filters.province}
-          onChange={handleChange("province_code")}
-          fullWidth
-          sx={{ minWidth: "200px" }}
-        >
-          {provinceList.map((p) => (
-            <MenuItem key={p.code} value={p.code}>
-              {p.full_name_en}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl fullWidth sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
+          <InputLabel 
+            id="province-label"
+            sx={{
+              transform: filters.province ? undefined : "translate(50px, 18px) scale(1)",
+              "&.Mui-focused, &.MuiFormLabel-filled": {
+                transform: "translate(14px, -9px) scale(0.75)"
+              }
+            }}
+          >
+            Province
+          </InputLabel>
+          <Select
+            labelId="province-label"
+            value={filters.province}
+            onChange={handleChange("province_code")}
+            label="Province"
+            startAdornment={
+                <LocationOnOutlined color="action" />
+            }
+          >
+            {provinceList.map((p) => (
+              <MenuItem key={p.code} value={p.code}>
+                {p.full_name_en}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-        <TextField
-          select
-          label="Job Type"
-          value={filters.jobType}
-          onChange={handleChange("jobType")}
-          fullWidth
-          sx={{ minWidth: "200px" }}
-        >
-          {Object.values(JobType).map((opt) => (
-            <MenuItem key={opt.upperCaseName} value={opt.upperCaseName}>
-              {opt.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl fullWidth sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
+          <InputLabel 
+            id="jobType-label"
+            sx={{
+              transform: filters.jobType ? undefined : "translate(50px, 18px) scale(1)",
+              "&.Mui-focused, &.MuiFormLabel-filled": {
+                transform: "translate(16px, -9px) scale(0.75)"
+              }
+            }}
+          >
+            Job Type
+          </InputLabel>
+          <Select
+            labelId="jobType-label"
+            value={filters.jobType}
+            onChange={handleChange("jobType")}
+            label="Job Type"
+            startAdornment={
+              <WorkOutline color="action" sx={{ mr: 1 }} />
+            }
+          >
+            {Object.values(JobType).map((opt) => (
+              <MenuItem key={opt.upperCaseName} value={opt.upperCaseName}>
+                {opt.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-        <TextField
-          select
-          label="Education"
-          value={filters.education}
-          onChange={handleChange("education")}
-          fullWidth
-          sx={{ minWidth: "200px" }}
-        >
-          {Object.values(Education).map((opt) => (
-            <MenuItem key={opt.upperCaseName} value={opt.upperCaseName}>
-              {opt.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl fullWidth sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
+          <InputLabel 
+            id="education-label"
+            sx={{
+              transform: filters.education ? undefined : "translate(50px, 18px) scale(1)",
+              "&.Mui-focused, &.MuiFormLabel-filled": {
+                transform: "translate(14px, -9px) scale(0.75)"
+              }
+            }}
+          >
+            Education
+          </InputLabel>
+          <Select
+            labelId="education-label"
+            value={filters.education}
+            onChange={handleChange("education")}
+            label="Education"
+            startAdornment={
+              <SchoolOutlined color="action" sx={{ mr: 1 }} />
+            }
+          >
+            {Object.values(Education).map((opt) => (
+              <MenuItem key={opt.upperCaseName} value={opt.upperCaseName}>
+                {opt.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-        <TextField
-          select
-          label="Salary Type"
-          value={filters.salaryType}
-          onChange={handleChange("salaryType")}
-          fullWidth
-          sx={{ minWidth: "200px" }}
-        >
-          {Object.values(SalaryType).map((opt) => (
-            <MenuItem key={opt.upperCaseName} value={opt.upperCaseName}>
-              {opt.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl fullWidth sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
+          <InputLabel 
+            id="salaryType-label"
+            sx={{
+              transform: filters.salaryType ? undefined : "translate(50px, 18px) scale(1)",
+              "&.Mui-focused, &.MuiFormLabel-filled": {
+                transform: "translate(14px, -9px) scale(0.75)"
+              }
+            }}
+          >
+            Salary Type
+          </InputLabel>
+          <Select
+            labelId="salaryType-label"
+            value={filters.salaryType}
+            onChange={handleChange("salaryType")}
+            label="Salary Type"
+            startAdornment={
+              <AttachMoneyOutlined color="action" sx={{ mr: 1 }} />
+            }
+          >
+            {Object.values(SalaryType).map((opt) => (
+              <MenuItem key={opt.upperCaseName} value={opt.upperCaseName}>
+                {opt.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
         <Button
           variant="contained"
@@ -135,7 +192,7 @@ const FilterJob = () => {
             "&:hover": {
               bgcolor: "#1565c0",
             },
-            width: "200px",
+            minWidth: "120px",
           }}
           onClick={handleApply}
         >
