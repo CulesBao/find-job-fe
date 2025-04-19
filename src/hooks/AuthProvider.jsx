@@ -13,9 +13,6 @@ export const AuthProvider = ({ children }) => {
     } else {
       localStorage.removeItem("user");
     }
-    return () => {
-      localStorage.removeItem("user");
-    };
   }, [user]);
   const login = (user) => {
     localStorage.setItem("user", JSON.stringify(user));

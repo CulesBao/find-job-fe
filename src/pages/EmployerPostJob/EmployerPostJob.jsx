@@ -42,25 +42,24 @@ const EmployerPostJob = () => {
     min_salary = handleSalaryUnitChange(min_salary);
     max_salary = handleSalaryUnitChange(max_salary);
     salary_unit = handleSalaryUnitChange(salary_unit);
-  
+
     const newData = {
       ...rest,
       min_salary,
       max_salary,
       salary_unit,
     };
-  
+
     try {
       const res = await createJob(newData);
-      if (res.status === 201){
-      navigate("/employer/dashboard/my-jobs");
+      if (res.status === 201) {
+        navigate("dashboard/my-jobs");
       }
     } catch (error) {
       console.error("Error creating job:", error);
-    } 
+    }
   };
-  
-  
+
   const handleMinMaxSalaryChange = (key) => (event) => {
     const value = parseFloat(event.target.value) || 0;
     setFormData((prev) => ({
