@@ -53,7 +53,7 @@ const EmployerPostJob = () => {
     try {
       const res = await createJob(newData);
       if (res.status === 201) {
-        navigate("dashboard/my-jobs");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error creating job:", error);

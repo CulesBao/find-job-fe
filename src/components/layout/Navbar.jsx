@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Box, Typography, useTheme } from "@mui/material";
 import { Phone } from "@mui/icons-material";
 
@@ -11,12 +10,13 @@ const menus = [
 ];
 
 const Navbar = () => {
-  const [selectedMenu, setSelectedMenu] = useState("Dashboard");
-  const theme = useTheme();
+  const location = useLocation();
   const navigate = useNavigate();
+  const theme = useTheme();
+
+  const currentMenu = menus.find((menu) => location.pathname.startsWith(menu.path)) || menus[0];
 
   const handleMenuClick = (menu) => {
-    setSelectedMenu(menu.label);
     navigate(menu.path);
   };
 
@@ -54,36 +54,43 @@ const Navbar = () => {
         >
           {menus.map((menu) => (
             <Typography
-              key={menu.label}
-              variant="caption"
-              onClick={() => handleMenuClick(menu)}
-              sx={{
-                cursor: "pointer",
-                position: "relative",
-                color:
-                  selectedMenu === menu.label
-                    ? theme.palette.primary.main
-                    : "#666",
-                fontWeight: selectedMenu === menu.label ? 600 : 400,
-                transition: "color 0.2s ease-in-out",
-                "&::after": {
-                  content: '""',
-                  display: selectedMenu === menu.label ? "block" : "none",
-                  position: "absolute",
-                  bottom: -4,
-                  left: 0,
-                  width: "100%",
-                  height: 2,
-                  backgroundColor: theme.palette.primary.main,
-                  borderRadius: 1,
-                },
-                "&:hover": {
-                  color: theme.palette.primary.main,
-                },
-              }}
-            >
-              {menu.label}
-            </Typography>
+            key={menu.label}
+            variant="caption"
+            onClick={() => handleMenuClick(menu)}
+            sx={{
+              cursor: "pointer",
+              position: "relative",
+              color:
+                currentMenu.label === menu.label
+                  ? theme.palette.primary.main
+                  : "#666",
+              fontWeight: currentMenu.label === menu.label ? 600 : 400,
+              transition: "color 0.2s ease-in-out",
+              "&::after": {
+                content: '""',
+                position: "absolute",
+                bottom: -4,
+                left: 0,
+                width: "100%",
+                height: 2,
+                backgroundColor: theme.palette.primary.main,
+                borderRadius: 1,
+                transform: currentMenu.label === menu.label
+                  ? "scaleX(1)"
+                  : "scaleX(0)",
+                transformOrigin: "left",
+                transition: "transform 0.3s ease-in-out",
+              },
+              "&:hover::after": {
+                transform: "scaleX(1)",
+              },
+              "&:hover": {
+                color: theme.palette.primary.main,
+              },
+            }}
+          >
+            {menu.label}
+          </Typography>
           ))}
         </Box>
 
