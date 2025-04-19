@@ -24,7 +24,10 @@ const ChangeImageForm = ({ fn }) => {
   };
 
   useEffect(() => {
-    if (image) {
+    if (typeof image === "string") {
+      setPreview(image);
+      return;
+    } else if (image) {
       const objectUrl = URL.createObjectURL(image);
       setPreview(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
