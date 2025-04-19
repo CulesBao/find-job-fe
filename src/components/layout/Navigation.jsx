@@ -1,6 +1,21 @@
-import  { useEffect, useState } from "react";
-import { AppBar, Toolbar, Box, IconButton, Avatar, Menu, MenuItem, Divider, ListItemIcon } from "@mui/material";
-import { Dashboard, ExitToApp, Notifications, Settings } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Divider,
+  ListItemIcon,
+} from "@mui/material";
+import {
+  Dashboard,
+  ExitToApp,
+  Notifications,
+  Settings,
+} from "@mui/icons-material";
 import Logo from "../layout/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -34,12 +49,12 @@ const Navigation = () => {
   const handleLogout = () => {
     logout();
     navigate("/auth/login", { replace: true });
-  }
+  };
 
   const handleNavigate = (path) => {
-    handleMenuClose(); 
+    handleMenuClose();
     navigate(path);
-  }
+  };
 
   return (
     <AppBar
@@ -110,18 +125,15 @@ const Navigation = () => {
             transformOrigin={{ vertical: "top", horizontal: "right" }}
             PaperProps={{
               elevation: 3,
-              sx: { borderRadius: 2, minWidth: 200 }
+              sx: { borderRadius: 2, minWidth: 200 },
             }}
           >
             <Box sx={{ p: 2, display: "flex", alignItems: "center", gap: 1 }}>
-              <Avatar
-                src={avatar}
-                sx={{ width: 40, height: 40 }}
-              />
+              <Avatar src={avatar} sx={{ width: 40, height: 40 }} />
               <Box>
                 <Box sx={{ fontWeight: 600 }}>
                   {user.role === "CANDIDATE"
-                    ? user.candidate_profile.name
+                    ? `${user.candidate_profile.first_name} ${user.candidate_profile.last_name}`
                     : user.role === "EMPLOYER"
                     ? user.employer_profile.name
                     : "Unknown User"}
@@ -132,14 +144,14 @@ const Navigation = () => {
             </Box>
 
             <Divider />
-            <MenuItem onClick={() => handleNavigate(`/${user.role.toLowerCase()}/dashboard`)}>
+            <MenuItem onClick={() => handleNavigate(`/dashboard`)}>
               <ListItemIcon>
                 <Dashboard fontSize="small" />
               </ListItemIcon>
               Dashboard
             </MenuItem>
 
-            <MenuItem onClick={() => handleNavigate(`/${user.role.toLowerCase()}/dashboard/settings`)}>
+            <MenuItem onClick={() => handleNavigate(`/dashboard/settings`)}>
               <ListItemIcon>
                 <Settings fontSize="small" />
               </ListItemIcon>

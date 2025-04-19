@@ -1,49 +1,82 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import WorkIcon from "@mui/icons-material/Work";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import SaveIcon from "@mui/icons-material/Save";
 import { useAuth } from "@/hooks/useAuth";
 
-const SidebarCandidate = () => {
-  const [active, setActive] = useState("Applied Jobs");
-  const { logout } = useAuth();
+const DashboardSidebar = () => {
+  const [active, setActive] = useState("");
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const menu = [
+  const basePath = "/dashboard";
+
+  const candidateMenu = [
     {
       name: "Applied Jobs",
       icon: <WorkIcon fontSize="small" />,
-      path: "/candidate/dashboard/applied-jobs",
+      path: `${basePath}/applied-jobs`,
     },
     {
       name: "Favorite Jobs",
       icon: <FavoriteIcon fontSize="small" />,
-      path: "/candidate/dashboard/favorite-jobs",
+      path: `${basePath}/favorite-jobs`,
     },
     {
       name: "Job Alert",
       icon: <NotificationsIcon fontSize="small" />,
-      path: "/candidate/dashboard/job-alert",
+      path: `${basePath}/job-alert`,
       badge: 0,
     },
     {
       name: "Settings",
       icon: <SettingsIcon fontSize="small" />,
-      path: "/candidate/dashboard/settings",
+      path: `${basePath}/settings`,
     },
   ];
 
+  const employerMenu = [
+    {
+      name: "My Jobs",
+      icon: <WorkIcon fontSize="small" />,
+      path: `${basePath}/my-job`,
+    },
+    {
+      name: "Post Job",
+      icon: <PostAddIcon fontSize="small" />,
+      path: `${basePath}/post-job`,
+    },
+    {
+      name: "Saved Candidates",
+      icon: <SaveIcon fontSize="small" />,
+      path: `${basePath}/saved-candidate`,
+    },
+    {
+      name: "Settings",
+      icon: <SettingsIcon fontSize="small" />,
+      path: `${basePath}/settings`,
+    },
+  ];
+
+  const menu =
+    user?.role === "CANDIDATE"
+      ? candidateMenu
+      : user?.role === "EMPLOYER"
+      ? employerMenu
+      : [];
+
   useEffect(() => {
-    const currentItem = menu.find((item) =>
-      location.pathname.startsWith(item.path)
-    );
+    const currentItem = menu.find((item) => location.pathname === item.path);
     if (currentItem) {
       setActive(currentItem.name);
     }
-  }, [location.pathname]);
+  }, [location.pathname, menu]);
 
   const handleLogout = () => {
     logout();
@@ -53,7 +86,9 @@ const SidebarCandidate = () => {
   return (
     <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-85 relative left-1/10 top-20">
       <div className="mb-6 font-semibold text-gray-500 uppercase text-xs">
-        Candidate Dashboard
+        {user?.role === "CANDIDATE"
+          ? "Candidate Dashboard"
+          : "Employer Dashboard"}
       </div>
       <ul className="space-y-1">
         {menu.map((item) => (
@@ -115,4 +150,4 @@ const SidebarCandidate = () => {
   );
 };
 
-export default SidebarCandidate;
+export default DashboardSidebar;

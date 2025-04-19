@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { Box, TextField, Button, Select, MenuItem, Stack, FormControl, InputLabel } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  Stack,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import {
   getAllProvinces,
   getDistrictsByProvinceId,
@@ -65,8 +74,6 @@ const BasicEmployerInfoForm = ({ fn }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", basicEmployerProfile);
-    // Add API call or form submission logic here
   };
 
   return (
@@ -77,15 +84,14 @@ const BasicEmployerInfoForm = ({ fn }) => {
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        maxWidth: "100%", // Chiều rộng tối đa là 100% của trang
-        margin: "20px auto", // Thay padding bằng margin
+        maxWidth: "100%",
+        margin: "20px auto",
         backgroundColor: "#fff",
         borderRadius: 2,
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Stack spacing={2.25}>
-        {/* Name and Established In */}
         <Stack direction="row" spacing={2.25} width="100%">
           <TextField
             label="Name"
@@ -105,7 +111,6 @@ const BasicEmployerInfoForm = ({ fn }) => {
           />
         </Stack>
 
-        {/* Website URL and Location */}
         <Stack direction="row" spacing={2.25} width="100%">
           <TextField
             label="Website URL"
@@ -115,16 +120,8 @@ const BasicEmployerInfoForm = ({ fn }) => {
             inputProps={{ maxLength: 255 }}
             fullWidth
           />
-          <TextField
-            label="Location"
-            value={basicEmployerProfile.location}
-            onChange={handleChange("location")}
-            required
-            fullWidth
-          />
         </Stack>
 
-        {/* Province and District */}
         <Stack direction="row" spacing={2.25} width="100%">
           <FormControl fullWidth required>
             <InputLabel id="province-label">City/Province</InputLabel>
@@ -158,30 +155,27 @@ const BasicEmployerInfoForm = ({ fn }) => {
           </FormControl>
         </Stack>
 
-        {/* About */}
         <TextField
           label="About"
           value={basicEmployerProfile.about}
           onChange={handleChange("about")}
           multiline
-          rows={8} // Tăng số dòng để làm cho trường lớn hơn
+          rows={8}
           inputProps={{ minLength: 50, maxLength: 500 }}
           fullWidth
         />
 
-        {/* Vision */}
         <TextField
           label="Vision"
           value={basicEmployerProfile.vision}
           onChange={handleChange("vision")}
           multiline
-          rows={8} // Tăng số dòng để làm cho trường lớn hơn
+          rows={8}
           inputProps={{ minLength: 50, maxLength: 500 }}
           fullWidth
         />
       </Stack>
 
-      {/* Submit Button */}
       <Button
         type="submit"
         variant="contained"

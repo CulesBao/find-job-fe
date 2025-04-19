@@ -6,7 +6,8 @@ export default async (apiFunction) => {
     if (
       !(
         response.data.message == "Get provices successfully" ||
-        response.data.message == "Get districts successfully"
+        response.data.message == "Get districts successfully" ||
+        response.data.message == "Get my account successfully"
       )
     )
       snackbar.success(response.data.message || "Success!");

@@ -34,7 +34,6 @@ export const ProfileProvider = ({ children }) => {
     website_url: "",
     province_code: "",
     district_code: "",
-    location: "",
   });
 
   const [image, setImage] = useState(null);
@@ -80,7 +79,6 @@ export const ProfileProvider = ({ children }) => {
           []
       );
     } else {
-      // Reset profiles when user logs out
       setBasicCandidateProfile({
         bio: "",
         date_of_birth: "",
