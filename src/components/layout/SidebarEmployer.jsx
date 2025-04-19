@@ -5,32 +5,48 @@ import WorkIcon from "@mui/icons-material/Work";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuth } from "@/hooks/useAuth";
 
 const SidebarEmployer = () => {
   const [active, setActive] = useState("My Jobs");
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const menu = [
-    { name: "Post a Job", icon: <PostAddIcon fontSize="small" />, path: "/employer/dashboard/post-job" },
-    { name: "My Jobs", icon: <WorkIcon fontSize="small" />, path: "/employer/dashboard/my-jobs" },
-    { name: "Saved Candidate", icon: <BookmarkIcon fontSize="small" />, path: "/employer/dashboard/saved-candidate" },
-    { name: "Settings", icon: <SettingsIcon fontSize="small" />, path: "/employer/dashboard/settings" },
+    {
+      name: "Post a Job",
+      icon: <PostAddIcon fontSize="small" />,
+      path: "/employer/dashboard/post-job",
+    },
+    {
+      name: "My Jobs",
+      icon: <WorkIcon fontSize="small" />,
+      path: "/employer/dashboard/my-jobs",
+    },
+    {
+      name: "Saved Candidate",
+      icon: <BookmarkIcon fontSize="small" />,
+      path: "/employer/dashboard/saved-candidate",
+    },
+    {
+      name: "Settings",
+      icon: <SettingsIcon fontSize="small" />,
+      path: "/employer/dashboard/settings",
+    },
   ];
 
   useEffect(() => {
-    const currentItem = menu.find(item => location.pathname.startsWith(item.path));
+    const currentItem = menu.find((item) =>
+      location.pathname.startsWith(item.path)
+    );
     if (currentItem) {
       setActive(currentItem.name);
     }
   }, [location.pathname]);
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
-      navigate("/auth/login", { replace: true });
-    }
+    logout();
+    navigate("/auth/login", { replace: true });
   };
 
   return (

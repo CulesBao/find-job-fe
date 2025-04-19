@@ -5,32 +5,49 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuth } from "@/hooks/useAuth";
 
 const SidebarCandidate = () => {
   const [active, setActive] = useState("Applied Jobs");
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const menu = [
-    { name: "Applied Jobs", icon: <WorkIcon fontSize="small" />, path: "/candidate/dashboard/applied-jobs" },
-    { name: "Favorite Jobs", icon: <FavoriteIcon fontSize="small" />, path: "/candidate/dashboard/favorite-jobs" },
-    { name: "Job Alert", icon: <NotificationsIcon fontSize="small" />, path: "/candidate/dashboard/job-alert", badge: 0 },
-    { name: "Settings", icon: <SettingsIcon fontSize="small" />, path: "/candidate/dashboard/settings" },
+    {
+      name: "Applied Jobs",
+      icon: <WorkIcon fontSize="small" />,
+      path: "/candidate/dashboard/applied-jobs",
+    },
+    {
+      name: "Favorite Jobs",
+      icon: <FavoriteIcon fontSize="small" />,
+      path: "/candidate/dashboard/favorite-jobs",
+    },
+    {
+      name: "Job Alert",
+      icon: <NotificationsIcon fontSize="small" />,
+      path: "/candidate/dashboard/job-alert",
+      badge: 0,
+    },
+    {
+      name: "Settings",
+      icon: <SettingsIcon fontSize="small" />,
+      path: "/candidate/dashboard/settings",
+    },
   ];
 
   useEffect(() => {
-      const currentItem = menu.find(item => location.pathname.startsWith(item.path));
-      if (currentItem) {
-        setActive(currentItem.name);
-      }
-    }, [location.pathname]);
+    const currentItem = menu.find((item) =>
+      location.pathname.startsWith(item.path)
+    );
+    if (currentItem) {
+      setActive(currentItem.name);
+    }
+  }, [location.pathname]);
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
-      navigate("/auth/login", { replace: true });
-    }
+    logout();
+    navigate("/auth/login", { replace: true });
   };
 
   return (
