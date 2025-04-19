@@ -8,18 +8,20 @@ const DashboardRedirect = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const role = user?.role?.toLowerCase();
     if (role === "admin") {
-      navigate("/admin/dashboard", { replace: true });
+      navigate("", { replace: true });
       return;
     }
     if (role === "employer") {
-      navigate("/employer/dashboard/my-job", { replace: true });
+      navigate("my-job", { replace: true });
       return;
     }
     if (role === "candidate") {
-      navigate("/candidate/dashboard/applied-jobs", { replace: true });
+      navigate("applied-jobs", { replace: true });
       return;
     }
-}, [navigate]);
+
+    navigate("/auth/login", { replace: true });
+  }, [navigate]);
 
   return null;
 };

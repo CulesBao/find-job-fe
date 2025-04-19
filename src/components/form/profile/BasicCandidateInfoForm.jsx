@@ -7,8 +7,10 @@ import {
 } from "@/services/addressService";
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const BaiscCandidateInfoForm = ({ fn }) => {
+  const { updateUser } = useAuth();
   const { basicCandidateProfile, setBasicCandidateProfile } =
     useProfileContext();
 
@@ -62,11 +64,10 @@ const BaiscCandidateInfoForm = ({ fn }) => {
   };
   const onSubmit = async () => {
     try {
-      await fn(basicCandidateProfile);
-      setBasicCandidateProfile((prev) => ({
-        ...prev,
-        ...basicCandidateProfile,
-      }));
+      const response = await fn(basicCandidateProfile);
+      if (response.status === 200) {
+        updateUser();
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -192,11 +193,11 @@ const BaiscCandidateInfoForm = ({ fn }) => {
               borderRadius: "5px",
             }}
           />
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             onClick={onSubmit}
             className="w-[50%] h-15 self-center text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200"
-            >
+          >
             Save Changes
           </Button>
         </Stack>

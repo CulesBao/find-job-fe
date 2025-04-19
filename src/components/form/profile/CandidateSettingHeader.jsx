@@ -3,12 +3,11 @@ import { Box, Divider, Tab, Tabs } from "@mui/material";
 
 const CandidateSettingHeader = ({ tabData, basePath }) => {
   const location = useLocation();
-  const pathSegment = location.pathname.split("/").pop();
+
+  const pathSegment = location.pathname.replace(`${basePath}/`, "");
   const currentTab = tabData.findIndex((tab) => tab.path === pathSegment);
-  const selectedTab =
-    currentTab === -1
-      ? tabData.findIndex((tab) => tab.path === "profile")
-      : currentTab;
+
+  const selectedTab = currentTab === -1 ? 0 : currentTab;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -35,8 +34,8 @@ const CandidateSettingHeader = ({ tabData, basePath }) => {
               sx={{
                 textTransform: "none",
                 minHeight: 48,
-                color: index === currentTab ? "#0a65cc" : "text.secondary",
-                fontWeight: index === currentTab ? 600 : 500,
+                color: index === selectedTab ? "#0a65cc" : "text.secondary",
+                fontWeight: index === selectedTab ? 600 : 500,
                 "&.Mui-selected": {
                   color: "#0a65cc",
                   backgroundColor: "rgba(245, 245, 245, 1)",

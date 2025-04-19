@@ -19,7 +19,7 @@ const CandidateSettingPage = () => {
         <h1 className="text-2xl font-bold mb-4">Setting</h1>
         <CandidateSettingHeader
           tabData={tabData}
-          basePath="/candidate/dashboard/settings"
+          basePath="/dashboard/settings"
         />
         <div className="mt-6">
           <Outlet />

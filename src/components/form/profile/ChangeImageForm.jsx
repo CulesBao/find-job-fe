@@ -10,8 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useProfileContext } from "@/context/ProfileContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const ChangeImageForm = ({ fn }) => {
+  const { updateUser } = useAuth();
   const { image, setImage } = useProfileContext();
   const [preview, setPreview] = useState(image || null);
   const [loading, setLoading] = useState(false);
@@ -37,7 +39,10 @@ const ChangeImageForm = ({ fn }) => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      await fn(image);
+      const setImageResponse = await fn(image);
+      if (setImageResponse?.status === 200) {
+        await updateUser();
+      }
     } catch (err) {
       console.error(err);
       return;
