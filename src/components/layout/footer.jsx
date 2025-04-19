@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter, YouTube } from "@mui/icons-material";
 
 const Footer = () => {
   return (
-    <Box sx={{ backgroundColor: "#121212", color: "#fff", py: 4 }}>
+    <Box sx={{ backgroundColor: "#121212", color: "#fff", py: 4, mt: 10 }}>
       <Container>
         <Grid container spacing={3}>
           {/* Cột 1: Thông tin liên hệ */}
