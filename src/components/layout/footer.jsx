@@ -4,10 +4,9 @@ import { Facebook, Instagram, Twitter, YouTube } from "@mui/icons-material";
 
 const Footer = () => {
   return (
-    <Box sx={{ backgroundColor: "#121212", color: "#fff", py: 4 }}>
+    <Box sx={{ backgroundColor: "#121212", color: "#fff", py: 4, mt: 10 }}>
       <Container>
         <Grid container spacing={3}>
-          {/* Cột 1: Thông tin liên hệ */}
           <Grid item xs={12} md={3} sx={{ pr: 4 }}>
             <Typography
               variant="h6"
@@ -24,7 +23,6 @@ const Footer = () => {
             </Typography>
           </Grid>
 
-          {/* Cột 2: Quick Links */}
           <Grid item xs={12} md={2}>
             <Typography
               variant="h6"
@@ -82,7 +80,6 @@ const Footer = () => {
             </a>
           </Grid>
 
-          {/* Cột 3: Candidate */}
           <Grid item xs={12} md={2}>
             <Typography
               variant="h6"
@@ -140,7 +137,6 @@ const Footer = () => {
             </a>
           </Grid>
 
-          {/* Cột 4: Employers */}
           <Grid item xs={12} md={2}>
             <Typography
               variant="h6"
@@ -198,7 +194,6 @@ const Footer = () => {
             </a>
           </Grid>
 
-          {/* Cột 5: Support */}
           <Grid item xs={12} md={2} sx={{ pl: 4 }}>
             <Typography
               variant="h6"
@@ -245,7 +240,6 @@ const Footer = () => {
           </Grid>
         </Grid>
 
-        {/* Dòng dưới cùng: Bản quyền và mạng xã hội */}
         <Box sx={{ mt: 4, textAlign: "center" }}>
           <Typography variant="body2" sx={{ fontSize: "14px", mb: 2 }}>
             &copy; 2024 MyJob - Job Portal. All rights reserved.

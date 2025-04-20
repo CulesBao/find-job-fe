@@ -74,7 +74,7 @@ export const formatSalary = (minSalary, maxSalary, currency) => {
     if (number >= 1e6) return `${(number / 1e6).toFixed(1)}M`;
     if (number >= 1e3) return `${(number / 1e3).toFixed(1)}K`;
     if (number < 1e3) return number.toFixed(0);
-    return number.toString();
+    return number?.toString();
   };
 
   const formattedMinSalary = `${abbreviateNumber(minSalary)} ${

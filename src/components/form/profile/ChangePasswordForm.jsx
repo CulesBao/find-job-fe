@@ -41,7 +41,6 @@ const ChangePasswordForm = ({ fn }) => {
         onClick={async () => {
           try {
             await fn({
-              old_password: password.oldPassword,
               new_password: password.newPassword,
               confirm_password: password.confirmPassword,
             });

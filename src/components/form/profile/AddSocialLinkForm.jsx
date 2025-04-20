@@ -3,8 +3,10 @@ import AddIcon from "@mui/icons-material/Add";
 import SocialLinkRow from "../../layout/SocialLinkRow";
 import { useNavigate } from "react-router-dom";
 import { useProfileContext } from "@/context/ProfileContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const AddSocialLinkForm = ({ fn }) => {
+  const { updateUser } = useAuth();
   const navigate = useNavigate();
 
   const { socialLinks, setSocialLinks } = useProfileContext();
@@ -29,9 +31,11 @@ const AddSocialLinkForm = ({ fn }) => {
       const { id, ...rest } = item;
       return rest;
     });
-    await fn(social_links);
-    setSocialLinks(social_links);
-    navigate("/congrats");
+    const response = await fn(social_links);
+    if (response.status == 200) {
+      await updateUser();
+    }
+    // navigate("/congrats");
   };
 
   return (

@@ -18,7 +18,7 @@ export const updateSocialLinks = (social_links) => {
 };
 
 export const updateCandidateProfile = (data) =>
-  safeApiCall(() => axiosPrivate.put("/candidate-profile", data));
+  safeApiCall(() => axiosPrivate.put("/candidate-profile/", data));
 
 export const updateCandidateProfileAvatar = (file) => {
   const formData = new FormData();

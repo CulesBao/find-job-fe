@@ -1,30 +1,31 @@
+import { useAuth } from "@/hooks/useAuth";
 import Navbar from "./Navbar";
 import Navigation from "./Navigation";
-import SidebarCandidate from "./SidebarCadidate";
-import SidebarEmployer from "./SidebarEmployer";
-import { useLocation } from "react-router-dom";
+import DashboardSidebar from "./DashboardSidebar";
 
-export default function MainLayout({ children }) {
-  const location = useLocation();
-
-  const isCandidatePage = location.pathname.startsWith("/candidate/dashboard/") && 
-                          !location.pathname.includes("set-up");
-  const isEmployerPage = location.pathname.startsWith("/employer/dashboard/") &&
-                          !location.pathname.includes("set-up");
-
-  const hasSidebar = isCandidatePage || isEmployerPage;
+export default function MainLayout({ children, showSidebar = true }) {
+  const { user } = useAuth();
+  const hasSidebar = (user?.role === "CANDIDATE" || user?.role === "EMPLOYER") && showSidebar ;
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <Navigation />
-      <div className="flex">
-        {isCandidatePage && <SidebarCandidate />}
-        {isEmployerPage && <SidebarEmployer />}
-        <main className={`p-4 ${hasSidebar ? "relative left-50 max-w-[60%]" : ""} flex-1`}>
+
+      <div className="flex flex-1">
+        {hasSidebar && <DashboardSidebar />}
+
+        <main
+          className={`p-4 ${
+            hasSidebar
+              ? "relative left-50 max-w-[60%] min-h-screen"
+              : "min-h-screen max-w-[80%] mx-auto"
+          } flex-1`}
+        >
           {children}
         </main>
       </div>
-    </>
+
+    </div>
   );
 }

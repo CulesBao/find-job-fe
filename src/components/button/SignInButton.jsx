@@ -49,11 +49,7 @@ export default function SignInButton({ Account }) {
             : "/candidate/set-up";
         navigate(path, { replace: true });
       } else {
-        const path =
-          res.data.account_dto.role === "EMPLOYER"
-            ? "/employer/dashboard/my-jobs"
-            : "/candidate/dashboard/find-job";
-        navigate(path, { replace: true });
+        navigate("/dashboard", { replace: true });
       }
     } finally {
       setLoading(false);

@@ -4,16 +4,34 @@ import BasicCandidateInfoForm from "../../components/form/profile/BasicCandidate
 import AddSocialLink from "../../components/form/profile/AddSocialLinkForm";
 import ChangeImageForm from "../../components/form/profile/ChangeImageForm";
 import ChangePasswordForm from "../../components/form/profile/ChangePasswordForm";
+import {
+  updateCandidateProfile,
+  updateCandidateProfileAvatar,
+  updateSocialLinks,
+} from "@/services/candidateProfileService";
+import { resetPassword } from "@/services/accountService";
 
 function CandidateSettingRoutes() {
   return (
     <Routes>
       <Route path="/" element={<CandidateSettingLayout />}>
         <Route index element={<Navigate to="avatar" replace />} />
-        <Route path="profile" element={<BasicCandidateInfoForm />} />
-        <Route path="social" element={<AddSocialLink />} />
-        <Route path="avatar" element={<ChangeImageForm />} />
-        <Route path="change-password" element={<ChangePasswordForm />} />
+        <Route
+          path="avatar"
+          element={<ChangeImageForm fn={updateCandidateProfileAvatar} />}
+        />
+        <Route
+          path="profile"
+          element={<BasicCandidateInfoForm fn={updateCandidateProfile} />}
+        />
+        <Route
+          path="social"
+          element={<AddSocialLink fn={updateSocialLinks} />}
+        />
+        <Route
+          path="change-password"
+          element={<ChangePasswordForm fn={resetPassword} />}
+        />
       </Route>
     </Routes>
   );
