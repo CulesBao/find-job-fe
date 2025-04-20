@@ -25,7 +25,7 @@ export const getAllOwnerJobs = (page, size = 5) =>
       },
     });
   });
-export const getJobByFilter = (filterData, page, size = 1) =>
+export const getJobByFilter = (filterData, page, size = 5) =>
   safeApiCall(() => {
     return axiosPrivate.post(`/job/filter`, filterData, {
       params: {

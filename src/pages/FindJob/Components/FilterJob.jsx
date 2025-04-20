@@ -7,6 +7,7 @@ import {
   FormControl,
   Select,
   InputLabel,
+  Box,
 } from "@mui/material";
 import Education from "@/constants/Education";
 import SalaryType from "@/constants/SalaryType";
@@ -40,15 +41,26 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
   };
 
   const renderSelect = (id, label, value, onChange, options, icon) => (
-    <FormControl fullWidth>
+    <FormControl fullWidth variant="outlined" sx={{
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "none"
+      }
+    }}>
       <InputLabel id={`${id}-label`}>{label}</InputLabel>
       <Select
-        labelId={`${id}-label`}
-        id={id}
-        value={value}
-        onChange={onChange}
-        startAdornment={icon}
-      >
+  labelId={`${id}-label`}
+  id={id}
+  value={value}
+  onChange={onChange}
+  startAdornment={
+    <Box sx={{ mr: 1.5, display: "flex", alignItems: "center" }}>
+      {icon}
+    </Box>
+  }
+  sx={{
+    pl: 1
+  }}
+>
         {options}
       </Select>
     </FormControl>
@@ -58,8 +70,9 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onApply();
+        onApply(0);
       }}
+      className="mb-5"
     >
       <Stack
         direction={{ xs: "column", md: "row" }}
@@ -81,7 +94,6 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
           onChange={handleChange("title")}
           fullWidth
         />
-
         {renderSelect(
           "province-select",
           "Province",

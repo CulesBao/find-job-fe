@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Box, Typography, Alert } from "@mui/material";
 import Pagination from "./Components/Pagination";
 import { getJobByFilter } from "@/services/jobService";
-import FindJobListing from "./Components/FindJobListing";
 import FilterJob from "./Components/FilterJob";
+import JobRow from "./Components/JobRow";
+import handleFindJob from "@/utils/handleFindJob";
 
 function FindJobPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,17 +28,19 @@ function FindJobPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await getJobByFilter({
-        ...filters,
-        page,
-      });
-
+      const response = await getJobByFilter(
+        filters,
+        page || currentPage - 1,
+        10
+      );
       if (response?.data) {
-        setJobs(response.data.content || []);
+        setJobs(response.data?.content?.map((job) => handleFindJob(job)) || []);
         setTotalPages(response.data.total_pages || 1);
       } else {
         setJobs([]);
         setTotalPages(1);
+        setCurrentPage(1);
+        setError("No jobs found matching your criteria.");
       }
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -46,10 +49,8 @@ function FindJobPage() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    console.log("Fetching jobs for page:", currentPage);
-    fetchJobs(currentPage - 1);
+    fetchJobs();
   }, [currentPage]);
 
   return (
@@ -57,7 +58,7 @@ function FindJobPage() {
       <FilterJob
         filters={filters}
         onFilterChange={onFilterChange}
-        onApply={() => fetchJobs(1)}
+        onApply={fetchJobs}
       />
 
       {error && (
@@ -73,7 +74,7 @@ function FindJobPage() {
       ) : (
         <>
           {jobs.length > 0 ? (
-            jobs.map((job) => <FindJobListing key={job.id} job={job} />)
+            jobs.map((job) => <JobRow key={job.id} job={job} />)
           ) : (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography>No jobs found matching your criteria.</Typography>
