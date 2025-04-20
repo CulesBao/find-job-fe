@@ -6,16 +6,10 @@ import JobType from "@/constants/JobType";
 import { getAllProvinces } from "@/services/addressService";
 import { AttachMoneyOutlined, LocationOnOutlined, SchoolOutlined, WorkOutline } from "@mui/icons-material";
 
-const FilterJob = () => {
-  const [filters, setFilters] = useState({
-    jobTitle: "",
-    province: "", 
-    jobType: "",
-    education: "",
-    salaryType: "",
-  });
+// Modified to accept onApply prop
+const FilterJob = ({ filters, onFilterChange, onApply }) => {
   const [provinceList, setProvinceList] = useState([]);
-  
+
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
@@ -26,18 +20,17 @@ const FilterJob = () => {
       }
     };
     fetchProvinces();
-    return () => {
-      setProvinceList([]);
-    };
+    return () => setProvinceList([]);
   }, []);
-  
+
   const handleChange = (key) => (e) => {
-    setFilters((prev) => ({ ...prev, [key]: e.target.value }));
+    onFilterChange({ ...filters, [key]: e.target.value });
   };
-  
+
   const handleApply = (event) => {
-    if (event) event.preventDefault();
-    console.log("Applied filters:", filters);
+    event.preventDefault();
+    // Call the onApply prop instead of onFilterChange
+    onApply();
   };
 
   const EnhancedSelect = ({ label, value, onChange, options, icon, id }) => {
@@ -80,7 +73,7 @@ const FilterJob = () => {
     <div>
       <form onSubmit={handleApply}>
         <Stack
-          direction={{ xs: 'column', md: 'row' }}
+          direction={{ xs: "column", md: "row" }}
           spacing={2}
           sx={{
             bgcolor: "#fff",
@@ -163,9 +156,7 @@ const FilterJob = () => {
               fontSize: "0.9rem",
               fontWeight: "bold",
               bgcolor: "#1976d2",
-              "&:hover": {
-                bgcolor: "#1565c0",
-              },
+              "&:hover": { bgcolor: "#1565c0" },
               minWidth: "120px",
             }}
           >

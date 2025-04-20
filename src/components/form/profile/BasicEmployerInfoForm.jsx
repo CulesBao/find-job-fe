@@ -180,7 +180,7 @@ const BasicEmployerInfoForm = ({ fn }) => {
         type="submit"
         variant="contained"
         color="primary"
-        fullWidth
+        sx={{ width: "100%", height: 50, borderRadius: 2 }}
         onClick={async () => {
           try {
             await fn(basicEmployerProfile);

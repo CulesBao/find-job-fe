@@ -129,7 +129,7 @@ const EmployerPostJob = () => {
   ];
 
   return (
-    <>
+    <div className="pb-30">
       <h1 className="text-2xl font-bold mb-4">Post a Job</h1>
       <Box component="form" onSubmit={handleSubmit}>
         <Stack spacing={3}>
@@ -238,7 +238,7 @@ const EmployerPostJob = () => {
           Post Job
         </Button>
       </Box>
-    </>
+    </div>
   );
 };
 
