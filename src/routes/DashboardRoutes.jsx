@@ -10,6 +10,7 @@ import EmployerMyJobs from "@/pages/EmployerMyJobs/EmployerMyJobs";
 import EmployerPostJob from "@/pages/EmployerPostJob/EmployerPostJob";
 import EmployerSavedCdd from "@/pages/EmployerSavedCdd/EmployerSavedCdd";
 import EmployerSettingRoutes from "@/pages/EmployerSetting/EmployerSettingRoutes";
+import { createJob, updateJobById } from "@/services/jobService";
 import { Route, Routes } from "react-router-dom";
 
 export default function DashboardRoutes() {
@@ -27,8 +28,12 @@ export default function DashboardRoutes() {
     { path: "*", element: <DashboardRedirect /> },
     { path: "settings/*", element: <EmployerSettingRoutes /> },
     { path: "my-job", element: <EmployerMyJobs /> },
-    { path: "post-job", element: <EmployerPostJob /> },
+    { path: "post-job", element: <EmployerPostJob fn={createJob} /> },
     { path: "saved-candidate", element: <EmployerSavedCdd /> },
+    {
+      path: "edit-job/:jobId",
+      element: <EmployerPostJob fn={updateJobById} />,
+    },
   ];
 
   const routes =

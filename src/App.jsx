@@ -14,6 +14,7 @@ import RoleBasedRoute from "./hooks/RoleBasedRoute";
 import { ProfileProvider } from "./context/ProfileContext";
 import DashboardRoutes from "./routes/DashboardRoutes";
 import FindJobPage from "./pages/FindJob/FindJobPage";
+import { JobRoutes } from "./routes/JobRoutes";
 
 export default function App() {
   return (
@@ -67,6 +68,7 @@ export default function App() {
                 </MainLayout>
               }
             />
+            <Route path="/job/*" element={<JobRoutes />} />
           </Routes>
         </ProfileProvider>
       </AuthProvider>

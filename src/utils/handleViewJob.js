@@ -4,8 +4,8 @@ import { formatDate } from "./formatDate";
 export default function handleViewJob(job) {
   const { title, job_type, expired_at, ...rest } = job;
   const handleTitle = title
-    ? title.length > 50
-      ? title.slice(0, 50) + "..."
+    ? title.length > 20
+      ? title.slice(0, 20) + "..."
       : title
     : "Unknown";
 
