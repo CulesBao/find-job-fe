@@ -1,9 +1,16 @@
 import MainLayout from "@/components/layout/MainLayout";
 import ViewDetailJob from "@/pages/DetailJob/ViewDetailJob";
+import FindJobPage from "@/pages/FindJob/FindJobPage";
 import { Route, Routes } from "react-router-dom";
 
 export function JobRoutes() {
-  const jobRoutes = [{ path: "details/:jobId", element: <ViewDetailJob /> }];
+  const jobRoutes = [
+    { path: "details/:jobId", element: <ViewDetailJob /> },
+    {
+      path: "/",
+      element: <FindJobPage />,
+    },
+  ];
 
   return (
     <Routes>

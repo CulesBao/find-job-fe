@@ -2,85 +2,62 @@ import { useEffect, useState } from "react";
 import { Box, Typography, Alert } from "@mui/material";
 import Pagination from "./Components/Pagination";
 import { getJobByFilter } from "@/services/jobService";
-import handleViewJob from "@/utils/handleViewJob";
 import FindJobListing from "./Components/FindJobListing";
 import FilterJob from "./Components/FilterJob";
 
 function FindJobPage() {
-  const [activeDropdown, setActiveDropdown] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [jobs, setJobs] = useState([]);
   const [filters, setFilters] = useState({
-    jobTitle: "",
-    province: "",
-    jobType: "",
+    title: "",
+    province_code: "",
+    job_type: "",
     education: "",
-    salaryType: "",
+    salary_type: "",
   });
-  const [appliedFilters, setAppliedFilters] = useState(filters);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  function onPageChange(page) {
-    setCurrentPage(page);
-  }
+  const onPageChange = (page) => setCurrentPage(page);
 
-  function onFilterChange(newFilters) {
-    setFilters(newFilters);
-  }
+  const onFilterChange = (newFilters) => setFilters(newFilters);
 
-  function applyFilters() {
-    setAppliedFilters(filters);
-    setCurrentPage(1);
-  }
-
-  useEffect(() => {
-    const fetchJobs = async () => {
+  const fetchJobs = async (page) => {
+    try {
       setLoading(true);
       setError(null);
-      try {
-        const response = await getJobByFilter({
-          ...appliedFilters,
-          page: currentPage - 1,
-          size: 5,
-        });
+      const response = await getJobByFilter({
+        ...filters,
+        page,
+      });
 
-        if (response && response.data) {
-          setTotalPages(response.data.total_pages || 1);
-          
-          if (response.data.content && Array.isArray(response.data.content)) {
-            setJobs(response.data.content.map((job) => handleViewJob(job)));
-          } else {
-            console.warn("Response data content is missing or not an array:", response.data);
-            setJobs([]);
-          }
-        } else {
-          console.warn("Invalid response format:", response);
-          setJobs([]);
-          setTotalPages(1);
-        }
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
-        setError("Failed to load jobs. Please try again later.");
+      if (response?.data) {
+        setJobs(response.data.content || []);
+        setTotalPages(response.data.total_pages || 1);
+      } else {
         setJobs([]);
-      } finally {
-        setLoading(false);
+        setTotalPages(1);
       }
-    };
-    fetchJobs();
-  }, [appliedFilters, currentPage]);
-
-  const toggleDropdown = (index) => {
-    setActiveDropdown(activeDropdown === index ? null : index);
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      setError("Failed to fetch jobs. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    console.log("Fetching jobs for page:", currentPage);
+    fetchJobs(currentPage - 1);
+  }, [currentPage]);
 
   return (
     <Box width="100%">
-      <FilterJob 
-        filters={filters} 
-        onFilterChange={onFilterChange} 
-        onApply={applyFilters}
+      <FilterJob
+        filters={filters}
+        onFilterChange={onFilterChange}
+        onApply={() => fetchJobs(1)}
       />
 
       {error && (
@@ -95,16 +72,8 @@ function FindJobPage() {
         </Box>
       ) : (
         <>
-
           {jobs.length > 0 ? (
-            jobs.map((job, index) => (
-              <FindJobListing
-                key={job.id}
-                job={job}
-                isDropdownOpen={activeDropdown === index}
-                toggleDropdown={() => toggleDropdown(index)}
-              />
-            ))
+            jobs.map((job) => <FindJobListing key={job.id} job={job} />)
           ) : (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography>No jobs found matching your criteria.</Typography>
