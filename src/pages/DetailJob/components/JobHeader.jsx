@@ -1,9 +1,11 @@
 import { useAuth } from "@/hooks/useAuth";
-import { BookmarkBorder } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import ApplicationPopUp from "./ApplicationPopUp";
+import { useState } from "react";
 
 function JobHeader({ title, employerLogo, jobType, expiredAt }) {
   const { user } = useAuth();
+  const [openPopup, setOpenPopup] = useState(false);
+
   return (
     <section className="flex flex-wrap gap-6 justify-between items-center pr-10 py-6 w-full max-md:px-4 max-md:py-4">
       <div className="flex flex-wrap gap-4 items-center">
@@ -25,14 +27,12 @@ function JobHeader({ title, employerLogo, jobType, expiredAt }) {
       <div className="flex flex-col items-end">
         {user?.role == "CANDIDATE" && (
           <div className="flex items-center gap-2">
-            <Box sx={{ padding: 1.5, borderRadius: 1, backgroundColor: "#EEE" }}>
-              <BookmarkBorder 
-                sx={{ width: 30, height: 30, color: "primary.main" }}
-              />
-            </Box>
-          <button className="px-19 py-4 text-1xl font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
-            Apply Now →
-          </button>
+            <button
+              onClick={() => setOpenPopup(true)}
+              className="px-19 py-4 text-1xl font-medium text-white bg-blue-600 rounded hover:bg-blue-700"
+            >
+              Apply Now →
+            </button>
           </div>
         )}
         <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
@@ -40,6 +40,12 @@ function JobHeader({ title, employerLogo, jobType, expiredAt }) {
           <span className="font-medium text-red-500">{expiredAt}</span>
         </div>
       </div>
+
+      <ApplicationPopUp 
+        open={openPopup} 
+        onClose={() => setOpenPopup(false)} 
+        title={title} 
+      />
     </section>
   );
 }
