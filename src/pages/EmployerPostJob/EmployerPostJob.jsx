@@ -297,7 +297,7 @@ const EmployerPostJob = ({ fn }) => {
           Post Job
         </Button>
       </Box>
-    </>
+    </div>
   );
 };
 
