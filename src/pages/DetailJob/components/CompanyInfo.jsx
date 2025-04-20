@@ -23,7 +23,7 @@ const CompanyInfo = ({
         <Avatar
           src={logoUrl}
           alt={`${name} Logo`}
-          sx={{ width: 56, height: 56 }}
+          sx={{ width: 70, height: 70 }}
         />
         <Typography variant="h6" fontWeight="bold" color="text.primary">
           {name || "Unknown Company"}
