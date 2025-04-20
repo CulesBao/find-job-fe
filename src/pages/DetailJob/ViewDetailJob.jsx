@@ -1,7 +1,4 @@
 import {
-  Stack,
-  Container,
-  Grid,
   Box,
   CircularProgress,
   Typography,
@@ -108,49 +105,52 @@ export default function ViewDetailJob() {
   }
 
   return (
-    <Stack spacing={2} p={2}>
-      <JobHeader
-        title={job.title}
-        employerName={job.employer_name}
-        employerLogo={job.employer_logo_url}
-        jobType={job.job_type}
-        expiredAt={formatDate(job.expired_at)}
-      />
+    <div className="flex flex-col space-y-1 pb-30">
+  <h1 className="text-xl font-medium">Job Details</h1>
 
-      <Stack direction="row" spacing={2}>
-        <Container maxWidth="lg">
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={5}>
-              <JobDescription description={job.description} />
-              <JobResponsibilities responsibility={job.responsibility} />
-            </Grid>
-          </Grid>
-        </Container>
-        <Box flex={1}>
-          <Stack spacing={2}>
-            <JobOverview
-              minSalary={formattedMinSalary}
-              maxSalary={formattedMaxSalary}
-              education={formatEducation(job.education)}
-              salaryType={formatSalaryType(job.salary_type)}
-              createdAt={formatDate(job.created_at)}
-              expiredAt={formatDate(job.expired_at)}
-              jobType={formatJobType(job.job_type)}
-            />
-            <CompanyInfo
-              establishedIn={formatDate(employer.established_in)}
-              name={employer.name}
-              logoUrl={employer.logo_url}
-              websiteUrl={employer.website_url}
-              province={employer.province?.name_en || "N/A"}
-              district={employer.district?.name_en || "N/A"}
-            />
-            {employer.social_links.length != 0 && (
-              <FollowSocialLink socialLinks={employer.social_links} />
-            )}
-          </Stack>
-        </Box>
-      </Stack>
-    </Stack>
+  <JobHeader
+    title={job.title}
+    employerName={job.employer_name}
+    employerLogo={job.employer_logo_url}
+    jobType={job.job_type}
+    expiredAt={formatDate(job.expired_at)}
+  />
+
+  <div className="flex flex-row gap-4">
+    <div className="flex flex-col w-[65%] lg:flex-row gap-4">
+      <div className="relative gap-6">
+        <JobDescription description={job.description} />
+        <JobResponsibilities responsibility={job.responsibility} />
+      </div>
+    </div>
+
+    <div className="flex-1 p-6 rounded-2xl  bg-white space-y-4">
+      <JobOverview
+        minSalary={formattedMinSalary}
+        maxSalary={formattedMaxSalary}
+        education={formatEducation(job.education)}
+        salaryType={formatSalaryType(job.salary_type)}
+        createdAt={formatDate(job.created_at)}
+        expiredAt={formatDate(job.expired_at)}
+        jobType={formatJobType(job.job_type)}
+      />
+      <div className="pt-4">
+        <CompanyInfo
+          establishedIn={formatDate(employer.established_in)}
+          name={employer.name}
+          logoUrl={employer.logo_url}
+          websiteUrl={employer.website_url}
+          province={employer.province?.name_en || "N/A"}
+          district={employer.district?.name_en || "N/A"}
+        />
+      </div>
+      {employer.social_links.length !== 0 && (
+        <div className=" pt-4">
+          <FollowSocialLink socialLinks={employer.social_links} />
+        </div>
+      )}
+    </div>
+  </div>
+</div>
   );
 }
