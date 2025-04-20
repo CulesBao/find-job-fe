@@ -58,7 +58,7 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onApply();
+        onApply(0);
       }}
     >
       <Stack
@@ -81,7 +81,6 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
           onChange={handleChange("title")}
           fullWidth
         />
-
         {renderSelect(
           "province-select",
           "Province",
