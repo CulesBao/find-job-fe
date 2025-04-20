@@ -1,5 +1,5 @@
 import { Box, Typography, Paper, Button, Avatar } from "@mui/material";
-import { LocationOn, AccessTime, AttachMoney } from "@mui/icons-material";
+import { LocationOn, AccessTime, AttachMoney, Business } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 function JobRow({ job }) {
   return (
@@ -34,9 +34,13 @@ function JobRow({ job }) {
         >
           {job?.jobTitle}
         </Typography>
+
+        <Box display="flex" alignItems="center" gap={0.5}>
+          <Business fontSize="small" color="action" />
         <Typography variant="body2" color="text.secondary">
           {job?.employerName}
         </Typography>
+        </Box>
 
         <Box display="flex" flexWrap="wrap" gap={2} mt={1}>
           <Box display="flex" alignItems="center" gap={0.5}>
