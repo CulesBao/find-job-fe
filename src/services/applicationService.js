@@ -8,7 +8,7 @@ export const createApplication = (file, coverLetter, jobId) =>
     formData.append("cover_letter", coverLetter);
     formData.append("job_id", jobId);
 
-    return axiosPrivate.post("/applications", formData, {
+    return axiosPrivate.post("/application/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

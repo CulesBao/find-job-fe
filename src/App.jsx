@@ -6,14 +6,11 @@ import AuthRoutes from "./pages/auth/AuthRoutes";
 import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
 import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
 import SaveProfileCongrats from "./pages/Congratulation/SaveProfileCongrats";
-import MainLayout from "./components/layout/MainLayout";
 import PublicRoute from "./hooks/PublicRoute";
 import AuthRedirect from "./hooks/AuthRedirect";
 import RoleBasedRoute from "./hooks/RoleBasedRoute";
-
 import { ProfileProvider } from "./context/ProfileContext";
 import DashboardRoutes from "./routes/DashboardRoutes";
-import FindJobPage from "./pages/FindJob/FindJobPage";
 import { JobRoutes } from "./routes/JobRoutes";
 
 export default function App() {
@@ -55,17 +52,6 @@ export default function App() {
                 <RoleBasedRoute allowedRoles={["candidate", "employer"]}>
                   <DashboardRoutes />
                 </RoleBasedRoute>
-              }
-            />
-
-            <Route
-              path="job"
-              element={
-                <MainLayout showSidebar={false}>
-                  <RoleBasedRoute allowedRoles={["employer"]}>
-                    <FindJobPage />
-                  </RoleBasedRoute>
-                </MainLayout>
               }
             />
             <Route path="/job/*" element={<JobRoutes />} />

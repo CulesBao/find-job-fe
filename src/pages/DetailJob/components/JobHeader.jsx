@@ -1,13 +1,17 @@
 import { useAuth } from "@/hooks/useAuth";
+import ApplicationPopUp from "./ApplicationPopUp";
+import { useState } from "react";
 
 function JobHeader({ title, employerLogo, jobType, expiredAt }) {
   const { user } = useAuth();
+  const [openPopup, setOpenPopup] = useState(false);
+
   return (
-    <section className="flex flex-wrap gap-6 justify-between items-center px-10 py-6 w-full max-md:px-4 max-md:py-4">
+    <section className="flex flex-wrap gap-6 justify-between items-center pr-10 py-6 w-full max-md:px-4 max-md:py-4">
       <div className="flex flex-wrap gap-4 items-center">
         <img
           src={employerLogo}
-          className="object-contain w-16 h-16 rounded-full"
+          className="w-20 h-20 rounded-full"
           alt="Company logo"
         />
         <div className="flex flex-col">
@@ -22,15 +26,26 @@ function JobHeader({ title, employerLogo, jobType, expiredAt }) {
 
       <div className="flex flex-col items-end">
         {user?.role == "CANDIDATE" && (
-          <button className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
-            Apply Now
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setOpenPopup(true)}
+              className="px-19 py-4 text-1xl font-medium text-white bg-blue-600 rounded hover:bg-blue-700"
+            >
+              Apply Now →
+            </button>
+          </div>
         )}
         <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
           <span>Job expires in:</span>
           <span className="font-medium text-red-500">{expiredAt}</span>
         </div>
       </div>
+
+      <ApplicationPopUp 
+        open={openPopup} 
+        onClose={() => setOpenPopup(false)} 
+        title={title} 
+      />
     </section>
   );
 }
