@@ -7,7 +7,6 @@ import {
   CircularProgress,
   Paper,
   Stack,
-  Typography,
 } from "@mui/material";
 import { useProfileContext } from "@/context/ProfileContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -55,7 +54,7 @@ const ChangeImageForm = ({ fn }) => {
       display="flex"
       justifyContent="center"
       alignItems="flex-start"
-      minHeight="100vh"
+      minHeight="50vh"
       mt={8}
     >
       <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
@@ -65,19 +64,27 @@ const ChangeImageForm = ({ fn }) => {
         <Paper
           variant="outlined"
           sx={{
-            width: 240,
-            height: 240,
+            width: 260,
+            height: 260,
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            borderRadius: 1,
-            borderStyle: "dashed",
-            p: 2,
+            borderRadius: "50%",
+            border: "5px solid rgba(0, 0, 0, 0.1)",
+            p: 0,
             textAlign: "center",
             cursor: "pointer",
             overflow: "hidden",
             position: "relative",
+            transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+            "&:hover": {
+              borderColor: "#1976d2",
+              boxShadow: "0 0 10px rgba(25, 118, 210, 0.4)",
+            },
+            "&:hover .overlay": {
+              opacity: 1,
+              visibility: "visible",
+            },
           }}
           onClick={() => document.getElementById("image-input").click()}
         >
@@ -94,29 +101,39 @@ const ChangeImageForm = ({ fn }) => {
               src={preview}
               alt="Preview"
               style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
+                width: "100%",
+                height: "100%",
                 objectFit: "cover",
-                borderRadius: "4px",
               }}
             />
           ) : (
-            <>
-              <CloudUploadIcon
-                sx={{ fontSize: 48, color: "text.disabled", mb: 2 }}
-              />
-              <Typography variant="body2" fontWeight="medium">
-                Browse photo or drop here
-              </Typography>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ mt: 1 }}
-              >
-                A photo larger than 400 pixels works best. Max photo size 5 MB.
-              </Typography>
-            </>
+            <CloudUploadIcon sx={{ fontSize: 64, color: "text.disabled" }} />
           )}
+
+          <Box
+            className="overlay"
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              bgcolor: "rgba(0, 0, 0, 0.5)",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              opacity: 0,
+              visibility: "hidden",
+              transition: "all 0.3s ease",
+              fontWeight: "500",
+              textTransform: "uppercase",
+              fontSize: "14px",
+            }}
+          >
+            Change your Photo
+          </Box>
         </Paper>
 
         <Button
