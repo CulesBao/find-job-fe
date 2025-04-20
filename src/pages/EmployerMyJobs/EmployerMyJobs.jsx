@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import JobListingRow from "./component/JobListingRow";
-import Pagination from "./component/Pagination";
+import JobListingRow from "./components/JobListingRow";
+import Pagination from "./components/Pagination";
 import { getAllOwnerJobs } from "@/services/jobService";
 import handleViewJob from "@/utils/handleViewJob";
 

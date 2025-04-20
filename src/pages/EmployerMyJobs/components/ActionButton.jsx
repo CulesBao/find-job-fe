@@ -5,7 +5,7 @@ export default function ActionButton({ id, label, highlighted = true }) {
   return (
     <Button
       component={Link}
-      to={`/job/${id}`}
+      to={`/job/detail/${id}`}
       variant={highlighted ? "contained" : "outlined"}
       color={highlighted ? "primary" : "inherit"}
       sx={{ textTransform: "capitalize", textDecoration: "none" }}
