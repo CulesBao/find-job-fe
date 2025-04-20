@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   TextField,
@@ -13,11 +13,12 @@ import JobType from "@/constants/JobType";
 import SalaryType from "@/constants/SalaryType";
 import Currency from "@/constants/Currency";
 import Education from "@/constants/Education";
-import { createJob } from "@/services/jobService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getJobById } from "@/services/jobService";
 
-const EmployerPostJob = () => {
+const EmployerPostJob = ({ fn }) => {
   const navigate = useNavigate();
+  const { jobId } = useParams();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -32,6 +33,62 @@ const EmployerPostJob = () => {
     currency: "",
     salary_unit: "",
   });
+  useEffect(() => {
+    if (jobId) {
+      const fetchJobDetails = async () => {
+        try {
+          const getJobResponse = await getJobById(jobId);
+          if (getJobResponse.status === 200) {
+            const jobData = getJobResponse.data;
+
+            setFormData({
+              title: jobData.title,
+              description: jobData.description,
+              education: jobData.education,
+              expired_at: jobData.expired_at.split("T")[0],
+              job_type: jobData.job_type,
+              max_salary: jobData.max_salary,
+              min_salary: jobData.min_salary,
+              responsibility: jobData.responsibility,
+              salary_type: jobData.salary_type,
+              currency: jobData.currency,
+            });
+
+            if (jobData.max_salary >= 1e9 && jobData.min_salary >= 1e9) {
+              setFormData((prev) => ({
+                ...prev,
+                max_salary: prev.max_salary / 1e9,
+                min_salary: prev.min_salary / 1e9,
+                salary_unit: "b",
+              }));
+            } else if (jobData.max_salary >= 1e6 && jobData.min_salary >= 1e6) {
+              setFormData((prev) => ({
+                ...prev,
+                max_salary: prev.max_salary / 1e6,
+                min_salary: prev.min_salary / 1e6,
+                salary_unit: "m",
+              }));
+            } else if (jobData.max_salary >= 1e3 && jobData.min_salary >= 1e3) {
+              setFormData((prev) => ({
+                ...prev,
+                max_salary: prev.max_salary / 1e3,
+                min_salary: prev.min_salary / 1e3,
+                salary_unit: "k",
+              }));
+            } else {
+              setFormData((prev) => ({
+                ...prev,
+                salary_unit: "N/A",
+              }));
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching job details:", error);
+        }
+      };
+      fetchJobDetails();
+    }
+  }, [jobId]);
 
   const handleChange = (key) => (event) => {
     setFormData((prev) => ({ ...prev, [key]: event.target.value }));
@@ -42,25 +99,24 @@ const EmployerPostJob = () => {
     min_salary = handleSalaryUnitChange(min_salary);
     max_salary = handleSalaryUnitChange(max_salary);
     salary_unit = handleSalaryUnitChange(salary_unit);
-  
+
     const newData = {
       ...rest,
       min_salary,
       max_salary,
       salary_unit,
     };
-  
+
     try {
-      const res = await createJob(newData);
-      if (res.status === 201){
-      navigate("/employer/dashboard/my-jobs");
+      const res = jobId ? await fn(jobId, newData) : await fn(newData);
+      if (res.status === 201 || res.status === 200) {
+        navigate("/");
       }
     } catch (error) {
       console.error("Error creating job:", error);
-    } 
+    }
   };
-  
-  
+
   const handleMinMaxSalaryChange = (key) => (event) => {
     const value = parseFloat(event.target.value) || 0;
     setFormData((prev) => ({
@@ -131,7 +187,9 @@ const EmployerPostJob = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Post a Job</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        {jobId ? "Edit job" : "Post a job"}
+      </h1>
       <Box component="form" onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField

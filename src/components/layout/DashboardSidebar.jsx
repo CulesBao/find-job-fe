@@ -4,14 +4,13 @@ import WorkIcon from "@mui/icons-material/Work";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import SaveIcon from "@mui/icons-material/Save";
 import { useAuth } from "@/hooks/useAuth";
 
 const DashboardSidebar = () => {
   const [active, setActive] = useState("");
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -78,13 +77,8 @@ const DashboardSidebar = () => {
     }
   }, [location.pathname, menu]);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/auth/login", { replace: true });
-  };
-
   return (
-    <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-85 relative left-1/10 top-20">
+    <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-65 relative left-1/10 top-20">
       <div className="mb-6 font-semibold text-gray-500 uppercase text-xs">
         {user?.role === "CANDIDATE"
           ? "Candidate Dashboard"
@@ -122,30 +116,6 @@ const DashboardSidebar = () => {
           </li>
         ))}
       </ul>
-      <div className="border-t mt-4 pt-4">
-        <li
-          onClick={() => {
-            setActive("Log Out");
-            handleLogout();
-          }}
-          className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-all ${
-            active === "Log Out"
-              ? "bg-blue-100 text-blue-600"
-              : "hover:bg-gray-100"
-          }`}
-        >
-          <div className="flex items-center space-x-2">
-            <div
-              className={`p-1 rounded ${
-                active === "Log Out" ? "bg-blue-200" : ""
-              }`}
-            >
-              <ExitToAppIcon fontSize="small" />
-            </div>
-            <span>Log Out</span>
-          </div>
-        </li>
-      </div>
     </div>
   );
 };

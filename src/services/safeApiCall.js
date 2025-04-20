@@ -7,7 +7,8 @@ export default async (apiFunction) => {
       !(
         response.data.message == "Get provices successfully" ||
         response.data.message == "Get districts successfully" ||
-        response.data.message == "Get my account successfully"
+        response.data.message == "Get my account successfully" ||
+        response.data.message == "Get employer jobs successfully"
       )
     )
       snackbar.success(response.data.message || "Success!");

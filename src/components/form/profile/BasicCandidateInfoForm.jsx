@@ -195,6 +195,8 @@ const BaiscCandidateInfoForm = ({ fn }) => {
           />
           <Button
             variant="contained"
+            color="primary"
+            sx={{ width: "100%", height: 50, borderRadius: 2 }}
             onClick={onSubmit}
             className="w-[50%] h-15 self-center text-white px-4 py-4 mt-5 mb-5 rounded text-lg font-sans transition-all duration-200"
           >

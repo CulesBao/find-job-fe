@@ -16,11 +16,21 @@ export const updateJobById = (jobId, data) =>
     return axiosPrivate.put(`/job/${jobId}`, data);
   });
 
-export const getAllOwnerJobs = (ownerId) =>
+export const getAllOwnerJobs = (page, size = 5) =>
   safeApiCall(() => {
-    return axiosPrivate.get(`/job/${ownerId}`);
+    return axiosPrivate.get(`/job/`, {
+      params: {
+        page: page,
+        size: size,
+      },
+    });
   });
-export const getJobByFilter = (filterData) =>
+export const getJobByFilter = (filterData, page, size = 1) =>
   safeApiCall(() => {
-    return axiosPrivate.post(`/job/filter`, filterData);
+    return axiosPrivate.post(`/job/filter`, filterData, {
+      params: {
+        page: page,
+        size: size,
+      },
+    });
   });

@@ -1,3 +1,6 @@
+export const formatJobType = (jobType) => {
+  return JobType[jobType]?.name || jobType;
+};
 const JobType = {
   SOFTWARE_ENGINEER: {
     name: "Software Engineer",
