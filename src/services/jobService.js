@@ -16,7 +16,7 @@ export const updateJobById = (jobId, data) =>
     return axiosPrivate.put(`/job/${jobId}`, data);
   });
 
-export const getAllOwnerJobs = (page, size = 10) =>
+export const getAllOwnerJobs = (page, size = 5) =>
   safeApiCall(() => {
     return axiosPrivate.get(`/job/`, {
       params: {

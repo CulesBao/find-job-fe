@@ -12,8 +12,8 @@ import AuthRedirect from "./hooks/AuthRedirect";
 import RoleBasedRoute from "./hooks/RoleBasedRoute";
 
 import { ProfileProvider } from "./context/ProfileContext";
-import FilterJob from "./pages/FindJob/FilterJob";
 import DashboardRoutes from "./routes/DashboardRoutes";
+import FindJobPage from "./pages/FindJob/FindJobPage";
 
 export default function App() {
   return (
@@ -58,11 +58,11 @@ export default function App() {
             />
 
             <Route
-              path="employer/find-job"
+              path="job"
               element={
-                <MainLayout>
+                <MainLayout showSidebar={false}>
                   <RoleBasedRoute allowedRoles={["employer"]}>
-                    <FilterJob />
+                    <FindJobPage />
                   </RoleBasedRoute>
                 </MainLayout>
               }
