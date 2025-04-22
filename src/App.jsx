@@ -12,9 +12,6 @@ import RoleBasedRoute from "./hooks/RoleBasedRoute";
 import { ProfileProvider } from "./context/ProfileContext";
 import DashboardRoutes from "./routes/DashboardRoutes";
 import { JobRoutes } from "./routes/JobRoutes";
-import MainLayout from "./components/layout/MainLayout";
-import ViewDetailCandidate from "./pages/DetailCandidate/ViewDetailCandidate";
-import ViewDetailEmployer from "./pages/DetailEmployer/ViewDetailEmployer";
 
 export default function App() {
   return (
@@ -23,20 +20,6 @@ export default function App() {
       <AuthProvider>
         <ProfileProvider>
           <Routes>
-
-            {/* Test */} <Route path="/candidate/:candidateId" element={
-              <MainLayout showSidebar={false}>
-                <ViewDetailCandidate />
-              </MainLayout>} 
-              />
-            {/* Test */}
-            <Route path="/employer/:employerId" element={
-              <MainLayout showSidebar={false}>
-                <ViewDetailEmployer />
-              </MainLayout>} 
-              />
-
-
             <Route path="/" element={<AuthRedirect />} />
             <Route
               path="/auth/*"
