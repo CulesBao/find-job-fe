@@ -1,4 +1,4 @@
-import FindEmployer from "@/components/layout/FindEmployer";
+import EmployerLongCard from "@/components/card/EmployerLongCard";
 import Pagination from "@/components/layout/Pagination";
 import { getFollowedEmployers } from "@/services/candidateFollowerService";
 import { Box } from "@mui/material";
@@ -30,7 +30,7 @@ const CandidateSavedEmployers = () => {
     <Box mt={6} width="100%">
       <h1 className="text-2xl font-bold mb-4">Saved Employers</h1>
       {employers?.map((employer) => (
-        <FindEmployer key={employer.id} employer={employer} />
+        <EmployerLongCard key={employer.id} employer={employer} />
       ))}
       <Pagination
         totalPages={totalPage}

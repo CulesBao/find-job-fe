@@ -6,7 +6,7 @@ import {
   Business,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-function JobRow({ job }) {
+function JobLongCard({ job }) {
   return (
     <Paper
       elevation={2}
@@ -87,4 +87,4 @@ function JobRow({ job }) {
   );
 }
 
-export default JobRow;
+export default JobLongCard;

@@ -1,12 +1,12 @@
 import { Box, Typography, IconButton, Paper } from "@mui/material";
-import StatusBadge from "./StatusBadge";
-import ActionButton from "./ActionButton";
+import StatusBadge from "../../pages/EmployerMyJobs/components/StatusBadge";
+import ActionButton from "../../pages/EmployerMyJobs/components/ActionButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import DropdownMenu from "./DropDownMenu";
+import DropdownMenu from "../../pages/EmployerMyJobs/components/DropDownMenu";
 import { useState } from "react";
 import { Users } from "lucide-react";
 
-function JobListingRow({ job, isHighlighted }) {
+function EmployerJobCard({ job, isHighlighted }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuOpen = (event) => {
@@ -82,4 +82,4 @@ function JobListingRow({ job, isHighlighted }) {
   );
 }
 
-export default JobListingRow;
+export default EmployerJobCard;

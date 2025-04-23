@@ -1,11 +1,9 @@
-import { Avatar, Box, Button, Card, Stack, Typography } from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import WcIcon from "@mui/icons-material/Wc";
+import { Avatar, Box, Button, Card, Stack, Typography } from "@mui/material";
+import { Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
-import { formatEducation } from "@/constants/Education";
 
-const ViewCandidate = ({ candidate }) => {
+const EmployerLongCard = ({ employer }) => {
   return (
     <Card
       sx={{
@@ -29,7 +27,7 @@ const ViewCandidate = ({ candidate }) => {
         {/* Avatar */}
         <Avatar
           sx={{
-            bgcolor: "#1976d2",
+            bgcolor: "#ea4c89",
             width: 64,
             height: 64,
             overflow: "hidden",
@@ -39,11 +37,11 @@ const ViewCandidate = ({ candidate }) => {
               height: "100%",
             },
           }}
-          src={candidate.avatar_url}
-          alt={`${candidate.first_name} ${candidate.last_name} avatar`}
+          src={employer.logo_url}
+          alt={`${employer.name} logo`}
         />
 
-        {/* Candidate Info */}
+        {/* Employer Info */}
         <Box>
           <Typography
             variant="h6"
@@ -51,7 +49,7 @@ const ViewCandidate = ({ candidate }) => {
             color="text.primary"
             gutterBottom
           >
-            {candidate.first_name} {candidate.last_name}
+            {employer.name}
           </Typography>
 
           <Stack direction="row" spacing={2} alignItems="center">
@@ -59,41 +57,32 @@ const ViewCandidate = ({ candidate }) => {
             <Stack direction="row" spacing={0.75} alignItems="center">
               <LocationOnOutlinedIcon fontSize="small" color="action" />
               <Typography variant="body2" color="text.secondary">
-                {candidate.location}
+                {employer.location}
               </Typography>
             </Stack>
 
-            {/* Education */}
+            {/* Job Count */}
             <Stack direction="row" spacing={0.75} alignItems="center">
-              <SchoolOutlinedIcon fontSize="small" color="action" />
+              <Briefcase size={16} color="#B0BEC5" />
               <Typography variant="body2" color="text.secondary">
-                {formatEducation(candidate.education)}
-              </Typography>
-            </Stack>
-
-            {/* Gender */}
-            <Stack direction="row" spacing={0.75} alignItems="center">
-              <WcIcon fontSize="small" color="action" />
-              <Typography variant="body2" color="text.secondary">
-                {candidate.gender ? "Male" : "Female"}
+                {employer.job_count} jobs available
               </Typography>
             </Stack>
           </Stack>
         </Box>
       </Stack>
 
-      {/* Right Section */}
       <Button
         component={Link}
-        to={`/candidate/details/${candidate.id}`}
-        variant="contained"
-        color="primary"
+        to={`/employer/details/${employer.id}`}
+        variant={"contained"}
+        color={"primary"}
         sx={{ textTransform: "capitalize", textDecoration: "none" }}
       >
-        View Profile
+        Vist Profile
       </Button>
     </Card>
   );
 };
 
-export default ViewCandidate;
+export default EmployerLongCard;

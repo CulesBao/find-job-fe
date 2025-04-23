@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Alert } from "@mui/material";
-import Pagination from "./Components/Pagination";
+import Pagination from "@/components/layout/Pagination";
 import { getJobByFilter } from "@/services/jobService";
 import FilterJob from "./Components/FilterJob";
-import JobRow from "./Components/JobRow";
+import JobLongCard from "../../components/card/JobLongCard";
 import handleFindJob from "@/utils/handleFindJob";
 
 function FindJobPage() {
@@ -74,7 +74,7 @@ function FindJobPage() {
       ) : (
         <>
           {jobs.length > 0 ? (
-            jobs.map((job) => <JobRow key={job.id} job={job} />)
+            jobs.map((job) => <JobLongCard key={job.id} job={job} />)
           ) : (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography>No jobs found matching your criteria.</Typography>

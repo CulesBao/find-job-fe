@@ -3,7 +3,6 @@ import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
 import AuthRoutes from "./pages/auth/AuthRoutes";
-import SaveProfileCongrats from "./pages/Congratulation/SaveProfileCongrats";
 import PublicRoute from "./hooks/PublicRoute";
 import AuthRedirect from "./hooks/AuthRedirect";
 import RoleBasedRoute from "./hooks/RoleBasedRoute";
@@ -31,7 +30,6 @@ export default function App() {
               }
             />
             <Route path="/set-up/*" element={<SetupRoutes />} />
-            <Route path="/congrats" element={<SaveProfileCongrats />} />
             <Route
               path="/dashboard/*"
               element={

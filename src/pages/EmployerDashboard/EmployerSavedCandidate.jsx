@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { getFollowedCandidates } from "@/services/employerFollowerService";
-import ViewCandidate from "./components/ViewCandidate";
+import ViewCandidate from "../../components/card/CandidateLongCard";
 import Pagination from "@/components/layout/Pagination";
 
 const EmployerSavedCandidate = () => {
