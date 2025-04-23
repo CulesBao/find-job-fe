@@ -29,3 +29,19 @@ export const updateCandidateProfileAvatar = (file) => {
     })
   );
 };
+
+export const filterCandidateProfile = (filter, page = 0, size = 10) => {
+  return safeApiCall(() =>
+    axiosPrivate.get("/candidate-profile/filter", {
+      params: {
+        firstName: filter.firstName,
+        lastName: filter.lastName,
+        education: filter.education,
+        provinceCode: filter.provinceCode,
+        gender: filter.gender,
+        page,
+        size,
+      },
+    })
+  );
+};

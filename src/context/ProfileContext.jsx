@@ -48,7 +48,7 @@ export const ProfileProvider = ({ children }) => {
           user?.candidate_profile?.date_of_birth?.split("T")[0] || null,
         education: user?.candidate_profile?.education || "",
         first_name: user?.candidate_profile?.first_name || "",
-        gender: (user?.candidate_profile?.gender === true ? 1 : 0) || null,
+        gender: (user?.candidate_profile?.gender == true ? 1 : 0) || 0,
         last_name: user?.candidate_profile?.last_name || "",
         phone_number: user?.candidate_profile?.phone_number || "",
         province_code: user?.candidate_profile?.province?.code || "",

@@ -30,12 +30,8 @@ function CandidateHeader({ candidateId, avatarUrl, fullName, createdAt }) {
 
   useEffect(() => {
     const checkFollowStatus = async () => {
-      try {
-        const response = await isFollowed(candidateId);
-        setIsFollowing(response.data);
-      } catch (error) {
-        console.error("Error checking follow status:", error);
-      }
+      const response = await isFollowed(candidateId);
+      setIsFollowing(response.data);
     };
 
     if (user?.role === "EMPLOYER") {

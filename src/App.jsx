@@ -3,9 +3,6 @@ import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "./utils/SnackbarUtils";
 import { AuthProvider } from "./hooks/AuthProvider";
 import AuthRoutes from "./pages/auth/AuthRoutes";
-import CandidateCreateRoutes from "./pages/CandidateCreate/CandidateCreateRoutes";
-import EmployerCreateRoutes from "./pages/EmployerCreate/EmployerCreateRoutes";
-import SaveProfileCongrats from "./pages/Congratulation/SaveProfileCongrats";
 import PublicRoute from "./hooks/PublicRoute";
 import AuthRedirect from "./hooks/AuthRedirect";
 import RoleBasedRoute from "./hooks/RoleBasedRoute";
@@ -14,6 +11,7 @@ import DashboardRoutes from "./routes/DashboardRoutes";
 import { JobRoutes } from "./routes/JobRoutes";
 import CandidateRoutes from "./routes/CandidateRoutes";
 import EmployerRoutes from "./routes/EmployerRoutes";
+import SetupRoutes from "./routes/SetupRoutes";
 
 export default function App() {
   return (
@@ -31,23 +29,7 @@ export default function App() {
                 </PublicRoute>
               }
             />
-            <Route
-              path="/candidate/set-up/*"
-              element={
-                <RoleBasedRoute allowedRoles={["candidate"]}>
-                  <CandidateCreateRoutes />
-                </RoleBasedRoute>
-              }
-            />
-            <Route
-              path="/employer/set-up/*"
-              element={
-                <RoleBasedRoute allowedRoles={["employer"]}>
-                  <EmployerCreateRoutes />
-                </RoleBasedRoute>
-              }
-            />
-            <Route path="/congrats" element={<SaveProfileCongrats />} />
+            <Route path="/set-up/*" element={<SetupRoutes />} />
             <Route
               path="/dashboard/*"
               element={

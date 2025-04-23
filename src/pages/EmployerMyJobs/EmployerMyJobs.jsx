@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import JobListingRow from "./components/JobListingRow";
-import Pagination from "./components/Pagination";
+import EmployerJobCard from "../../components/card/EmployerJobCard";
+import Pagination from "@/components/layout/Pagination";
 import { getAllOwnerJobs } from "@/services/jobService";
 import handleViewJob from "@/utils/handleViewJob";
 
@@ -64,7 +64,7 @@ function EmployerMyJob() {
       </Box>
 
       {jobs.map((job, index) => (
-        <JobListingRow
+        <EmployerJobCard
           key={job.id}
           job={job}
           isDropdownOpen={activeDropdown === index}

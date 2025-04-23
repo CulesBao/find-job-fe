@@ -19,12 +19,31 @@ export const updateSocialLinks = (social_links) => {
   );
 };
 
+export const updateEmployerSocialLinks = (social_links) => {
+  return safeApiCall(() =>
+    axiosPrivate.put("/employer-profile/social-links", { social_links })
+  );
+};
+
 export const updateEmployerLogo = (file) => {
   const formData = new FormData();
   formData.append("logo", file);
   return safeApiCall(() =>
     axiosPrivate.put("/employer-profile/update-logo", formData, {
       headers: { "Content-Type": "multipart/form-data" },
+    })
+  );
+};
+
+export const filterEmployerProfile = (filter, page = 0, size = 10) => {
+  return safeApiCall(() =>
+    axiosPrivate.get("/employer-profile/filter", {
+      params: {
+        name: filter.name,
+        provinceCode: filter.province_code,
+        page,
+        size,
+      },
     })
   );
 };
