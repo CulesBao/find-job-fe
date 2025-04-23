@@ -33,7 +33,7 @@ const Navigation = () => {
   useEffect(() => {
     if (user) {
       const newAvatar =
-        user.role === "CANDIDATE"
+        user?.role === "CANDIDATE"
           ? user.candidate_profile.avatar_url
           : user.role === "EMPLOYER"
           ? user.employer_profile.logo_url
