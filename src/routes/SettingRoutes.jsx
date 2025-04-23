@@ -11,12 +11,12 @@ import {
   updateSocialLinks as updateEmployerSocialLinks,
 } from "@/services/employerProfileService";
 import { resetPassword } from "@/services/accountService";
-import ChangeImageForm from "@/components/form/profile/ChangeImageForm";
-import BasicCandidateInfoForm from "@/components/form/profile/BasicCandidateInfoForm";
-import AddSocialLinkForm from "@/components/form/profile/AddSocialLinkForm";
-import ChangePasswordForm from "@/components/form/profile/ChangePasswordForm";
-import BasicEmployerInfoForm from "@/components/form/profile/BasicEmployerInfoForm";
-import UnifiedSetHeader from "@/pages/Setup/UnifiedSetHeader";
+import ChangeImageForm from "@/components/profile/ChangeImageForm";
+import BasicCandidateInfoForm from "@/components/profile/BasicCandidateInfoForm";
+import AddSocialLinkForm from "@/components/profile/AddSocialLinkForm";
+import ChangePasswordForm from "@/components/profile/ChangePasswordForm";
+import BasicEmployerInfoForm from "@/components/profile/BasicEmployerInfoForm";
+import UnifiedSetHeader from "@/pages/UnifiedSetHeader/UnifiedSetHeader";
 
 export default function SettingRoutes() {
   const { user } = useAuth();

@@ -1,13 +1,11 @@
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import SocialLinkRow from "../../layout/SocialLinkRow";
-import { useNavigate } from "react-router-dom";
+import SocialLinkRow from "../layout/SocialLinkRow";
 import { useProfileContext } from "@/context/ProfileContext";
 import { useAuth } from "@/hooks/useAuth";
 
 const AddSocialLinkForm = ({ fn }) => {
   const { updateUser } = useAuth();
-  const navigate = useNavigate();
 
   const { socialLinks, setSocialLinks } = useProfileContext();
   const handleAdd = () => {

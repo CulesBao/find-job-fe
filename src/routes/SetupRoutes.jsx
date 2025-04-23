@@ -1,9 +1,9 @@
-import AddSocialLinkForm from "@/components/form/profile/AddSocialLinkForm";
-import BaiscCandidateInfoForm from "@/components/form/profile/BasicCandidateInfoForm";
-import BasicEmployerInfoForm from "@/components/form/profile/BasicEmployerInfoForm";
-import ChangeImageForm from "@/components/form/profile/ChangeImageForm";
+import AddSocialLinkForm from "@/components/profile/AddSocialLinkForm";
+import BaiscCandidateInfoForm from "@/components/profile/BasicCandidateInfoForm";
+import BasicEmployerInfoForm from "@/components/profile/BasicEmployerInfoForm";
+import ChangeImageForm from "@/components/profile/ChangeImageForm";
 import { useAuth } from "@/hooks/useAuth";
-import UnifiedSetHeader from "@/pages/Setup/UnifiedSetHeader";
+import UnifiedSetHeader from "@/pages/UnifiedSetHeader/UnifiedSetHeader";
 import {
   createCandidateProfile,
   updateCandidateProfileAvatar,

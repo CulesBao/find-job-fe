@@ -1,60 +1,15 @@
 import { useProfileContext } from "@/context/ProfileContext";
 import Education from "@/constants/Education";
 import GenderType from "@/constants/GenderType";
-import {
-  getAllProvinces,
-  getDistrictsByProvinceId,
-} from "@/services/addressService";
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import ProvinceSelect from "../select/ProvinceSeletect";
+import DistrictSelect from "../select/DistrictSelect";
 
 const BaiscCandidateInfoForm = ({ fn }) => {
   const { updateUser } = useAuth();
   const { basicCandidateProfile, setBasicCandidateProfile } =
     useProfileContext();
-
-  const [provinceList, setProvinceList] = useState([]);
-  const [districtList, setDistrictList] = useState([]);
-  const [isEnabledDistrictSelect, setIsEnabledDistrictSelect] = useState(false);
-
-  // Fetch provinces
-  useEffect(() => {
-    const fetchProvinces = async () => {
-      const provincesResponse = await getAllProvinces();
-      setProvinceList(provincesResponse.data);
-    };
-
-    fetchProvinces();
-  }, []);
-
-  useEffect(() => {
-    const fetchDistricts = async () => {
-      if (basicCandidateProfile.province_code) {
-        const districtsResponse = await getDistrictsByProvinceId(
-          basicCandidateProfile.province_code
-        );
-        setDistrictList(districtsResponse.data);
-
-        // Reset district_code nếu không hợp lệ
-        if (
-          districtsResponse.data.every(
-            (district) => district.code !== basicCandidateProfile.district_code
-          )
-        ) {
-          setBasicCandidateProfile((prev) => ({ ...prev, district_code: "" }));
-        }
-
-        setIsEnabledDistrictSelect(true);
-      } else {
-        setDistrictList([]);
-        setBasicCandidateProfile((prev) => ({ ...prev, district_code: "" }));
-        setIsEnabledDistrictSelect(false);
-      }
-    };
-
-    fetchDistricts();
-  }, [basicCandidateProfile.province_code]);
 
   const handleChange = (key) => (event) => {
     setBasicCandidateProfile((prev) => ({
@@ -62,16 +17,14 @@ const BaiscCandidateInfoForm = ({ fn }) => {
       [key]: event.target.value,
     }));
   };
+
   const onSubmit = async () => {
-    try {
-      const response = await fn(basicCandidateProfile);
-      if (response.status === 200) {
-        updateUser();
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    const response = await fn(basicCandidateProfile);
+    if (response.status === 200) {
+      updateUser();
     }
   };
+
   return (
     <div className="flex justify-center">
       <div className="align-middle flex flex-col gap-4 w-full justify-center">
@@ -148,36 +101,15 @@ const BaiscCandidateInfoForm = ({ fn }) => {
           </Stack>
 
           <Stack direction={"row"} spacing={2.25} width="100%">
-            <TextField
-              select
-              label="City/Province"
-              value={basicCandidateProfile.province_code || ""}
+            <ProvinceSelect
+              value={basicCandidateProfile.province_code}
               onChange={handleChange("province_code")}
-              fullWidth
-              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-            >
-              {provinceList.map((option) => (
-                <MenuItem key={option.code} value={option.code}>
-                  {option.full_name_en}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <TextField
-              select
-              label="District"
-              value={basicCandidateProfile.district_code || ""}
+            />
+            <DistrictSelect
+              provinceCode={basicCandidateProfile.province_code}
+              value={basicCandidateProfile.district_code}
               onChange={handleChange("district_code")}
-              fullWidth
-              disabled={!isEnabledDistrictSelect}
-              sx={{ bgcolor: "background.paper", borderRadius: "5px" }}
-            >
-              {districtList.map((option) => (
-                <MenuItem key={option.code} value={option.code}>
-                  {option.full_name_en}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </Stack>
 
           <TextField
