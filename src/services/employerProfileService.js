@@ -34,3 +34,16 @@ export const updateEmployerLogo = (file) => {
     })
   );
 };
+
+export const filterEmployerProfile = (filter, page = 0, size = 10) => {
+  return safeApiCall(() =>
+    axiosPrivate.get("/employer-profile/filter", {
+      params: {
+        name: filter.name,
+        provinceCode: filter.province_code,
+        page,
+        size,
+      },
+    })
+  );
+};

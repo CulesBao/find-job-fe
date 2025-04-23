@@ -1,6 +1,6 @@
 import MainLayout from "@/components/layout/MainLayout";
 import ViewDetailJob from "@/pages/DetailJob/ViewDetailJob";
-import FindJobPage from "@/pages/FindJob/FindJobPage";
+import FilterJobPage from "@/pages/Filter/FilterJobPage";
 import { Route, Routes } from "react-router-dom";
 
 export function JobRoutes() {
@@ -8,7 +8,7 @@ export function JobRoutes() {
     { path: "details/:jobId", element: <ViewDetailJob /> },
     {
       path: "/",
-      element: <FindJobPage />,
+      element: <FilterJobPage />,
     },
   ];
 

@@ -17,7 +17,6 @@ export const updateJobById = (jobId, data) =>
   });
 
 export const getAllOwnerJobs = (page, size = 5) =>
-  console.log("page", page) ||
   safeApiCall(() => {
     return axiosPrivate.get(`/job/`, {
       params: {

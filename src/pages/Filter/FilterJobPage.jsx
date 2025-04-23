@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Box, Typography, Alert } from "@mui/material";
 import Pagination from "@/components/layout/Pagination";
 import { getJobByFilter } from "@/services/jobService";
-import FilterJob from "./Components/FilterJob";
+import FilterJobHeader from "./components/FilterJobHeader";
 import JobLongCard from "../../components/card/JobLongCard";
 import handleFindJob from "@/utils/handleFindJob";
 
-function FindJobPage() {
+function FilterJobPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [jobs, setJobs] = useState([]);
@@ -55,7 +55,7 @@ function FindJobPage() {
 
   return (
     <Box width="100%">
-      <FilterJob
+      <FilterJobHeader
         filters={filters}
         onFilterChange={onFilterChange}
         onApply={fetchJobs}
@@ -92,4 +92,4 @@ function FindJobPage() {
   );
 }
 
-export default FindJobPage;
+export default FilterJobPage;

@@ -20,7 +20,7 @@ import {
   WorkOutline,
 } from "@mui/icons-material";
 
-const FilterJob = ({ filters, onFilterChange, onApply }) => {
+const FilterJobHeader = ({ filters, onFilterChange, onApply }) => {
   const [provinceList, setProvinceList] = useState([]);
 
   useEffect(() => {
@@ -41,26 +41,30 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
   };
 
   const renderSelect = (id, label, value, onChange, options, icon) => (
-    <FormControl fullWidth variant="outlined" sx={{
-      "& .MuiOutlinedInput-notchedOutline": {
-        border: "none"
-      }
-    }}>
+    <FormControl
+      fullWidth
+      variant="outlined"
+      sx={{
+        "& .MuiOutlinedInput-notchedOutline": {
+          border: "none",
+        },
+      }}
+    >
       <InputLabel id={`${id}-label`}>{label}</InputLabel>
       <Select
-  labelId={`${id}-label`}
-  id={id}
-  value={value}
-  onChange={onChange}
-  startAdornment={
-    <Box sx={{ mr: 1.5, display: "flex", alignItems: "center" }}>
-      {icon}
-    </Box>
-  }
-  sx={{
-    pl: 1
-  }}
->
+        labelId={`${id}-label`}
+        id={id}
+        value={value}
+        onChange={onChange}
+        startAdornment={
+          <Box sx={{ mr: 1.5, display: "flex", alignItems: "center" }}>
+            {icon}
+          </Box>
+        }
+        sx={{
+          pl: 1,
+        }}
+      >
         {options}
       </Select>
     </FormControl>
@@ -165,4 +169,4 @@ const FilterJob = ({ filters, onFilterChange, onApply }) => {
   );
 };
 
-export default FilterJob;
+export default FilterJobHeader;
