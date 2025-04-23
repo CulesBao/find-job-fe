@@ -1,8 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCandidateProfile } from "@/services/candidateProfileService";
@@ -86,9 +82,9 @@ export default function ViewDetailCandidate() {
   return (
     <div className="flex flex-col space-y-1 pb-30">
       <div className="flex flex-row gap-4">
-        {/* Left Side: Avatar + Overview */}
         <div className="flex flex-col gap-4 w-[30%]">
           <CandidateHeader
+            candidateId={candidate.id}
             avatarUrl={candidate.avatar_url}
             fullName={`${candidate.first_name} ${candidate.last_name}`}
             createdAt={formatDate(candidate.created_at)}
@@ -103,16 +99,13 @@ export default function ViewDetailCandidate() {
           />
         </div>
 
-        {/* Right Side: Bio */}
         <div className="flex-1">
           <div className="relative gap-6 p-6 rounded-2xl bg-white">
-            <CandidateBio 
-              bio={candidate.bio} 
+            <CandidateBio
+              bio={candidate.bio}
               name={`${candidate.first_name} ${candidate.last_name}`}
             />
-            <CandidateSocialLink 
-              socialLinks={candidate.social_links}
-            />
+            <CandidateSocialLink socialLinks={candidate.social_links} />
           </div>
         </div>
       </div>

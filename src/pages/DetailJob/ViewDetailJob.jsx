@@ -1,15 +1,10 @@
-import {
-  Box,
-  CircularProgress,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import JobHeader from "./components/JobHeader";
 import JobDescription from "./components/JobDescription";
 import JobResponsibilities from "./components/JobResponsibilities";
 import JobOverview from "./components/JobOverview";
 import CompanyInfo from "./components/CompanyInfo";
 import FollowSocialLink from "./components/FollowSocialLink";
-import { formatSalary } from "@/constants/Currency";
 import { formatSalaryType } from "@/constants/SalaryType";
 import { formatDate } from "@/utils/formatDate";
 import { formatEducation } from "@/constants/Education";
@@ -18,6 +13,7 @@ import { useEffect, useState } from "react";
 import { getJobById } from "@/services/jobService";
 import { getEmployerProfile } from "@/services/employerProfileService";
 import { formatJobType } from "@/constants/JobType";
+import handleSalaryAndCurrency from "@/utils/handleSalaryAndCurrency";
 
 export default function ViewDetailJob() {
   const { jobId } = useParams();
@@ -55,7 +51,7 @@ export default function ViewDetailJob() {
     fetchJobDetails();
   }, [jobId]);
 
-  const { formattedMinSalary, formattedMaxSalary } = formatSalary(
+  const salaryRange = handleSalaryAndCurrency(
     job?.min_salary,
     job?.max_salary,
     job?.currency
@@ -106,51 +102,51 @@ export default function ViewDetailJob() {
 
   return (
     <div className="flex flex-col space-y-1 pb-30">
-  <h1 className="text-xl font-medium">Job Details</h1>
+      <h1 className="text-xl font-medium">Job Details</h1>
 
-  <JobHeader
-    title={job.title}
-    employerName={job.employer_name}
-    employerLogo={job.employer_logo_url}
-    jobType={job.job_type}
-    expiredAt={formatDate(job.expired_at)}
-  />
-
-  <div className="flex flex-row gap-4">
-    <div className="flex flex-col w-[65%] lg:flex-row gap-4">
-      <div className="relative gap-6">
-        <JobDescription description={job.description} />
-        <JobResponsibilities responsibility={job.responsibility} />
-      </div>
-    </div>
-
-    <div className="flex-1 p-6 rounded-2xl  bg-white space-y-4">
-      <JobOverview
-        minSalary={formattedMinSalary}
-        maxSalary={formattedMaxSalary}
-        education={formatEducation(job.education)}
-        salaryType={formatSalaryType(job.salary_type)}
-        createdAt={formatDate(job.created_at)}
-        expiredAt={formatDate(job.expired_at)}
+      <JobHeader
+        jobId={jobId}
+        title={job.title}
+        employerName={job.employer_name}
+        employerLogo={job.employer_logo_url}
         jobType={formatJobType(job.job_type)}
+        expiredAt={formatDate(job.expired_at)}
       />
-      <div className="pt-4">
-        <CompanyInfo
-          establishedIn={formatDate(employer.established_in)}
-          name={employer.name}
-          logoUrl={employer.logo_url}
-          websiteUrl={employer.website_url}
-          province={employer.province?.name_en || "N/A"}
-          district={employer.district?.name_en || "N/A"}
-        />
-      </div>
-      {employer.social_links.length !== 0 && (
-        <div className=" pt-4">
-          <FollowSocialLink socialLinks={employer.social_links} />
+
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col w-[65%] lg:flex-row gap-4">
+          <div className="relative gap-6">
+            <JobDescription description={job.description} />
+            <JobResponsibilities responsibility={job.responsibility} />
+          </div>
         </div>
-      )}
+
+        <div className="flex-1 p-6 rounded-2xl  bg-white space-y-4">
+          <JobOverview
+            salaryRange={salaryRange}
+            education={formatEducation(job.education)}
+            salaryType={formatSalaryType(job.salary_type)}
+            createdAt={formatDate(job.created_at)}
+            expiredAt={formatDate(job.expired_at)}
+            jobType={formatJobType(job.job_type)}
+          />
+          <div className="pt-4">
+            <CompanyInfo
+              establishedIn={formatDate(employer.established_in)}
+              name={employer.name}
+              logoUrl={employer.logo_url}
+              websiteUrl={employer.website_url}
+              province={employer.province?.name_en || "N/A"}
+              district={employer.district?.name_en || "N/A"}
+            />
+          </div>
+          {employer.social_links.length !== 0 && (
+            <div className=" pt-4">
+              <FollowSocialLink socialLinks={employer.social_links} />
+            </div>
+          )}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 }

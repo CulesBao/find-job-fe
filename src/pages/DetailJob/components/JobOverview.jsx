@@ -1,8 +1,7 @@
 import { BriefcaseBusiness, Timer, Wallet } from "lucide-react";
 
 const JobOverview = ({
-  minSalary,
-  maxSalary,
+  salaryRange,
   education,
   salaryType,
   createdAt,
@@ -29,7 +28,7 @@ const JobOverview = ({
     {
       icon: <Wallet className="w-10 h-10 text-yellow-500 mx-auto" />,
       label: "Salary",
-      value: `${minSalary}-${maxSalary}`,
+      value: `${salaryRange}`,
     },
     {
       icon: <Wallet className="w-10 h-10 text-purple-500 mx-auto" />,

@@ -2,7 +2,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { Avatar, Box, Button, Card, Stack, Typography } from "@mui/material";
 
-const FindEmployer = ({ id, name, location, logoUrl }) => {
+const FindEmployer = ({ job }) => {
   return (
     <Card
       sx={{
@@ -30,8 +30,8 @@ const FindEmployer = ({ id, name, location, logoUrl }) => {
               height: "100%",
             },
           }}
-          src={logoUrl}
-          alt={`${name} logo`}
+          src={job.logoUrl}
+          alt={`${job.name} logo`}
         />
 
         <Box>
@@ -41,14 +41,19 @@ const FindEmployer = ({ id, name, location, logoUrl }) => {
             color="text.primary"
             gutterBottom
           >
-            {name}
+            {job.name}
           </Typography>
 
           <Stack direction="row" spacing={2.5}>
             <Stack direction="row" spacing={0.75} alignItems="center">
               <LocationOnOutlinedIcon fontSize="small" color="action" />
               <Typography variant="body2" color="text.secondary">
-                {location}
+                {job.location}
+              </Typography>
+            </Stack>
+            <Stack direction="row" spacing={0.75} alignItems="center">
+              <Typography variant="body2" color="text.secondary">
+                {job.jobCount} jobs available
               </Typography>
             </Stack>
           </Stack>

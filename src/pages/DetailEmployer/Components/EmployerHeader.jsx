@@ -1,11 +1,47 @@
-import { useState } from "react";
+import FollowButton from "@/components/button/FollowedButton";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  followEmployer,
+  isFollowed,
+  unfollowEmployer,
+} from "@/services/candidateFollowerService";
+import { useEffect, useState } from "react";
 
-function EmployerHeader({ logoUrl, companyName, createdAt }) {
+function EmployerHeader({ employerId, logoUrl, companyName, createdAt }) {
   const [isFollowing, setIsFollowing] = useState(false);
+  const { user } = useAuth();
 
   const handleToggleFollow = () => {
-    setIsFollowing(prev => !prev);
+    const toggleFollow = async () => {
+      if (!isFollowing) {
+        const response = await followEmployer(employerId);
+        if (response.status === 200) {
+          setIsFollowing(true);
+        }
+      } else {
+        const response = await unfollowEmployer(employerId);
+        if (response.status === 200) {
+          setIsFollowing(false);
+        }
+      }
+    };
+    toggleFollow();
   };
+
+  useEffect(() => {
+    const checkFollowStatus = async () => {
+      try {
+        const response = await isFollowed(employerId);
+        setIsFollowing(response.data);
+      } catch (error) {
+        console.error("Error checking follow status:", error);
+      }
+    };
+
+    if (user?.role === "CANDIDATE") {
+      checkFollowStatus();
+    }
+  }, [employerId, user]);
 
   return (
     <section className="flex flex-col items-center text-center w-full p-6 bg-white rounded-2xl">
@@ -24,16 +60,12 @@ function EmployerHeader({ logoUrl, companyName, createdAt }) {
         <span>Founded on:</span>
         <span className="font-medium text-blue-500">{createdAt}</span>
       </div>
-      <button
-        onClick={handleToggleFollow}
-        className={`mt-4 px-8 py-2 rounded-full shadow-lg flex items-center gap-2 transition-all duration-300 ${
-          isFollowing
-            ? "bg-gray-500 hover:bg-red-400 text-white"
-            : "bg-blue-500 hover:bg-blue-600 text-white"
-        }`}
-      >
-        {isFollowing ? "Unfollow Company" : "Follow Company"}
-      </button>
+      {user?.role === "CANDIDATE" && (
+        <FollowButton
+          isFollowing={isFollowing}
+          onToggleFollow={handleToggleFollow}
+        />
+      )}
     </section>
   );
 }

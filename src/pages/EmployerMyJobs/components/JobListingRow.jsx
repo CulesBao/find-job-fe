@@ -35,7 +35,7 @@ function JobListingRow({ job, isHighlighted }) {
           {job.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" mt={0.5}>
-          {job.jobType} • {job.dayLeft} days left
+          {job.jobType} • {job.dayLeft}
         </Typography>
       </Box>
 

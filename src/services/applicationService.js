@@ -17,7 +17,7 @@ export const createApplication = (file, coverLetter, jobId) =>
 
 export const withdrawApplication = (applicationId) =>
   safeApiCall(() => {
-    return axiosPrivate.put(`/applications/${applicationId}/withdraw`);
+    return axiosPrivate.put(`/application/${applicationId}/withdraw`);
   });
 
 export const getCanddidateApplications = (
@@ -25,7 +25,7 @@ export const getCanddidateApplications = (
   limit = 10 //get all applications of candidate view
 ) =>
   safeApiCall(() => {
-    return axiosPrivate.get("/applications", {
+    return axiosPrivate.get("/application", {
       params: {
         page,
         limit,
@@ -39,7 +39,7 @@ export const getEmployerApplications = (
   jobId
 ) =>
   safeApiCall(() => {
-    return axiosPrivate.get(`/applications/${jobId}`, {
+    return axiosPrivate.get(`/application/${jobId}`, {
       params: {
         page,
         limit,
@@ -48,9 +48,14 @@ export const getEmployerApplications = (
   });
 export const getApplicationById = (applicationId) =>
   safeApiCall(() => {
-    return axiosPrivate.get(`/applications/${applicationId}`);
+    return axiosPrivate.get(`/application/${applicationId}`);
   });
 export const updateApplicationStatus = (jobId, data) =>
   safeApiCall(() => {
-    return axiosPrivate.put(`/applications/job/${jobId}`, { data });
+    return axiosPrivate.put(`/application/job/${jobId}`, { data });
+  });
+
+export const getStatus = (jobId) =>
+  safeApiCall(() => {
+    return axiosPrivate.get(`/application/job/${jobId}/status`);
   });
