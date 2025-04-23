@@ -19,6 +19,12 @@ export const updateSocialLinks = (social_links) => {
   );
 };
 
+export const updateEmployerSocialLinks = (social_links) => {
+  return safeApiCall(() =>
+    axiosPrivate.put("/employer-profile/social-links", { social_links })
+  );
+};
+
 export const updateEmployerLogo = (file) => {
   const formData = new FormData();
   formData.append("logo", file);

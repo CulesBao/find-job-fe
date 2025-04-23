@@ -3,15 +3,13 @@ import DashboardRedirect from "@/hooks/DashboardRedirect";
 import RoleBasedRoute from "@/hooks/RoleBasedRoute";
 import { useAuth } from "@/hooks/useAuth";
 import CandidateAppliedJobs from "@/pages/CandidateAppliedJobs/CandidateAppliedJobs";
-import CandidateFavoriteJob from "@/pages/CandidateFavoriteJob/CandidateFavoriteJob";
-import CandidateJobAlert from "@/pages/CandidateJobAlert/CandidateJobAlert";
-import CandidateSettingRoutes from "@/pages/CandidateSetting/CandidateSettingRoutes";
+import CandidateSavedEmployers from "@/pages/CandidateFavoriteJob/CandidateSavedEmployers";
 import EmployerMyJobs from "@/pages/EmployerMyJobs/EmployerMyJobs";
 import EmployerPostJob from "@/pages/EmployerPostJob/EmployerPostJob";
-import EmployerSavedCdd from "@/pages/EmployerSavedCdd/EmployerSavedCdd";
-import EmployerSettingRoutes from "@/pages/EmployerSetting/EmployerSettingRoutes";
+import EmployerSavedCandidate from "@/pages/EmployerSavedCdd/EmployerSavedCandidate";
 import { createJob, updateJobById } from "@/services/jobService";
 import { Route, Routes } from "react-router-dom";
+import SettingRoutes from "./SettingRoutes";
 
 export default function DashboardRoutes() {
   const { user } = useAuth();
@@ -19,17 +17,16 @@ export default function DashboardRoutes() {
   const candidateRoutes = [
     { path: "*", element: <DashboardRedirect /> },
     { path: "applied-jobs", element: <CandidateAppliedJobs /> },
-    { path: "settings/*", element: <CandidateSettingRoutes /> },
-    { path: "job-alert", element: <CandidateJobAlert /> },
-    { path: "favorite-jobs", element: <CandidateFavoriteJob /> },
+    { path: "settings/*", element: <SettingRoutes /> },
+    { path: "saved-employers", element: <CandidateSavedEmployers /> },
   ];
 
   const employerRoutes = [
     { path: "*", element: <DashboardRedirect /> },
-    { path: "settings/*", element: <EmployerSettingRoutes /> },
+    { path: "settings/*", element: <SettingRoutes /> },
     { path: "my-job", element: <EmployerMyJobs /> },
     { path: "post-job", element: <EmployerPostJob fn={createJob} /> },
-    { path: "saved-candidate", element: <EmployerSavedCdd /> },
+    { path: "saved-candidate", element: <EmployerSavedCandidate /> },
     {
       path: "edit-job/:jobId",
       element: <EmployerPostJob fn={updateJobById} />,

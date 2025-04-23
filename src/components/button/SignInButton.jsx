@@ -43,11 +43,7 @@ export default function SignInButton({ Account }) {
       loginUser(res.data.account_dto);
 
       if (res.data.is_new_account) {
-        const path =
-          res.data.account_dto.role === "EMPLOYER"
-            ? "/employer/set-up"
-            : "/candidate/set-up";
-        navigate(path, { replace: true });
+        navigate("/set-up/profile ", { replace: true });
       } else {
         navigate("/dashboard", { replace: true });
       }

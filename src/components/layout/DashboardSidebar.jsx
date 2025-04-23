@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import WorkIcon from "@mui/icons-material/Work";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import SaveIcon from "@mui/icons-material/Save";
@@ -16,59 +15,54 @@ const DashboardSidebar = () => {
 
   const basePath = "/dashboard";
 
-  const candidateMenu = [
-    {
-      name: "Applied Jobs",
-      icon: <WorkIcon fontSize="small" />,
-      path: `${basePath}/applied-jobs`,
-    },
-    {
-      name: "Favorite Jobs",
-      icon: <FavoriteIcon fontSize="small" />,
-      path: `${basePath}/favorite-jobs`,
-    },
-    {
-      name: "Job Alert",
-      icon: <NotificationsIcon fontSize="small" />,
-      path: `${basePath}/job-alert`,
-      badge: 0,
-    },
-    {
-      name: "Settings",
-      icon: <SettingsIcon fontSize="small" />,
-      path: `${basePath}/settings`,
-    },
-  ];
+  const menu = useMemo(() => {
+    const candidateMenu = [
+      {
+        name: "Applied Jobs",
+        icon: <WorkIcon fontSize="small" />,
+        path: `${basePath}/applied-jobs`,
+      },
+      {
+        name: "Saved Employers",
+        icon: <FavoriteIcon fontSize="small" />,
+        path: `${basePath}/saved-employers`,
+      },
+      {
+        name: "Settings",
+        icon: <SettingsIcon fontSize="small" />,
+        path: `${basePath}/settings/profile`,
+      },
+    ];
 
-  const employerMenu = [
-    {
-      name: "My Jobs",
-      icon: <WorkIcon fontSize="small" />,
-      path: `${basePath}/my-job`,
-    },
-    {
-      name: "Post Job",
-      icon: <PostAddIcon fontSize="small" />,
-      path: `${basePath}/post-job`,
-    },
-    {
-      name: "Saved Candidates",
-      icon: <SaveIcon fontSize="small" />,
-      path: `${basePath}/saved-candidate`,
-    },
-    {
-      name: "Settings",
-      icon: <SettingsIcon fontSize="small" />,
-      path: `${basePath}/settings`,
-    },
-  ];
+    const employerMenu = [
+      {
+        name: "My Jobs",
+        icon: <WorkIcon fontSize="small" />,
+        path: `${basePath}/my-job`,
+      },
+      {
+        name: "Post Job",
+        icon: <PostAddIcon fontSize="small" />,
+        path: `${basePath}/post-job`,
+      },
+      {
+        name: "Saved Candidates",
+        icon: <SaveIcon fontSize="small" />,
+        path: `${basePath}/saved-candidate`,
+      },
+      {
+        name: "Settings",
+        icon: <SettingsIcon fontSize="small" />,
+        path: `${basePath}/settings/profile`,
+      },
+    ];
 
-  const menu =
-    user?.role === "CANDIDATE"
+    return user?.role === "CANDIDATE"
       ? candidateMenu
       : user?.role === "EMPLOYER"
       ? employerMenu
       : [];
+  }, [user?.role, basePath]);
 
   useEffect(() => {
     const currentItem = menu.find((item) => location.pathname === item.path);
@@ -79,7 +73,7 @@ const DashboardSidebar = () => {
 
   return (
     <div className="w-64 bg-white shadow-md p-4 text-sm text-gray-700 h-65 relative left-1/10 top-20">
-      <div className="mb-6 font-semibold text-gray-500 uppercase text-xs">
+      <div className="mb-6 font-semiboldw text-gray-500 uppercase text-xs">
         {user?.role === "CANDIDATE"
           ? "Candidate Dashboard"
           : "Employer Dashboard"}
