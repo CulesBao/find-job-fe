@@ -15,3 +15,13 @@ export const isFollowed = async (candidateId) =>
   safeApiCall(() => {
     return axiosPrivate.get(`/employers/followers/${candidateId}`);
   });
+
+export const getFollowedCandidates = async (page, size) =>
+  safeApiCall(() => {
+    return axiosPrivate.get(`/employers/followers/`, {
+      params: {
+        page: page,
+        size: size,
+      },
+    });
+  });

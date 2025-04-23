@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Paper,
@@ -49,7 +48,11 @@ const mockData = {
   ],
   contactInfo: [
     { icon: Language, label: "Website", value: "www.estherhoward.com" },
-    { icon: LocationOn, label: "Location", value: "Beverly Hills, California 90202" },
+    {
+      icon: LocationOn,
+      label: "Location",
+      value: "Beverly Hills, California 90202",
+    },
     { icon: Phone, label: "Phone", value: "+1-202-555-0141" },
     { icon: Email, label: "Email Address", value: "esther.howard@gmail.com" },
   ],
@@ -116,7 +119,11 @@ export default function SingleApplication() {
           <Button
             variant="contained"
             startIcon={<Phone />}
-            sx={{ minWidth: 209, bgcolor: "#0a65cc", "&:hover": { bgcolor: "#094ea0" } }}
+            sx={{
+              minWidth: 209,
+              bgcolor: "#0a65cc",
+              "&:hover": { bgcolor: "#094ea0" },
+            }}
           >
             Hire Candidates
           </Button>
@@ -135,7 +142,9 @@ export default function SingleApplication() {
         }}
       >
         {/* Left Column */}
-        <Box sx={{ width: 536, display: "flex", flexDirection: "column", gap: 4 }}>
+        <Box
+          sx={{ width: 536, display: "flex", flexDirection: "column", gap: 4 }}
+        >
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" fontWeight="medium">
               BIOGRAPHY
@@ -151,7 +160,7 @@ export default function SingleApplication() {
               {coverLetter}
             </Typography>
           </Paper>
-       <Box>
+          <Box>
             <Typography variant="subtitle1" mb={1}>
               Follow me Social Media
             </Typography>
@@ -193,7 +202,9 @@ export default function SingleApplication() {
         </Box>
 
         {/* Right Column */}
-        <Box sx={{ width: 312, display: "flex", flexDirection: "column", gap: 3 }}>
+        <Box
+          sx={{ width: 312, display: "flex", flexDirection: "column", gap: 3 }}
+        >
           <Paper
             sx={{
               p: 3,
@@ -231,7 +242,13 @@ export default function SingleApplication() {
             <Typography variant="h6" mb={2}>
               Download My Resume
             </Typography>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <MuiLink
                 href={resumeFile.url}
                 download
