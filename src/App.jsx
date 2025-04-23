@@ -12,6 +12,8 @@ import RoleBasedRoute from "./hooks/RoleBasedRoute";
 import { ProfileProvider } from "./context/ProfileContext";
 import DashboardRoutes from "./routes/DashboardRoutes";
 import { JobRoutes } from "./routes/JobRoutes";
+import CandidateRoutes from "./routes/CandidateRoutes";
+import EmployerRoutes from "./routes/EmployerRoutes";
 
 export default function App() {
   return (
@@ -55,6 +57,8 @@ export default function App() {
               }
             />
             <Route path="/job/*" element={<JobRoutes />} />
+            <Route path="/candidate/*" element={<CandidateRoutes />} />
+            <Route path="/employer/*" element={<EmployerRoutes />} />
           </Routes>
         </ProfileProvider>
       </AuthProvider>

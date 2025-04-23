@@ -3,7 +3,6 @@ import { CheckCircle, XCircle } from "lucide-react";
 
 function StatusBadge({ status }) {
   const theme = useTheme();
-
   return (
     <Box
       sx={{
