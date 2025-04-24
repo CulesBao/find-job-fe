@@ -50,7 +50,7 @@ function FilterCandidatePage() {
   }, [currentPage]);
 
   return (
-    <Box width="100%">
+    <Box width="100%" display="flex" flexDirection="column" gap={2}>
       <FilterCandidateHeader
         filters={filters}
         onFilterChange={onFilterChange}

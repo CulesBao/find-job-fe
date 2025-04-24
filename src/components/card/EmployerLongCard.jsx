@@ -1,20 +1,20 @@
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import { Avatar, Box, Button, Card, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Paper, Stack, Typography, Button } from "@mui/material";
 import { Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const EmployerLongCard = ({ employer }) => {
   return (
-    <Card
+    <Paper
+      elevation={2}
       sx={{
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
-        p: 3,
-        borderRadius: 3,
-        border: "1px solid",
-        borderColor: "grey.200",
-        bgcolor: "background.paper",
+        justifyContent: "space-between",
+        p: 2,
+        mb: 2,
+        borderRadius: 2,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         transition: "all 0.3s ease",
         "&:hover": {
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
@@ -22,66 +22,73 @@ const EmployerLongCard = ({ employer }) => {
         },
       }}
     >
-      {/* Left Section */}
-      <Stack direction="row" spacing={3} alignItems="center">
-        {/* Avatar */}
-        <Avatar
-          sx={{
-            bgcolor: "#ea4c89",
-            width: 64,
-            height: 64,
-            overflow: "hidden",
-            "& img": {
-              objectFit: "cover",
-              width: "100%",
-              height: "100%",
-            },
-          }}
-          src={employer.logo_url}
-          alt={`${employer.name} logo`}
-        />
-
-        {/* Employer Info */}
-        <Box>
-          <Typography
-            variant="h6"
-            fontWeight={600}
-            color="text.primary"
-            gutterBottom
-          >
-            {employer.name}
-          </Typography>
-
-          <Stack direction="row" spacing={2} alignItems="center">
-            {/* Location */}
-            <Stack direction="row" spacing={0.75} alignItems="center">
-              <LocationOnOutlinedIcon fontSize="small" color="action" />
-              <Typography variant="body2" color="text.secondary">
-                {employer.location}
-              </Typography>
-            </Stack>
-
-            {/* Job Count */}
-            <Stack direction="row" spacing={0.75} alignItems="center">
-              <Briefcase size={16} color="#B0BEC5" />
-              <Typography variant="body2" color="text.secondary">
-                {employer.job_count} jobs available
-              </Typography>
-            </Stack>
-          </Stack>
-        </Box>
-      </Stack>
-
-      <Button
-        component={Link}
+      <Link
         to={`/employer/details/${employer.id}`}
-        variant={"contained"}
-        color={"primary"}
-        sx={{ textTransform: "capitalize", textDecoration: "none" }}
+        style={{ display: "flex", flex: 1, textDecoration: "none", color: "inherit" }}
       >
-        Vist Profile
-      </Button>
-    </Card>
+        <Stack direction="row" spacing={3} alignItems="center">
+          {/* Avatar */}
+          <Avatar
+            sx={{
+              bgcolor: "#ea4c89",
+              width: 64,
+              height: 64,
+              overflow: "hidden",
+              "& img": {
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+              },
+            }}
+            src={employer.logo_url}
+            alt={`${employer.name} logo`}
+          />
+
+          {/* Employer Info */}
+          <Box>
+            <Typography
+              variant="h6"
+              fontWeight={600}
+              color="text.primary"
+              gutterBottom
+            >
+              {employer.name}
+            </Typography>
+
+            <Stack direction="row" spacing={2} alignItems="center">
+              {/* Location */}
+              <Stack direction="row" spacing={0.75} alignItems="center">
+                <LocationOnOutlinedIcon fontSize="small" color="action" />
+                <Typography variant="body2" color="text.secondary">
+                  {employer.location}
+                </Typography>
+              </Stack>
+
+              {/* Job Count */}
+              <Stack direction="row" spacing={0.75} alignItems="center">
+                <Briefcase size={16} color="#B0BEC5" />
+                <Typography variant="body2" color="text.secondary">
+                  {employer.job_count} jobs available
+                </Typography>
+              </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Link>
+
+      <Box>
+        <Button
+          variant="contained"
+          component={Link}
+          to={`/employer/details/${employer.id}`}
+          color="primary"
+          size="large"
+          sx={{ textTransform: "none" }}
+        >
+          Visit Profile
+        </Button>
+      </Box>
+    </Paper>
   );
 };
 

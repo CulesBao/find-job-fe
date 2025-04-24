@@ -46,7 +46,7 @@ function FilterEmployerPage() {
   }, [currentPage]);
 
   return (
-    <Box width="100%">
+    <Box width="100%" display="flex" flexDirection="column" gap={2}>
       <FilterEmployerHeader
         filters={filters}
         onFilterChange={onFilterChange}

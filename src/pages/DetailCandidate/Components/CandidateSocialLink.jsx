@@ -14,7 +14,7 @@ const CandidateSocialLink = ({ socialLinks }) => {
 
   return (
     <Box className="p-6 bg-white rounded-lg">
-      <h3 className="text-lg font-semibold text-black mb-6">Connect with me:</h3>
+      <h3 className="text-xl font-medium text-black mb-6">Connect with me:</h3>
 
       <Box className="flex flex-wrap gap-3">
         {socialLinks.map((link) => (
