@@ -19,7 +19,6 @@ const CandidateSavedEmployers = () => {
         setEmployers(response.data.content);
         setTotalPage(response.data.total_pages);
         setCurrentPage(response.data.pageable.page_number + 1);
-        console.log("Saved Employers:", response.data.content);
       } catch (error) {
         console.error("Error fetching saved employers:", error);
       }

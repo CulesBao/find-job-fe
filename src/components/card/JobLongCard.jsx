@@ -18,6 +18,10 @@ function JobLongCard({ job }) {
         mb: 2,
         borderRadius: 2,
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        "&:hover": {
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+          transform: "translateY(-2px)",
+        },
       }}
     >
       <Link to={`details/${job?.id}`}>
