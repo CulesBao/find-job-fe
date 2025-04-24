@@ -5,7 +5,8 @@ import handleSalaryAndCurrency from "./handleSalaryAndCurrency";
 
 export default function handleViewApplication(application) {
   const jobProcess =
-    JobProcess[application?.jobProcess] || JobProcess["APPLICATION_SUBMITTED"];
+    JobProcess[application?.job_proccess] ||
+    JobProcess["APPLICATION_SUBMITTED"];
   return {
     applicationId: application.application_id,
     jobId: application.job_id,
