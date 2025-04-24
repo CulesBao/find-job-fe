@@ -20,12 +20,9 @@ export const withdrawApplication = (applicationId) =>
     return axiosPrivate.put(`/application/${applicationId}/withdraw`);
   });
 
-export const getCanddidateApplications = (
-  page = 0,
-  limit = 10 //get all applications of candidate view
-) =>
+export const getCanddidateApplications = (page = 0, limit = 10) =>
   safeApiCall(() => {
-    return axiosPrivate.get("/application", {
+    return axiosPrivate.get("/application/", {
       params: {
         page,
         limit,
