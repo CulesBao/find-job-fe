@@ -67,12 +67,12 @@ const JobProcess = {
   REJECTED: {
     name: "Rejected",
     upperCaseName: "REJECTED",
-    color: "#d32f2f", // Red
+    // Red
   },
   WITHDRAWN: {
     name: "Withdrawn",
     upperCaseName: "WITHDRAWN",
-    color: "#757575", // Grey
+    color: "#d32f2f", // Red
   },
 };
 

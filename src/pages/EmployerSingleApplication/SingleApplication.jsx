@@ -24,6 +24,8 @@ import { forwardRef, useState } from "react";
 import CandidateSocialLink from "../DetailCandidate/Components/CandidateSocialLink";
 import JobProcess from "@/constants/JobProccess";
 import { MapPin, PhoneCall } from "lucide-react";
+import { withdrawApplication } from "@/services/applicationService";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/display-name
 const Transition = forwardRef((props, ref) => (
@@ -31,20 +33,14 @@ const Transition = forwardRef((props, ref) => (
 ));
 
 export default function SingleApplication({ open, onClose, data, role }) {
-  const { candidate_profile: profile, cover_letter, cv_url } = data;
+  console.log(data);
+  const navigate = useNavigate();
   const isDisabled = role !== "EMPLOYER";
-
-const [selectedProcess, setSelectedProcess] = useState();
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-// TEST TRONG TESTLAYOUT.jsx
-
+  const [selectedProcess, setSelectedProcess] = useState(data?.job_proccess);
+  const handleWithdraw = async () => {
+    await withdrawApplication(data?.id);
+    navigate(0);
+  };
   return (
     <Dialog
       open={open}
@@ -56,9 +52,15 @@ const [selectedProcess, setSelectedProcess] = useState();
       PaperProps={{ sx: { borderRadius: 3 } }}
     >
       <DialogTitle
-        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#f5f5f5"}}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "#f5f5f5",
+        }}
       >
-        {profile.first_name} {profile.last_name}{"'s"} Application
+        {data?.candidate_profile.first_name} {data?.candidate_profile.last_name}
+        {"'s"} Application
         <IconButton onClick={onClose}>
           <Close />
         </IconButton>
@@ -76,72 +78,95 @@ const [selectedProcess, setSelectedProcess] = useState();
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
               <Avatar
-                src={profile.avatar_url}
-                alt={`${profile.first_name} ${profile.last_name}`}
+                src={data?.candidate_profile.avatar_url}
+                alt={`${data?.candidate_profile.first_name} ${data?.candidate_profile.last_name}`}
                 sx={{ width: 100, height: 100 }}
               />
               <Box>
                 <Typography variant="h5" fontWeight="medium">
-                  {profile.first_name} {profile.last_name}
+                  {data?.candidate_profile.first_name}{" "}
+                  {data?.candidate_profile.last_name}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  {profile.education}
+                  {data?.candidate_profile.education}
                 </Typography>
               </Box>
             </Box>
 
-              <Box sx={{ display: "flex", gap: 2 }}>
-                {role === "EMPLOYER" && (
+            <Box sx={{ display: "flex", gap: 2 }}>
+              {role === "EMPLOYER" && (
                 <Button
                   variant="outlined"
                   startIcon={<Email />}
                   sx={{ borderColor: "#0a65cc", color: "#0a65cc" }}
                 >
                   Send Mail
-                </Button>)}
-                <Tooltip title={isDisabled ? "Only Employer can change this" : ""} placement="top">
-                  <FormControl size="small" sx={{ minWidth: 200 }}>
-                    <Select
-                      value={selectedProcess}
-                      onChange={(e) => setSelectedProcess(e.target.value)}
-                      displayEmpty
-                      IconComponent={() => null}
-                      renderValue={(selected) => {
-                        const process = JobProcess[selected] || { name: "Select Process", color: "#ccc" };
-                        return (
+                </Button>
+              )}
+              {role === "CANDIDATE" && (
+                <Button
+                  variant="outlined"
+                  color="error"
+                  disabled={data?.job_proccess == "WITHDRAWN"}
+                  onClick={() => handleWithdraw()}
+                >
+                  Withdrawn
+                </Button>
+              )}
+              <Tooltip
+                title={isDisabled ? "Only Employer can change this" : ""}
+                placement="top"
+              >
+                <FormControl size="small" sx={{ minWidth: 200 }}>
+                  <Select
+                    value={selectedProcess}
+                    onChange={(e) => setSelectedProcess(e.target.value)}
+                    displayEmpty
+                    IconComponent={() => null}
+                    renderValue={(selected) => {
+                      const process =
+                        JobProcess[selected] || JobProcess[data?.job_proccess];
+                      return (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            bgcolor: process.color,
+                            color: "#fff",
+                            fontWeight: 500,
+                            px: 2,
+                            py: 1,
+                            borderRadius: 2,
+                          }}
+                        >
+                          {process.name}
+                        </Box>
+                      );
+                    }}
+                    disabled={isDisabled}
+                    sx={{
+                      pointerEvents: isDisabled ? "none" : "auto",
+                      opacity: 1,
+                      "& .MuiSelect-select": {
+                        padding: 0,
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      bgcolor: "transparent",
+                    }}
+                  >
+                    {Object.entries(JobProcess).map(
+                      ([key, { name, color }]) => (
+                        <MenuItem key={key} value={key}>
                           <Box
                             sx={{
                               display: "flex",
                               alignItems: "center",
-                              justifyContent: "center",
-                              bgcolor: process.color,
-                              color: "#fff",
-                              fontWeight: 500,
-                              px: 2,
-                              py: 1,
-                              borderRadius: 2,
+                              gap: 1,
                             }}
                           >
-                            {process.name}
-                          </Box>
-                        );
-                      }}
-                      disabled={isDisabled}
-                      sx={{
-                        pointerEvents: isDisabled ? "none" : "auto",
-                        opacity: 1, 
-                        "& .MuiSelect-select": {
-                          padding: 0,
-                        },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          border: "none",
-                        },
-                        bgcolor: "transparent",
-                      }}
-                    >
-                      {Object.entries(JobProcess).map(([key, { name, color }]) => (
-                        <MenuItem key={key} value={key}>
-                          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <Box
                               sx={{
                                 width: 12,
@@ -153,11 +178,12 @@ const [selectedProcess, setSelectedProcess] = useState();
                             <Typography>{name}</Typography>
                           </Box>
                         </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Tooltip>
-              </Box>
+                      )
+                    )}
+                  </Select>
+                </FormControl>
+              </Tooltip>
+            </Box>
           </Box>
 
           {/* Content */}
@@ -168,8 +194,12 @@ const [selectedProcess, setSelectedProcess] = useState();
                 <Typography variant="h6" fontWeight="medium" mb={2}>
                   Biography
                 </Typography>
-                <Typography variant="body1" textAlign="justify" color="text.secondary">
-                  {profile.bio}
+                <Typography
+                  variant="body1"
+                  textAlign="justify"
+                  color="text.secondary"
+                >
+                  {data?.candidate_profile.bio}
                 </Typography>
               </Paper>
 
@@ -177,8 +207,12 @@ const [selectedProcess, setSelectedProcess] = useState();
                 <Typography variant="h6" fontWeight="medium" mb={2}>
                   Cover Letter
                 </Typography>
-                <Typography variant="body1" textAlign="justify" color="text.secondary">
-                  {cover_letter}
+                <Typography
+                  variant="body1"
+                  textAlign="justify"
+                  color="text.secondary"
+                >
+                  {data?.cover_letter}
                 </Typography>
               </Paper>
             </Box>
@@ -192,29 +226,29 @@ const [selectedProcess, setSelectedProcess] = useState();
                 <List disablePadding>
                   <ListItem disableGutters>
                     <ListItemIcon>
-                      <MapPin className="w-10 h-10 text-orange-500 mx-auto"/>
+                      <MapPin className="w-10 h-10 text-orange-500 mx-auto" />
                     </ListItemIcon>
                     <ListItemText
                       primary="Province"
-                      secondary={profile.province.full_name_en}
+                      secondary={data?.candidate_profile.province.full_name_en}
                     />
                   </ListItem>
                   <ListItem disableGutters>
                     <ListItemIcon>
-                      <MapPin className="w-10 h-10 text-orange-500 mx-auto"/>
+                      <MapPin className="w-10 h-10 text-orange-500 mx-auto" />
                     </ListItemIcon>
                     <ListItemText
                       primary="District"
-                      secondary={profile.district.full_name_en}
+                      secondary={data?.candidate_profile.district.full_name_en}
                     />
                   </ListItem>
                   <ListItem disableGutters>
                     <ListItemIcon>
-                      <PhoneCall className="w-9 h-9 text-emerald-500 mx-auto"/>
+                      <PhoneCall className="w-9 h-9 text-emerald-500 mx-auto" />
                     </ListItemIcon>
-                  <ListItemText
+                    <ListItemText
                       primary="Phone Number"
-                      secondary={profile.phone_number}
+                      secondary={data?.candidate_profile.phone_number}
                     />
                   </ListItem>
                 </List>
@@ -225,7 +259,7 @@ const [selectedProcess, setSelectedProcess] = useState();
                   Download CV
                 </Typography>
                 <MuiLink
-                  href={cv_url}
+                  href={data?.cv_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
@@ -256,7 +290,9 @@ const [selectedProcess, setSelectedProcess] = useState();
               </Paper>
 
               <Paper>
-                <CandidateSocialLink socialLinks={profile.social_links} />
+                <CandidateSocialLink
+                  socialLinks={data?.candidate_profile.social_links}
+                />
               </Paper>
             </Box>
           </Box>

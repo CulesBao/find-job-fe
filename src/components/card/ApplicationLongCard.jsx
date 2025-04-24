@@ -1,11 +1,4 @@
-import {
-  Box,
-  Typography,
-  Paper,
-  Avatar,
-  Chip,
-  IconButton,
-} from "@mui/material";
+import { Box, Typography, Paper, Avatar, Chip, Button } from "@mui/material";
 import {
   LocationOn,
   AttachMoney,
@@ -13,15 +6,20 @@ import {
   Business,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { Eye, XCircle } from "lucide-react"; // Import icons from lucide-react
+import { useState } from "react";
+import { getApplicationById } from "@/services/applicationService";
+import SingleApplication from "@/pages/EmployerSingleApplication/SingleApplication";
+import { useAuth } from "@/hooks/useAuth";
 
-function ApplicationLongCard({ application, onWithdraw }) {
-  const handleWithdraw = () => {
-    if (onWithdraw) {
-      onWithdraw(application?.id);
-    }
+function ApplicationLongCard({ application }) {
+  const [open, setOpen] = useState(false);
+  const [coverLetter, setCoverLetter] = useState();
+  const { user } = useAuth();
+  const handleViewApplication = async (applicationId) => {
+    const response = await getApplicationById(applicationId);
+    setCoverLetter(response.data);
+    setOpen(true);
   };
-
   return (
     <Paper
       elevation={2}
@@ -104,25 +102,23 @@ function ApplicationLongCard({ application, onWithdraw }) {
         />
       </Box>
       <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
-        <IconButton
-          component={Link}
-          to={`details/${application?.id}`}
+        <Button
+          variant="contained"
           color="primary"
-          size="small"
-          alt="View Application"
-          title="View Application"
+          size="large"
+          sx={{ textTransform: "none" }}
+          onClick={() => {
+            handleViewApplication(application.applicationId);
+          }}
         >
-          <Eye size={20} />
-        </IconButton>
-        <IconButton
-          color="error"
-          size="small"
-          onClick={handleWithdraw}
-          alt="Withdraw Application"
-          title="Withdraw Application"
-        >
-          <XCircle size={20} />
-        </IconButton>
+          View Detail
+        </Button>
+        <SingleApplication
+          open={open}
+          onClose={() => setOpen(false)}
+          role={user?.role}
+          data={coverLetter}
+        />
       </Box>
     </Paper>
   );
