@@ -64,7 +64,7 @@ const FilterCandidateHeader = ({ filters, onFilterChange, onApply }) => {
         <TextField
           label="First Name"
           placeholder="Enter first name"
-          variant="outlined"
+          variant="standard"
           value={filters.firstName}
           onChange={handleChange("firstName")}
           InputProps={{
@@ -80,7 +80,7 @@ const FilterCandidateHeader = ({ filters, onFilterChange, onApply }) => {
         <TextField
           label="Last Name"
           placeholder="Enter last name"
-          variant="outlined"
+          variant="standard"
           value={filters.lastName}
           onChange={handleChange("lastName")}
           InputProps={{
@@ -93,17 +93,26 @@ const FilterCandidateHeader = ({ filters, onFilterChange, onApply }) => {
           fullWidth
         />
 
-        <FormControl fullWidth>
+        <FormControl
+          fullWidth
+          variant="outlined"
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+          }}
+        >
           <InputLabel id="education-label">Education</InputLabel>
           <Select
             labelId="education-label"
             value={filters.education}
             onChange={handleChange("education")}
             startAdornment={
-              <InputAdornment position="start">
+              <Box sx={{ mr: 1.5, display: "flex", alignItems: "center" }}>
                 <SchoolOutlined color="action" />
-              </InputAdornment>
+              </Box>
             }
+            sx={{ pl: 1 }}
           >
             <MenuItem value="">All Education Levels</MenuItem>
             {Object.values(Education).map((edu) => (
@@ -114,17 +123,26 @@ const FilterCandidateHeader = ({ filters, onFilterChange, onApply }) => {
           </Select>
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl
+          fullWidth
+          variant="outlined"
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+          }}
+        >
           <InputLabel id="province-label">Province</InputLabel>
           <Select
             labelId="province-label"
             value={filters.provinceCode}
             onChange={handleChange("provinceCode")}
             startAdornment={
-              <InputAdornment position="start">
+              <Box sx={{ mr: 1.5, display: "flex", alignItems: "center" }}>
                 <LocationOnOutlined color="action" />
-              </InputAdornment>
+              </Box>
             }
+            sx={{ pl: 1 }}
           >
             <MenuItem value="">All Provinces</MenuItem>
             {provinces.map((prov) => (
@@ -135,17 +153,26 @@ const FilterCandidateHeader = ({ filters, onFilterChange, onApply }) => {
           </Select>
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl
+          fullWidth
+          variant="outlined"
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+          }}
+        >
           <InputLabel id="gender-label">Gender</InputLabel>
           <Select
             labelId="gender-label"
             value={filters.gender}
             onChange={handleChange("gender")}
             startAdornment={
-              <InputAdornment position="start">
+              <Box sx={{ mr: 1.5, display: "flex", alignItems: "center" }}>
                 <WcOutlined color="action" />
-              </InputAdornment>
+              </Box>
             }
+            sx={{ pl: 1 }}
           >
             <MenuItem value="">All Genders</MenuItem>
             {Object.values(GenderType).map((g) => (
@@ -164,6 +191,7 @@ const FilterCandidateHeader = ({ filters, onFilterChange, onApply }) => {
             px: 3,
             whiteSpace: "nowrap",
             textTransform: "none",
+            minWidth: "120px",
           }}
         >
           Apply Filters
