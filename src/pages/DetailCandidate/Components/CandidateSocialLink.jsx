@@ -1,6 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import SocialButton from "../../../components/button/SocialButton";
 
+const normalizeUrl = (url) => {
+  if (!/^https?:\/\//i.test(url)) {
+    return `https://${url}`;
+  }
+  return url;
+};
+
 const CandidateSocialLink = ({ socialLinks }) => {
   if (!socialLinks || socialLinks.length === 0) {
     return (
@@ -18,7 +25,11 @@ const CandidateSocialLink = ({ socialLinks }) => {
 
       <Box className="flex flex-wrap gap-3">
         {socialLinks.map((link) => (
-          <SocialButton type={link.type} url={link.url} key={link.id} />
+          <SocialButton
+          type={link.type}
+          url={normalizeUrl(link.url)}
+          key={link.id}
+        />
         ))}
       </Box>
     </Box>

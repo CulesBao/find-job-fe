@@ -67,6 +67,7 @@ const JobProcess = {
   REJECTED: {
     name: "Rejected",
     upperCaseName: "REJECTED",
+    color: "red"
     // Red
   },
   WITHDRAWN: {
