@@ -30,10 +30,16 @@ export const getCanddidateApplications = (page = 0, limit = 10) =>
     });
   });
 
-export const getEmployerApplications = (page = 0, limit = 10, jobId) =>
+export const getEmployerApplications = (
+  jobId,
+  jobProcess,
+  page = 0,
+  limit = 10
+) =>
   safeApiCall(() => {
-    return axiosPrivate.get(`/application/${jobId}`, {
+    return axiosPrivate.get(`/application/job/${jobId}`, {
       params: {
+        jobProcess,
         page,
         limit,
       },
@@ -43,10 +49,12 @@ export const getApplicationById = (applicationId) =>
   safeApiCall(() => {
     return axiosPrivate.get(`/application/${applicationId}`);
   });
-export const updateApplicationStatus = (jobId, data) =>
-  safeApiCall(() => {
-    return axiosPrivate.put(`/application/job/${jobId}`, { data });
+export const updateApplicationStatus = (jobId, applications) => {
+  console.log("applications", applications);
+  return safeApiCall(() => {
+    return axiosPrivate.put(`/application/job/${jobId}`, { applications });
   }, true);
+};
 
 export const getStatus = (jobId) =>
   safeApiCall(() => {

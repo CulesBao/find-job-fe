@@ -22,14 +22,14 @@ export function JobRoutes() {
           element={<MainLayout showSidebar={false}>{element}</MainLayout>}
         />
       ))}
-        <Route
-        path="/applications/:id"
+      <Route
+        path="/applications/:jobId"
         element={
           <MainLayout>
             <ApplicationList />
           </MainLayout>
         }
-        />
+      />
     </Routes>
   );
 }

@@ -33,7 +33,6 @@ const Transition = forwardRef((props, ref) => (
 ));
 
 export default function SingleApplication({ open, onClose, data, role }) {
-  console.log(data);
   const navigate = useNavigate();
   const isDisabled = role !== "EMPLOYER";
   const [selectedProcess, setSelectedProcess] = useState(data?.job_proccess);
