@@ -13,12 +13,12 @@ export const createApplication = (file, coverLetter, jobId) =>
         "Content-Type": "multipart/form-data",
       },
     });
-  });
+  }, true);
 
 export const withdrawApplication = (applicationId) =>
   safeApiCall(() => {
     return axiosPrivate.put(`/application/${applicationId}/withdraw`);
-  });
+  }, true);
 
 export const getCanddidateApplications = (page = 0, limit = 10) =>
   safeApiCall(() => {
@@ -30,11 +30,7 @@ export const getCanddidateApplications = (page = 0, limit = 10) =>
     });
   });
 
-export const getEmployerApplications = (
-  page = 0,
-  limit = 10, //get all applications from employer view,
-  jobId
-) =>
+export const getEmployerApplications = (page = 0, limit = 10, jobId) =>
   safeApiCall(() => {
     return axiosPrivate.get(`/application/${jobId}`, {
       params: {
@@ -50,7 +46,7 @@ export const getApplicationById = (applicationId) =>
 export const updateApplicationStatus = (jobId, data) =>
   safeApiCall(() => {
     return axiosPrivate.put(`/application/job/${jobId}`, { data });
-  });
+  }, true);
 
 export const getStatus = (jobId) =>
   safeApiCall(() => {
