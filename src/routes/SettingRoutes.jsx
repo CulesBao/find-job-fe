@@ -8,7 +8,7 @@ import {
 import {
   updateEmployerProfile,
   updateEmployerLogo,
-  updateSocialLinks as updateEmployerSocialLinks,
+  updateEmployerSocialLinks,
 } from "@/services/employerProfileService";
 import { resetPassword } from "@/services/accountService";
 import ChangeImageForm from "@/components/profile/ChangeImageForm";

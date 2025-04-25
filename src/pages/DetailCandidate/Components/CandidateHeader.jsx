@@ -6,8 +6,15 @@ import {
 } from "@/services/employerFollowerService";
 import { useEffect, useState } from "react";
 import FollowButton from "@/components/button/FollowedButton";
+import SendMailButton from "@/components/button/SendMailButton";
 
-function CandidateHeader({ candidateId, avatarUrl, fullName, createdAt }) {
+function CandidateHeader({
+  candidateId,
+  avatarUrl,
+  fullName,
+  createdAt,
+  email,
+}) {
   const { user } = useAuth();
   const [isFollowing, setIsFollowing] = useState(false);
 
@@ -46,15 +53,15 @@ function CandidateHeader({ candidateId, avatarUrl, fullName, createdAt }) {
         className="w-70 h-70 rounded-full object-cover mb-4"
         alt="Candidate avatar"
       />
-      <h2 className="text-3xl font-semibold text-zinc-900 hover:text-blue-500">
+      <h2 className="text-3xl font-semibold text-zinc-900 hover:text-green-500">
         {fullName}
       </h2>
-      <span className="px-2 py-1 mt-2 text-sm text-green-600 bg-green-50 rounded-full">
+      <span className="px-2 py-1 mt-2 text-sm text-purple-600 bg-purple-50 rounded-full">
         Candidate
       </span>
       <div className="flex items-center gap-1 mt-4 text-sm text-gray-500">
         <span>Joined on:</span>
-        <span className="font-medium text-blue-500">{createdAt}</span>
+        <span className="font-medium text-green-500">{createdAt}</span>
       </div>
 
       {user?.role === "EMPLOYER" && (
@@ -63,6 +70,7 @@ function CandidateHeader({ candidateId, avatarUrl, fullName, createdAt }) {
           onToggleFollow={handleToggleFollow}
         />
       )}
+      <SendMailButton email={email} />
     </section>
   );
 }

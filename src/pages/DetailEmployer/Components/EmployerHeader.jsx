@@ -1,4 +1,5 @@
 import FollowButton from "@/components/button/FollowedButton";
+import SendMailButton from "@/components/button/SendMailButton";
 import { useAuth } from "@/hooks/useAuth";
 import {
   followEmployer,
@@ -7,7 +8,13 @@ import {
 } from "@/services/candidateFollowerService";
 import { useEffect, useState } from "react";
 
-function EmployerHeader({ employerId, logoUrl, companyName, createdAt }) {
+function EmployerHeader({
+  employerId,
+  logoUrl,
+  companyName,
+  createdAt,
+  email,
+}) {
   const [isFollowing, setIsFollowing] = useState(false);
   const { user } = useAuth();
 
@@ -66,6 +73,7 @@ function EmployerHeader({ employerId, logoUrl, companyName, createdAt }) {
           onToggleFollow={handleToggleFollow}
         />
       )}
+      <SendMailButton email={email} />
     </section>
   );
 }
