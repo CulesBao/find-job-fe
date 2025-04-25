@@ -1,8 +1,11 @@
 import { snackbar } from "../utils/SnackbarUtils";
 
-export default async (apiFunction) => {
+export default async (apiFunction, showMessage = false) => {
   try {
     const response = await apiFunction();
+    if (showMessage) {
+      snackbar.success(response.data.message || "Operation successful.");
+    }
     return {
       error: false,
       status: response.status,

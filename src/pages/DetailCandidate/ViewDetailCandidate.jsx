@@ -89,6 +89,7 @@ export default function ViewDetailCandidate() {
             fullName={`${candidate.first_name} ${candidate.last_name}`}
             createdAt={formatDate(candidate.created_at)}
             gender={candidate.gender}
+            email={candidate.email}
           />
           <CandidateOverview
             dateOfBirth={formatDate(candidate.date_of_birth)}

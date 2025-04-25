@@ -13,19 +13,16 @@ export const createApplication = (file, coverLetter, jobId) =>
         "Content-Type": "multipart/form-data",
       },
     });
-  });
+  }, true);
 
 export const withdrawApplication = (applicationId) =>
   safeApiCall(() => {
     return axiosPrivate.put(`/application/${applicationId}/withdraw`);
-  });
+  }, true);
 
-export const getCanddidateApplications = (
-  page = 0,
-  limit = 10 //get all applications of candidate view
-) =>
+export const getCanddidateApplications = (page = 0, limit = 10) =>
   safeApiCall(() => {
-    return axiosPrivate.get("/application", {
+    return axiosPrivate.get("/application/", {
       params: {
         page,
         limit,
@@ -34,13 +31,15 @@ export const getCanddidateApplications = (
   });
 
 export const getEmployerApplications = (
+  jobId,
+  jobProcess,
   page = 0,
-  limit = 10, //get all applications from employer view,
-  jobId
+  limit = 10
 ) =>
   safeApiCall(() => {
-    return axiosPrivate.get(`/application/${jobId}`, {
+    return axiosPrivate.get(`/application/job/${jobId}`, {
       params: {
+        jobProcess,
         page,
         limit,
       },
@@ -50,10 +49,12 @@ export const getApplicationById = (applicationId) =>
   safeApiCall(() => {
     return axiosPrivate.get(`/application/${applicationId}`);
   });
-export const updateApplicationStatus = (jobId, data) =>
-  safeApiCall(() => {
-    return axiosPrivate.put(`/application/job/${jobId}`, { data });
-  });
+export const updateApplicationStatus = (jobId, applications) => {
+  console.log("applications", applications);
+  return safeApiCall(() => {
+    return axiosPrivate.put(`/application/job/${jobId}`, { applications });
+  }, true);
+};
 
 export const getStatus = (jobId) =>
   safeApiCall(() => {

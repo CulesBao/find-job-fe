@@ -1,4 +1,5 @@
 import MainLayout from "@/components/layout/MainLayout";
+import ApplicationList from "@/pages/ApplicationList/ApplicationList";
 import ViewDetailJob from "@/pages/DetailJob/ViewDetailJob";
 import FilterJobPage from "@/pages/Filter/FilterJobPage";
 import { Route, Routes } from "react-router-dom";
@@ -21,6 +22,14 @@ export function JobRoutes() {
           element={<MainLayout showSidebar={false}>{element}</MainLayout>}
         />
       ))}
+      <Route
+        path="/applications/:jobId"
+        element={
+          <MainLayout>
+            <ApplicationList />
+          </MainLayout>
+        }
+      />
     </Routes>
   );
 }

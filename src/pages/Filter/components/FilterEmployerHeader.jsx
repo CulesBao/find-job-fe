@@ -38,7 +38,6 @@ const FilterEmployerHeader = ({ filters, onFilterChange, onApply }) => {
         e.preventDefault();
         onApply(0);
       }}
-      className="mb-5"
     >
       <Stack
         direction={{ xs: "column", md: "row" }}
@@ -110,7 +109,7 @@ const FilterEmployerHeader = ({ filters, onFilterChange, onApply }) => {
             fontWeight: "bold",
             bgcolor: "#1976d2",
             "&:hover": { bgcolor: "#1565c0" },
-            minWidth: "120px",
+            minWidth: "160px",
           }}
         >
           Find Employer

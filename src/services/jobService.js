@@ -4,7 +4,7 @@ import safeApiCall from "./safeApiCall";
 export const createJob = (data) =>
   safeApiCall(() => {
     return axiosPrivate.post("/job/", data);
-  });
+  }, true);
 
 export const getJobById = (jobId) =>
   safeApiCall(() => {
@@ -14,7 +14,7 @@ export const getJobById = (jobId) =>
 export const updateJobById = (jobId, data) =>
   safeApiCall(() => {
     return axiosPrivate.put(`/job/${jobId}`, data);
-  });
+  }, true);
 
 export const getAllOwnerJobs = (page, size = 5) =>
   safeApiCall(() => {

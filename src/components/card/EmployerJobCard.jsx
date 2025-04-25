@@ -63,7 +63,7 @@ function EmployerJobCard({ job, isHighlighted }) {
         alignItems="center"
         gap={1}
       >
-        <ActionButton label="View Applications" highlighted={isHighlighted} />
+        <ActionButton id={job.id} label="View Applications" highlighted={isHighlighted} />
         <IconButton
           onClick={handleMenuOpen}
           aria-controls={anchorEl ? "dropdown-menu" : undefined}

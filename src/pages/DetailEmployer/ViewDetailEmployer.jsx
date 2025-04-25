@@ -90,6 +90,7 @@ export default function ViewDetailEmployer() {
             logoUrl={employer.logo_url}
             companyName={employer.name}
             createdAt={formatDate(employer.created_at)}
+            email={employer.email}
           />
           <StarRating
             rating={currentRating}
