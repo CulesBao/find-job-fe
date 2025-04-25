@@ -6,17 +6,17 @@ import {
   TextField,
   Typography,
   IconButton,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { createApplication } from "@/services/applicationService";
 
-function ApplicationPopUp({ open, onClose, title }) {
+function ApplicationPopUp({ open, onClose, title, onApply }) {
   const [resume, setResume] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [coverLetter, setCoverLetter] = useState("");
-  const { jobId } = useParams();
 
   const handleFileChange = (e) => {
     setResume(e.target.files[0]);
@@ -32,10 +32,12 @@ function ApplicationPopUp({ open, onClose, title }) {
 
   const handleApply = async () => {
     try {
-      await createApplication(resume, coverLetter, jobId);
+      setLoading(true);
+      await onApply(resume, coverLetter); 
     } catch (err) {
       console.error(err);
     } finally {
+      setLoading(false);
       onClose();
     }
   };
@@ -91,11 +93,14 @@ function ApplicationPopUp({ open, onClose, title }) {
           <Button variant="outlined" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="contained" color="primary" onClick={handleApply}>
+          <Button variant="contained" color="primary" onClick={handleApply} disabled={loading}>
             Apply Now
           </Button>
         </div>
       </DialogContent>
+      <Backdrop sx={{ color: "#fff", zIndex: 1301 }} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Dialog>
   );
 }
