@@ -8,19 +8,17 @@ function JobHeader({ jobId, title, employerLogo, jobType, expiredAt }) {
   const [isApplied, setIsApplied] = useState(false);
   const { user } = useAuth();
 
-  const handleApply = async () => {
+  const handleApply = async (resume, coverLetter) => {
     try {
-      if (!isApplied) {
-        const response = await createApplication(jobId);
-        if (response.status === 200) {
-          setIsApplied(true);
-          setOpenPopup(false);
-        }
+      const response = await createApplication(resume, coverLetter, jobId);
+      if (response.status === 200) {
+        setIsApplied(true);
       }
     } catch (error) {
       console.error("Error applying for job:", error);
     }
   };
+  
 
   useEffect(() => {
     const checkApplyStatus = async () => {
