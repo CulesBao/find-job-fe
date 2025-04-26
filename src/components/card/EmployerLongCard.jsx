@@ -24,7 +24,12 @@ const EmployerLongCard = ({ employer }) => {
     >
       <Link
         to={`/employer/details/${employer.id}`}
-        style={{ display: "flex", flex: 1, textDecoration: "none", color: "inherit" }}
+        style={{
+          display: "flex",
+          flex: 1,
+          textDecoration: "none",
+          color: "inherit",
+        }}
       >
         <Stack direction="row" spacing={3} alignItems="center">
           {/* Avatar */}
@@ -40,7 +45,7 @@ const EmployerLongCard = ({ employer }) => {
                 height: "100%",
               },
             }}
-            src={employer.logo_url}
+            src={employer.logoUrl}
             alt={`${employer.name} logo`}
           />
 
@@ -68,7 +73,7 @@ const EmployerLongCard = ({ employer }) => {
               <Stack direction="row" spacing={0.75} alignItems="center">
                 <Briefcase size={16} color="#B0BEC5" />
                 <Typography variant="body2" color="text.secondary">
-                  {employer.job_count} jobs available
+                  {employer.jobCount}
                 </Typography>
               </Stack>
             </Stack>

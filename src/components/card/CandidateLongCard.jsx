@@ -3,8 +3,6 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import WcIcon from "@mui/icons-material/Wc";
 import { Link } from "react-router-dom";
-import { formatEducation } from "@/constants/Education";
-
 const CandidateLongCard = ({ candidate }) => {
   return (
     <Paper
@@ -27,7 +25,12 @@ const CandidateLongCard = ({ candidate }) => {
       {/* Clickable Left Section */}
       <Link
         to={`/candidate/details/${candidate.id}`}
-        style={{ display: "flex", flex: 1, textDecoration: "none", color: "inherit" }}
+        style={{
+          display: "flex",
+          flex: 1,
+          textDecoration: "none",
+          color: "inherit",
+        }}
       >
         <Stack direction="row" spacing={3} alignItems="center">
           {/* Avatar */}
@@ -43,8 +46,8 @@ const CandidateLongCard = ({ candidate }) => {
                 height: "100%",
               },
             }}
-            src={candidate.avatar_url}
-            alt={`${candidate.first_name} ${candidate.last_name} avatar`}
+            src={candidate.avatarUrl}
+            alt={`${candidate.fullName} avatar`}
           />
 
           {/* Candidate Info */}
@@ -55,7 +58,7 @@ const CandidateLongCard = ({ candidate }) => {
               color="text.primary"
               gutterBottom
             >
-              {candidate.first_name} {candidate.last_name}
+              {candidate.fullName}
             </Typography>
 
             <Stack direction="row" spacing={2} alignItems="center">
@@ -71,7 +74,7 @@ const CandidateLongCard = ({ candidate }) => {
               <Stack direction="row" spacing={0.75} alignItems="center">
                 <SchoolOutlinedIcon fontSize="small" color="action" />
                 <Typography variant="body2" color="text.secondary">
-                  {formatEducation(candidate.education)}
+                  {candidate.education}
                 </Typography>
               </Stack>
 
@@ -79,7 +82,7 @@ const CandidateLongCard = ({ candidate }) => {
               <Stack direction="row" spacing={0.75} alignItems="center">
                 <WcIcon fontSize="small" color="action" />
                 <Typography variant="body2" color="text.secondary">
-                  {candidate.gender ? "Male" : "Female"}
+                  {candidate.gender}
                 </Typography>
               </Stack>
             </Stack>

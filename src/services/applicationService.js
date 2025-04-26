@@ -50,7 +50,6 @@ export const getApplicationById = (applicationId) =>
     return axiosPrivate.get(`/application/${applicationId}`);
   });
 export const updateApplicationStatus = (jobId, applications) => {
-  console.log("applications", applications);
   return safeApiCall(() => {
     return axiosPrivate.put(`/application/job/${jobId}`, { applications });
   }, true);

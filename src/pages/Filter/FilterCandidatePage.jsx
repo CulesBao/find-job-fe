@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Alert } from "@mui/material";
+import { Box, Typography, Alert, FormControlLabel, Grid } from "@mui/material";
 import Pagination from "@/components/layout/Pagination";
 import FilterCandidateHeader from "./components/FilterCandidateHeader";
 import { filterCandidateProfile } from "@/services/candidateProfileService";
 import CandidateLongCard from "@/components/card/CandidateLongCard";
+import CandidateShortCard from "@/components/card/CandidateShortCard";
+import CustomSwitchComponent from "@/components/button/CustomSwitchComponent";
+import {
+  handleFindCandidate,
+  handleFindCandidateForShortCard,
+} from "@/utils/handleFindCandidate";
 
 function FilterCandidatePage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +24,7 @@ function FilterCandidatePage() {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [viewMode, setViewMode] = useState("short");
 
   const onPageChange = (page) => setCurrentPage(page);
 
@@ -57,6 +64,17 @@ function FilterCandidatePage() {
         onApply={fetchCandidates}
       />
 
+      <Box display="flex" justifyContent="flex-end" pr={2}>
+        <FormControlLabel
+          control={
+            <CustomSwitchComponent
+              checked={viewMode === "short"}
+              onChange={(e) => setViewMode(e.target.checked ? "short" : "long")}
+            />
+          }
+        />
+      </Box>
+
       {error && (
         <Alert severity="error" sx={{ mt: 2 }}>
           {error}
@@ -70,9 +88,24 @@ function FilterCandidatePage() {
       ) : (
         <>
           {candidates.length > 0 ? (
-            candidates.map((candidate) => (
-              <CandidateLongCard key={candidate.id} candidate={candidate} />
-            ))
+            viewMode === "long" ? (
+              candidates.map((candidate) => (
+                <CandidateLongCard
+                  key={candidate.id}
+                  candidate={handleFindCandidate(candidate)}
+                />
+              ))
+            ) : (
+              <Grid container spacing={3}>
+                {candidates.map((candidate) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={candidate.id}>
+                    <CandidateShortCard
+                      candidate={handleFindCandidateForShortCard(candidate)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            )
           ) : (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography>

@@ -17,7 +17,8 @@ export default function EmployerShortCard({ employer }) {
         overflow: "hidden",
         "&:hover": {
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-          transform: "translateY(-2px)"},
+          transform: "translateY(-2px)",
+        },
         p: 2,
       }}
     >
@@ -29,7 +30,7 @@ export default function EmployerShortCard({ employer }) {
         <Stack direction="row" spacing={2} alignItems="center">
           {/* Avatar */}
           <Avatar
-            src={employer.logo_url}
+            src={employer.logoUrl}
             alt={`${employer.name} logo`}
             sx={{
               width: 64,
@@ -41,7 +42,12 @@ export default function EmployerShortCard({ employer }) {
 
           {/* Employer Name and Location */}
           <Box>
-            <Typography variant="h6" fontWeight={600} color="text.primary" gutterBottom>
+            <Typography
+              variant="h6"
+              fontWeight={600}
+              color="text.primary"
+              gutterBottom
+            >
               {employer.name}
             </Typography>
 
@@ -60,10 +66,15 @@ export default function EmployerShortCard({ employer }) {
 
       {/* Job Count */}
       <Box sx={{ position: "absolute", bottom: 16, left: 32, right: 32 }}>
-        <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="flex-start">
+        <Stack
+          direction="row"
+          spacing={0.5}
+          alignItems="center"
+          justifyContent="flex-start"
+        >
           <Briefcase size={16} color="#B0BEC5" />
           <Typography variant="caption" color="text.secondary">
-            {employer.job_count} jobs available
+            {employer.jobCount}
           </Typography>
         </Stack>
       </Box>
