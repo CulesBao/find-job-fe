@@ -27,11 +27,10 @@ const OAuth2RedirectHandler = () => {
     const isNewAccount = getUrlParameter("isNewAccount");
     const userJson = getUrlParameter("accountDto");
     const user = JSON.parse(decodeURIComponent(userJson));
-
     if (token) {
       setAccessToken(token);
       login(user);
-      if (isNewAccount) {
+      if (isNewAccount == "true") {
         navigate("/set-up/profile ", { replace: true });
       } else {
         navigate("/dashboard", { replace: true });
