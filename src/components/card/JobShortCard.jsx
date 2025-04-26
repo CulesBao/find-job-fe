@@ -1,20 +1,6 @@
 import { Box, Typography, Paper, Avatar } from "@mui/material";
-import {
-  AccessTime,
-  AttachMoney,
-  Business,
-} from "@mui/icons-material";
+import { AccessTime, AttachMoney, Business } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import handleSalaryAndCurrency from "@/utils/handleSalaryAndCurrency";
-
-function calculateDayLeft(expiredAt) {
-  if (!expiredAt) return "N/A";
-  const today = new Date();
-  const expiredDate = new Date(expiredAt);
-  const diffTime = expiredDate.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return `${diffDays} days left`;
-}
 
 function JobShortCard({ job }) {
   return (
@@ -36,8 +22,8 @@ function JobShortCard({ job }) {
     >
       <Link to={`details/${job?.id}`}>
         <Avatar
-          src={job?.employer_logo_url}
-          alt={job?.employer_name}
+          src={job?.logoUrl}
+          alt={job?.employerName}
           sx={{ width: 64, height: 64, mr: 2 }}
         />
       </Link>
@@ -51,13 +37,13 @@ function JobShortCard({ job }) {
           color="inherit"
           style={{ textDecoration: "none" }}
         >
-          {job?.title}
+          {job?.jobTitle}
         </Typography>
 
         <Box display="flex" alignItems="center" gap={0.5}>
           <Business fontSize="small" color="action" />
           <Typography variant="body2" color="text.secondary">
-            {job?.employer_name}
+            {job?.employerName}
           </Typography>
         </Box>
 
@@ -65,14 +51,14 @@ function JobShortCard({ job }) {
           <Box display="flex" alignItems="center" gap={0.5}>
             <AttachMoney fontSize="small" color="action" />
             <Typography variant="body2" color="text.secondary">
-              {handleSalaryAndCurrency(job?.min_salary, job?.max_salary, job?.currency)}
+              {job?.salaryRange}
             </Typography>
           </Box>
 
           <Box display="flex" alignItems="center" gap={0.5}>
             <AccessTime fontSize="small" color="action" />
             <Typography variant="body2" color="text.secondary">
-              {calculateDayLeft(job?.expired_at)}
+              {job?.dayLeft}
             </Typography>
           </Box>
         </Box>

@@ -3,7 +3,6 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import WcIcon from "@mui/icons-material/Wc";
 import { Link } from "react-router-dom";
-import { formatEducation } from "@/constants/Education";
 
 export default function CandidateShortCard({ candidate }) {
   return (
@@ -19,20 +18,21 @@ export default function CandidateShortCard({ candidate }) {
         overflow: "hidden",
         "&:hover": {
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-          transform: "translateY(-2px)"},
+          transform: "translateY(-2px)",
+        },
         p: 2,
       }}
     >
       {/* Clickable Section */}
       <Link
-        to={`/candidate/details/${candidate.id}`}
+        to={`/candidate/details/${candidate?.id}`}
         style={{ display: "flex", textDecoration: "none", color: "inherit" }}
       >
         <Stack direction="row" spacing={2} alignItems="center">
           {/* Avatar */}
           <Avatar
-            src={candidate.avatar_url}
-            alt={`${candidate.first_name} ${candidate.last_name} avatar`}
+            src={candidate?.avatarUrl}
+            alt={`${candidate?.fullName} avatar`}
             sx={{
               width: 64,
               height: 64,
@@ -41,18 +41,23 @@ export default function CandidateShortCard({ candidate }) {
             }}
           />
 
-          {/* Candidate Name and Location */}
+          {/* Candidate? Name and Location */}
           <Box>
-            <Typography variant="h6" fontWeight={600} color="text.primary" gutterBottom>
-              {candidate.first_name} {candidate.last_name}
+            <Typography
+              variant="h6"
+              fontWeight={600}
+              color="text.primary"
+              gutterBottom
+            >
+              {candidate?.fullName}
             </Typography>
 
             {/* Location */}
-            {candidate.location && (
+            {candidate?.location && (
               <Stack direction="row" spacing={0.5} alignItems="center">
                 <LocationOnOutlinedIcon fontSize="small" color="action" />
                 <Typography variant="body2" color="text.secondary">
-                  {candidate.location}
+                  {candidate?.location}
                 </Typography>
               </Stack>
             )}
@@ -60,25 +65,30 @@ export default function CandidateShortCard({ candidate }) {
         </Stack>
       </Link>
 
-      {/* Candidate Education and Gender */}
+      {/* Candidate? Education and Gender */}
       <Box sx={{ position: "absolute", bottom: 16, left: 32, right: 32 }}>
-        <Stack direction="row" spacing={1.5} alignItems="center" justifyContent="space-between">
+        <Stack
+          direction="row"
+          spacing={1.5}
+          alignItems="center"
+          justifyContent="space-between"
+        >
           {/* Education */}
-          {candidate.education && (
+          {candidate?.education && (
             <Stack direction="row" spacing={0.5} alignItems="center">
               <SchoolOutlinedIcon fontSize="small" color="action" />
               <Typography variant="caption" color="text.secondary">
-                {formatEducation(candidate.education)}
+                {candidate?.education}
               </Typography>
             </Stack>
           )}
 
           {/* Gender */}
-          {candidate.gender !== undefined && (
+          {candidate?.gender !== undefined && (
             <Stack direction="row" spacing={0.5} alignItems="center">
               <WcIcon fontSize="small" color="action" />
               <Typography variant="caption" color="text.secondary">
-                {candidate.gender ? "Male" : "Female"}
+                {candidate?.gender}
               </Typography>
             </Stack>
           )}

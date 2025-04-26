@@ -1,4 +1,7 @@
-import { getEmployerProfile } from "@/services/employerProfileService";
+import {
+  getEmployerProfile,
+  filterEmployerProfile,
+} from "@/services/employerProfileService";
 import { formatDate } from "@/utils/formatDate";
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -10,6 +13,7 @@ import EmployerAbout from "./Components/EmployerAbout";
 import EmployerVision from "./Components/EmployerVision";
 import StarRating from "./Components/StarRating";
 import EmployerShortCard from "@/components/card/EmployerShortCard";
+import { handleFindEmployerForShortCard } from "@/utils/handleFindEmployer";
 
 export default function ViewDetailEmployer() {
   const { employerId } = useParams();
@@ -17,7 +21,9 @@ export default function ViewDetailEmployer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentRating, setCurrentRating] = useState(0);
+  const [relativeEmployers, setRelativeEmployers] = useState([]);
 
+  // Fetch employer details
   useEffect(() => {
     const fetchEmployerDetails = async () => {
       try {
@@ -38,6 +44,45 @@ export default function ViewDetailEmployer() {
 
     fetchEmployerDetails();
   }, [employerId]);
+
+  // Fetch relative employers
+  useEffect(() => {
+    const fetchRelativeEmployers = async () => {
+      try {
+        if (!employer) return;
+
+        let response = await filterEmployerProfile(
+          {
+            name: "",
+            provinceCode: employer?.province?.code || "",
+          },
+          0,
+          6
+        );
+
+        if (response.data.total_elements <= 2) {
+          response = await filterEmployerProfile(
+            {
+              name: "",
+              provinceCode: "",
+            },
+            0,
+            6
+          );
+        }
+
+        setRelativeEmployers(
+          response?.data?.content?.map((item) =>
+            handleFindEmployerForShortCard(item)
+          )
+        );
+      } catch (error) {
+        console.error("Error fetching relative employers:", error);
+      }
+    };
+
+    fetchRelativeEmployers();
+  }, [employer]);
 
   if (loading) {
     return (
@@ -115,12 +160,12 @@ export default function ViewDetailEmployer() {
             <h3 className="text-2xl font-medium leading-loose ml-4 mt-3 text-black">
               Relative Companies:
             </h3>
-            <Grid container spacing={2} className="mt-4">
-              <EmployerShortCard employer={employer} />
-              <EmployerShortCard employer={employer} />
-              <EmployerShortCard employer={employer} />
-              <EmployerShortCard employer={employer} />
-              <EmployerShortCard employer={employer} />
+            <Grid container spacing={3} className="mt-4">
+              {relativeEmployers.map((item) => (
+                <Grid item xs={4} key={item.id}>
+                  <EmployerShortCard employer={item} />
+                </Grid>
+              ))}
             </Grid>
           </div>
         </div>
