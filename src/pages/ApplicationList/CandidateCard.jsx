@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import JobProcess from "@/constants/JobProccess";
+import SingleApplication from "../EmployerSingleApplication/SingleApplication";
 
 export default function CandidateCard({ candidateInfo, onProcessChange }) {
   const [selectedProcess, setSelectedProcess] = useState(
     candidateInfo.jobProcess
   );
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setSelectedProcess(candidateInfo.jobProcess);
@@ -52,7 +54,7 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
 
   const renderProcessOptions = () =>
     Object.entries(JobProcess)
-      .filter(([key]) => key != "WITHDRAWN")
+      .filter(([key]) => key !== "WITHDRAWN")
       .map(([key, { name, color }]) => (
         <MenuItem key={key} value={key}>
           <Box
@@ -87,7 +89,9 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
         justifyContent: "space-between",
         height: "100%",
         width: 300,
+        cursor: "pointer",
       }}
+      onClick={() => setOpen(true)} // Mở modal khi nhấn vào card
     >
       <Box display="flex" gap={2} alignItems="center">
         <Avatar
@@ -117,6 +121,7 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
           <Select
             value={selectedProcess}
             onChange={(e) => handleProcessChange(e.target.value)}
+            onClick={(e) => e.stopPropagation()} // Ngăn sự kiện mở modal khi nhấn vào Select
             displayEmpty
             IconComponent={() => null}
             disabled={candidateInfo?.jobProcess === "WITHDRAWN"}
@@ -136,6 +141,14 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
           </Select>
         </FormControl>
       </Box>
+
+      <SingleApplication
+        open={open}
+        onClose={() => setOpen(false)}
+        id={candidateInfo?.id}
+        value={selectedProcess}
+        onValueChange={handleProcessChange} // Truyền hàm handleProcessChange vào SingleApplication
+      />
     </Card>
   );
 }

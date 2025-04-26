@@ -16,22 +16,43 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Email, Download } from "@mui/icons-material";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import CandidateSocialLink from "../DetailCandidate/Components/CandidateSocialLink";
 import JobProcess from "@/constants/JobProccess";
 import { MapPin, PhoneCall } from "lucide-react";
-import { withdrawApplication } from "@/services/applicationService";
+import {
+  getApplicationById,
+  withdrawApplication,
+} from "@/services/applicationService";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { formatEducation } from "@/constants/Education";
+import { handleSendMail } from "@/components/button/SendMailButton";
 
 // eslint-disable-next-line react/display-name
 const Transition = forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
 ));
 
-export default function SingleApplication({ open, onClose, data, role }) {
+export default function SingleApplication({
+  open,
+  onClose,
+  id,
+  value,
+  onValueChange,
+}) {
+  const { user } = useAuth();
+  const role = user?.role;
   const navigate = useNavigate();
   const isDisabled = role !== "EMPLOYER";
-  const [selectedProcess, setSelectedProcess] = useState(data?.job_proccess);
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const fetchApplication = async () => {
+      const response = await getApplicationById(id);
+      setData(response.data);
+    };
+    fetchApplication();
+  }, [id]);
   const handleWithdraw = async () => {
     await withdrawApplication(data?.id);
     navigate(0);
@@ -63,12 +84,14 @@ export default function SingleApplication({ open, onClose, data, role }) {
                 sx={{ width: 100, height: 100 }}
               />
               <Box>
-                <Typography variant="h5" fontWeight="medium">
+                <Typography variant="h5" fontWeight="600">
                   {data?.candidate_profile.first_name}{" "}
                   {data?.candidate_profile.last_name}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  {data?.candidate_profile.education}
+                  {formatEducation(
+                    data?.candidate_profile.education
+                  ).toUpperCase()}
                 </Typography>
               </Box>
             </Box>
@@ -79,6 +102,7 @@ export default function SingleApplication({ open, onClose, data, role }) {
                   variant="outlined"
                   startIcon={<Email />}
                   sx={{ borderColor: "#0a65cc", color: "#0a65cc" }}
+                  onClick={() => handleSendMail(data?.candidate_profile?.email)}
                 >
                   Send Mail
                 </Button>
@@ -99,8 +123,8 @@ export default function SingleApplication({ open, onClose, data, role }) {
               >
                 <FormControl size="small" sx={{ minWidth: 200 }}>
                   <Select
-                    value={selectedProcess}
-                    onChange={(e) => setSelectedProcess(e.target.value)}
+                    value={value || data?.job_proccess}
+                    onChange={(e) => onValueChange(e.target.value)}
                     displayEmpty
                     IconComponent={() => null}
                     renderValue={(selected) => {
@@ -124,7 +148,7 @@ export default function SingleApplication({ open, onClose, data, role }) {
                         </Box>
                       );
                     }}
-                    disabled={isDisabled}
+                    disabled={isDisabled || data?.job_proccess == "WITHDRAWN"}
                     sx={{
                       pointerEvents: isDisabled ? "none" : "auto",
                       opacity: 1,
@@ -137,8 +161,9 @@ export default function SingleApplication({ open, onClose, data, role }) {
                       bgcolor: "transparent",
                     }}
                   >
-                    {Object.entries(JobProcess).map(
-                      ([key, { name, color }]) => (
+                    {Object.entries(JobProcess)
+                      .filter(([key]) => key != "WITHDRAWN")
+                      .map(([key, { name, color }]) => (
                         <MenuItem key={key} value={key}>
                           <Box
                             sx={{
@@ -158,8 +183,7 @@ export default function SingleApplication({ open, onClose, data, role }) {
                             <Typography>{name}</Typography>
                           </Box>
                         </MenuItem>
-                      )
-                    )}
+                      ))}
                   </Select>
                 </FormControl>
               </Tooltip>
@@ -171,18 +195,22 @@ export default function SingleApplication({ open, onClose, data, role }) {
             {/* Left Column */}
             <Box sx={{ flex: 2 }}>
               <Box sx={{ mb: 4, borderBottom: "1px solid #ccc", pb: 2, pl: 3 }}>
-              <h3 className="text-xl font-medium text-black mb-3">Biography:</h3>
-              <Typography
+                <h3 className="text-xl font-medium text-black mb-3">
+                  Biography:
+                </h3>
+                <Typography
                   variant="body1"
                   textAlign="justify"
                   color="text.secondary"
                 >
-                {data?.candidate_profile.bio}
-              </Typography>
+                  {data?.candidate_profile.bio}
+                </Typography>
               </Box>
 
               <Box sx={{ borderBottom: "1px solid #ccc", pb: 2, pl: 3 }}>
-              <h3 className="text-xl font-medium text-black mb-3">Cover Letter:</h3>
+                <h3 className="text-xl font-medium text-black mb-3">
+                  Cover Letter:
+                </h3>
                 <Typography
                   variant="body1"
                   textAlign="justify"
@@ -205,20 +233,22 @@ export default function SingleApplication({ open, onClose, data, role }) {
                 sx={{
                   p: 3,
                   mb: 4,
-                  border: '1px solid #e0e0e0',
+                  border: "1px solid #e0e0e0",
                   borderRadius: 2,
-                  boxShadow: 'none',
+                  boxShadow: "none",
                 }}
               >
-                <h3 className="text-xl font-medium text-black mb-3">Personal Details:</h3>
+                <h3 className="text-xl font-medium text-black mb-3">
+                  Personal Details:
+                </h3>
                 <List disablePadding>
                   <ListItem
                     disableGutters
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center', 
+                      display: "flex",
+                      alignItems: "center",
                       gap: 2,
-                      mb: 1, 
+                      mb: 1,
                     }}
                   >
                     <MapPin className="w-6 h-6 text-orange-500" />
@@ -231,24 +261,24 @@ export default function SingleApplication({ open, onClose, data, role }) {
                   <ListItem
                     disableGutters
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center', 
+                      display: "flex",
+                      alignItems: "center",
                       gap: 2,
-                      mb: 1, 
+                      mb: 1,
                     }}
                   >
                     <MapPin className="w-6 h-6 text-orange-500" />
                     <ListItemText
                       primary="District"
                       secondary={data?.candidate_profile.district.full_name_en}
-                      sx={{ margin: 0 }} 
+                      sx={{ margin: 0 }}
                     />
                   </ListItem>
                   <ListItem
                     disableGutters
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
+                      display: "flex",
+                      alignItems: "center",
                       gap: 2,
                     }}
                   >
@@ -256,21 +286,23 @@ export default function SingleApplication({ open, onClose, data, role }) {
                     <ListItemText
                       primary="Phone Number"
                       secondary={data?.candidate_profile.phone_number}
-                      sx={{ margin: 0 }} 
+                      sx={{ margin: 0 }}
                     />
                   </ListItem>
                 </List>
               </Box>
-                <Box
-                  sx={{
-                    p: 3,
-                    mb: 4,
-                    border: "1px solid #e0e0e0",
-                    borderRadius: 2,
-                    boxShadow: "none",
-                  }}
-                >
-                <h3 className="text-xl font-medium text-black mb-6">Download my Resume:</h3>
+              <Box
+                sx={{
+                  p: 3,
+                  mb: 4,
+                  border: "1px solid #e0e0e0",
+                  borderRadius: 2,
+                  boxShadow: "none",
+                }}
+              >
+                <h3 className="text-xl font-medium text-black mb-6">
+                  Download Resume:
+                </h3>
                 <MuiLink
                   href={data?.cv_url}
                   target="_blank"

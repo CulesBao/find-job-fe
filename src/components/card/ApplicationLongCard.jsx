@@ -7,19 +7,11 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { getApplicationById } from "@/services/applicationService";
 import SingleApplication from "@/pages/EmployerSingleApplication/SingleApplication";
-import { useAuth } from "@/hooks/useAuth";
 
 function ApplicationLongCard({ application }) {
   const [open, setOpen] = useState(false);
-  const [coverLetter, setCoverLetter] = useState();
-  const { user } = useAuth();
-  const handleViewApplication = async (applicationId) => {
-    const response = await getApplicationById(applicationId);
-    setCoverLetter(response.data);
-    setOpen(true);
-  };
+
   return (
     <Paper
       elevation={2}
@@ -108,7 +100,7 @@ function ApplicationLongCard({ application }) {
           size="large"
           sx={{ textTransform: "none" }}
           onClick={() => {
-            handleViewApplication(application.applicationId);
+            setOpen(true);
           }}
         >
           View Detail
@@ -116,8 +108,7 @@ function ApplicationLongCard({ application }) {
         <SingleApplication
           open={open}
           onClose={() => setOpen(false)}
-          role={user?.role}
-          data={coverLetter}
+          id={application?.applicationId}
         />
       </Box>
     </Paper>
