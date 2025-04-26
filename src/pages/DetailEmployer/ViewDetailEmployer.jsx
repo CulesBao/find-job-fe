@@ -1,6 +1,6 @@
 import { getEmployerProfile } from "@/services/employerProfileService";
 import { formatDate } from "@/utils/formatDate";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EmployerHeader from "./Components/EmployerHeader";
@@ -9,6 +9,7 @@ import EmployerSocialLink from "./Components/EmployerSocialLinks";
 import EmployerAbout from "./Components/EmployerAbout";
 import EmployerVision from "./Components/EmployerVision";
 import StarRating from "./Components/StarRating";
+import EmployerShortCard from "@/components/card/EmployerShortCard";
 
 export default function ViewDetailEmployer() {
   const { employerId } = useParams();
@@ -111,6 +112,16 @@ export default function ViewDetailEmployer() {
             <EmployerAbout about={employer.about} />
             <EmployerVision vision={employer.vision} />
             <EmployerSocialLink socialLinks={employer.social_links} />
+            <h3 className="text-2xl font-medium leading-loose ml-4 mt-3 text-black">
+              Relative Companies:
+            </h3>
+            <Grid container spacing={2} className="mt-4">
+              <EmployerShortCard employer={employer} />
+              <EmployerShortCard employer={employer} />
+              <EmployerShortCard employer={employer} />
+              <EmployerShortCard employer={employer} />
+              <EmployerShortCard employer={employer} />
+            </Grid>
           </div>
         </div>
       </div>

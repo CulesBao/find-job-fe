@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCandidateProfile } from "@/services/candidateProfileService";
@@ -8,6 +8,7 @@ import CandidateHeader from "./components/CandidateHeader";
 import CandidateBio from "./components/CandidateBio";
 import CandidateOverview from "./components/CandidateOverview";
 import CandidateSocialLink from "./Components/CandidateSocialLink";
+import CandidateShortCard from "@/components/card/CandidateShortCard"; 
 
 export default function ViewDetailCandidate() {
   const { candidateId } = useParams();
@@ -107,6 +108,15 @@ export default function ViewDetailCandidate() {
               name={`${candidate.first_name} ${candidate.last_name}`}
             />
             <CandidateSocialLink socialLinks={candidate.social_links} />
+
+            <h3 className="text-xl font-medium text-black mt-2 mb-6 ml-6">Relative Candidates:</h3>
+            <Grid container spacing={4}>
+              <CandidateShortCard candidate={candidate} /> 
+              <CandidateShortCard candidate={candidate} />
+              <CandidateShortCard candidate={candidate} />
+              <CandidateShortCard candidate={candidate} />
+              <CandidateShortCard candidate={candidate} />
+            </Grid>
           </div>
         </div>
       </div>
