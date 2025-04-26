@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import JobHeader from "./components/JobHeader";
 import JobDescription from "./components/JobDescription";
 import JobResponsibilities from "./components/JobResponsibilities";
@@ -10,10 +10,12 @@ import { formatDate } from "@/utils/formatDate";
 import { formatEducation } from "@/constants/Education";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getJobById } from "@/services/jobService";
+import { getJobById, getJobByFilter } from "@/services/jobService";
 import { getEmployerProfile } from "@/services/employerProfileService";
 import { formatJobType } from "@/constants/JobType";
 import handleSalaryAndCurrency from "@/utils/handleSalaryAndCurrency";
+import JobShortCard from "@/components/card/JobShortCard";
+import { handleFindJobForShortCard } from "@/utils/handleFindJob";
 
 export default function ViewDetailJob() {
   const { jobId } = useParams();
@@ -21,6 +23,7 @@ export default function ViewDetailJob() {
   const [employer, setEmployer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [relativeJobs, setRelativeJobs] = useState([]);
 
   useEffect(() => {
     const fetchJobDetails = async () => {
@@ -50,6 +53,43 @@ export default function ViewDetailJob() {
 
     fetchJobDetails();
   }, [jobId]);
+
+  // Fetch relative jobs
+  useEffect(() => {
+    const fetchRelativeJobs = async () => {
+      try {
+        if (!job) return;
+
+        let response = await getJobByFilter(
+          {
+            provinceCode: job?.province?.code || "",
+          },
+          0,
+          6
+        );
+
+        if (response.data.total_elements <= 2) {
+          response = await getJobByFilter(
+            {
+              provinceCode: "",
+            },
+            0,
+            6
+          );
+        }
+
+        setRelativeJobs(
+          response?.data?.content?.map((item) =>
+            handleFindJobForShortCard(item)
+          )
+        );
+      } catch (error) {
+        console.error("Error fetching relative jobs:", error);
+      }
+    };
+
+    fetchRelativeJobs();
+  }, [job]);
 
   const salaryRange = handleSalaryAndCurrency(
     job?.min_salary,
@@ -99,7 +139,6 @@ export default function ViewDetailJob() {
       </Box>
     );
   }
-
   return (
     <div className="flex flex-col space-y-1 pb-30">
       <h1 className="text-xl font-medium">Job Details</h1>
@@ -118,10 +157,20 @@ export default function ViewDetailJob() {
           <div className="relative gap-6">
             <JobDescription description={job.description} />
             <JobResponsibilities responsibility={job.responsibility} />
+            <h3 className="text-xl mt-6 font-medium leading-loose text-black">
+              Relative Jobs:
+            </h3>
+            <Grid container spacing={2} className="mt-6 ml-10">
+              {relativeJobs.map((item) => (
+                <Grid item xs={4} key={item.id}>
+                  <JobShortCard job={item} />
+                </Grid>
+              ))}
+            </Grid>
           </div>
         </div>
 
-        <div className="flex-1 p-6 rounded-2xl  bg-white space-y-4">
+        <div className="flex-1 p-6 rounded-2xl bg-white space-y-4">
           <JobOverview
             salaryRange={salaryRange}
             education={formatEducation(job.education)}
@@ -132,6 +181,7 @@ export default function ViewDetailJob() {
           />
           <div className="pt-4">
             <CompanyInfo
+              id={employer.id}
               establishedIn={formatDate(employer.established_in)}
               name={employer.name}
               logoUrl={employer.logo_url}
@@ -141,7 +191,7 @@ export default function ViewDetailJob() {
             />
           </div>
           {employer.social_links.length !== 0 && (
-            <div className=" pt-4">
+            <div className="pt-4">
               <FollowSocialLink socialLinks={employer.social_links} />
             </div>
           )}

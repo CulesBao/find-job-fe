@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Alert } from "@mui/material";
+import { Box, Typography, Alert, FormControlLabel, Grid } from "@mui/material";
 import Pagination from "@/components/layout/Pagination";
 import { getJobByFilter } from "@/services/jobService";
 import FilterJobHeader from "./components/FilterJobHeader";
 import JobLongCard from "../../components/card/JobLongCard";
-import handleFindJob from "@/utils/handleFindJob";
+import JobShortCard from "../../components/card/JobShortCard";
+import CustomSwitchComponent from "@/components/button/CustomSwitchComponent";
+import handleFindJob, {
+  handleFindJobForShortCard,
+} from "@/utils/handleFindJob";
 
 function FilterJobPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +23,7 @@ function FilterJobPage() {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [viewMode, setViewMode] = useState("long");
 
   const onPageChange = (page) => setCurrentPage(page);
 
@@ -34,7 +39,7 @@ function FilterJobPage() {
         10
       );
       if (response?.data) {
-        setJobs(response.data?.content?.map((job) => handleFindJob(job)) || []);
+        setJobs(response.data?.content);
         setTotalPages(response.data.total_pages || 1);
       } else {
         setJobs([]);
@@ -49,17 +54,29 @@ function FilterJobPage() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchJobs();
   }, [currentPage]);
 
   return (
-    <Box width="100%">
+    <Box width="100%" display="flex" flexDirection="column" gap={2}>
       <FilterJobHeader
         filters={filters}
         onFilterChange={onFilterChange}
         onApply={fetchJobs}
       />
+
+      <Box display="flex" justifyContent="flex-end" pr={2}>
+        <FormControlLabel
+          control={
+            <CustomSwitchComponent
+              checked={viewMode === "short"}
+              onChange={(e) => setViewMode(e.target.checked ? "short" : "long")}
+            />
+          }
+        />
+      </Box>
 
       {error && (
         <Alert severity="error" sx={{ mt: 2 }}>
@@ -74,7 +91,22 @@ function FilterJobPage() {
       ) : (
         <>
           {jobs.length > 0 ? (
-            jobs.map((job) => <JobLongCard key={job.id} job={job} />)
+            viewMode === "long" ? (
+              jobs.map((job) => (
+                <JobLongCard key={job.id} job={handleFindJob(job)} />
+              ))
+            ) : (
+              <Grid container spacing={3}>
+                {jobs.map((job) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={job.id}>
+                    <JobShortCard
+                      key={job?.id}
+                      job={handleFindJobForShortCard(job)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            )
           ) : (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography>No jobs found matching your criteria.</Typography>

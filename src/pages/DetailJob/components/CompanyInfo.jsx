@@ -1,6 +1,7 @@
 import { Card, Stack, Typography, Box, Avatar, Link } from "@mui/material";
 
 const CompanyInfo = ({
+  id,
   establishedIn,
   name,
   logoUrl,
@@ -24,6 +25,8 @@ const CompanyInfo = ({
           src={logoUrl}
           alt={`${name} Logo`}
           sx={{ width: 70, height: 70 }}
+          component={Link}
+          to={`/../../job/details/${id}`}
         />
         <Typography variant="h6" fontWeight="bold" color="text.primary">
           {name || "Unknown Company"}

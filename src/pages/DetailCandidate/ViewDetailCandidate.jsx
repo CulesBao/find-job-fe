@@ -1,19 +1,25 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCandidateProfile } from "@/services/candidateProfileService";
+import {
+  filterCandidateProfile,
+  getCandidateProfile,
+} from "@/services/candidateProfileService";
 import { formatDate } from "@/utils/formatDate";
 import { formatEducation } from "@/constants/Education";
 import CandidateHeader from "./components/CandidateHeader";
 import CandidateBio from "./components/CandidateBio";
 import CandidateOverview from "./components/CandidateOverview";
 import CandidateSocialLink from "./Components/CandidateSocialLink";
+import CandidateShortCard from "@/components/card/CandidateShortCard";
+import { handleFindCandidateForShortCard } from "@/utils/handleFindCandidate";
 
 export default function ViewDetailCandidate() {
   const { candidateId } = useParams();
   const [candidate, setCandidate] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [relativeCandidates, setRelativeCandidates] = useState([]);
 
   useEffect(() => {
     const fetchCandidateDetails = async () => {
@@ -35,6 +41,51 @@ export default function ViewDetailCandidate() {
 
     fetchCandidateDetails();
   }, [candidateId]);
+
+  // Fetch relative candidates
+  useEffect(() => {
+    const fetchRelativeCandidates = async () => {
+      try {
+        if (!candidate) return;
+
+        let response = await filterCandidateProfile(
+          {
+            firstName: "",
+            lastName: "",
+            education: "",
+            provinceCode: candidate?.province?.code || "",
+            gender: "",
+          },
+          0,
+          6
+        );
+
+        if (response.data.total_elements <= 2) {
+          response = await filterCandidateProfile(
+            {
+              firstName: "",
+              lastName: "",
+              education: "",
+              provinceCode: "",
+              gender: "",
+            },
+            0,
+            6
+          );
+        }
+
+        setRelativeCandidates(
+          response?.data?.content?.map((item) =>
+            handleFindCandidateForShortCard(item)
+          )
+        );
+      } catch (error) {
+        console.error("Error fetching relative candidates:", error);
+      }
+    };
+
+    fetchRelativeCandidates();
+  }, [candidate]);
 
   if (loading) {
     return (
@@ -107,6 +158,17 @@ export default function ViewDetailCandidate() {
               name={`${candidate.first_name} ${candidate.last_name}`}
             />
             <CandidateSocialLink socialLinks={candidate.social_links} />
+
+            <h3 className="text-xl font-medium text-black mt-2 mb-6 ml-6">
+              Relative Candidates:
+            </h3>
+            <Grid container spacing={3}>
+              {relativeCandidates.map((item) => (
+                <Grid item xs={4} key={item.id}>
+                  <CandidateShortCard candidate={item} />
+                </Grid>
+              ))}
+            </Grid>
           </div>
         </div>
       </div>
