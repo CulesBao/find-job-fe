@@ -6,7 +6,19 @@ export default function AuthRedirect() {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    navigate(token ? `/dashboard` : "/auth/login", { replace: true });
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!token) {
+      navigate("/auth/login", { replace: true });
+    } else if (
+      user &&
+      user.candidate_profile == null &&
+      user.employer_profile == null
+    ) {
+      navigate("/set-up/profile", { replace: true });
+    } else {
+      navigate("/dashboard", { replace: true });
+    }
   }, [navigate]);
 
   return null;
