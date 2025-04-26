@@ -1,17 +1,13 @@
 import {
   Dialog,
   DialogContent,
-  DialogTitle,
-  IconButton,
   Slide,
   Box,
-  Paper,
   Avatar,
   Typography,
   Button,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Link as MuiLink,
   MenuItem,
@@ -19,23 +15,44 @@ import {
   Select,
   Tooltip,
 } from "@mui/material";
-import { Email, Download, Close } from "@mui/icons-material";
-import { forwardRef, useState } from "react";
+import { Email, Download } from "@mui/icons-material";
+import { forwardRef, useEffect, useState } from "react";
 import CandidateSocialLink from "../DetailCandidate/Components/CandidateSocialLink";
 import JobProcess from "@/constants/JobProccess";
 import { MapPin, PhoneCall } from "lucide-react";
-import { withdrawApplication } from "@/services/applicationService";
+import {
+  getApplicationById,
+  withdrawApplication,
+} from "@/services/applicationService";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { formatEducation } from "@/constants/Education";
+import { handleSendMail } from "@/components/button/SendMailButton";
 
 // eslint-disable-next-line react/display-name
 const Transition = forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
 ));
 
-export default function SingleApplication({ open, onClose, data, role }) {
+export default function SingleApplication({
+  open,
+  onClose,
+  id,
+  value,
+  onValueChange,
+}) {
+  const { user } = useAuth();
+  const role = user?.role;
   const navigate = useNavigate();
   const isDisabled = role !== "EMPLOYER";
-  const [selectedProcess, setSelectedProcess] = useState(data?.job_proccess);
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const fetchApplication = async () => {
+      const response = await getApplicationById(id);
+      setData(response.data);
+    };
+    fetchApplication();
+  }, [id]);
   const handleWithdraw = async () => {
     await withdrawApplication(data?.id);
     navigate(0);
@@ -50,21 +67,6 @@ export default function SingleApplication({ open, onClose, data, role }) {
       scroll="body"
       PaperProps={{ sx: { borderRadius: 3 } }}
     >
-      <DialogTitle
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: "#f5f5f5",
-        }}
-      >
-        {data?.candidate_profile.first_name} {data?.candidate_profile.last_name}
-        {"'s"} Application
-        <IconButton onClick={onClose}>
-          <Close />
-        </IconButton>
-      </DialogTitle>
-
       <DialogContent dividers sx={{ p: 3 }}>
         <Box>
           <Box
@@ -82,12 +84,14 @@ export default function SingleApplication({ open, onClose, data, role }) {
                 sx={{ width: 100, height: 100 }}
               />
               <Box>
-                <Typography variant="h5" fontWeight="medium">
+                <Typography variant="h5" fontWeight="600">
                   {data?.candidate_profile.first_name}{" "}
                   {data?.candidate_profile.last_name}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  {data?.candidate_profile.education}
+                  {formatEducation(
+                    data?.candidate_profile.education
+                  ).toUpperCase()}
                 </Typography>
               </Box>
             </Box>
@@ -98,6 +102,7 @@ export default function SingleApplication({ open, onClose, data, role }) {
                   variant="outlined"
                   startIcon={<Email />}
                   sx={{ borderColor: "#0a65cc", color: "#0a65cc" }}
+                  onClick={() => handleSendMail(data?.candidate_profile?.email)}
                 >
                   Send Mail
                 </Button>
@@ -118,8 +123,8 @@ export default function SingleApplication({ open, onClose, data, role }) {
               >
                 <FormControl size="small" sx={{ minWidth: 200 }}>
                   <Select
-                    value={selectedProcess}
-                    onChange={(e) => setSelectedProcess(e.target.value)}
+                    value={value || data?.job_proccess}
+                    onChange={(e) => onValueChange(e.target.value)}
                     displayEmpty
                     IconComponent={() => null}
                     renderValue={(selected) => {
@@ -143,7 +148,7 @@ export default function SingleApplication({ open, onClose, data, role }) {
                         </Box>
                       );
                     }}
-                    disabled={isDisabled}
+                    disabled={isDisabled || data?.job_proccess == "WITHDRAWN"}
                     sx={{
                       pointerEvents: isDisabled ? "none" : "auto",
                       opacity: 1,
@@ -156,8 +161,9 @@ export default function SingleApplication({ open, onClose, data, role }) {
                       bgcolor: "transparent",
                     }}
                   >
-                    {Object.entries(JobProcess).map(
-                      ([key, { name, color }]) => (
+                    {Object.entries(JobProcess)
+                      .filter(([key]) => key != "WITHDRAWN")
+                      .map(([key, { name, color }]) => (
                         <MenuItem key={key} value={key}>
                           <Box
                             sx={{
@@ -177,8 +183,7 @@ export default function SingleApplication({ open, onClose, data, role }) {
                             <Typography>{name}</Typography>
                           </Box>
                         </MenuItem>
-                      )
-                    )}
+                      ))}
                   </Select>
                 </FormControl>
               </Tooltip>
@@ -189,10 +194,10 @@ export default function SingleApplication({ open, onClose, data, role }) {
           <Box sx={{ display: "flex", gap: 3 }}>
             {/* Left Column */}
             <Box sx={{ flex: 2 }}>
-              <Paper sx={{ p: 3, mb: 4 }}>
-                <Typography variant="h6" fontWeight="medium" mb={2}>
-                  Biography
-                </Typography>
+              <Box sx={{ mb: 4, borderBottom: "1px solid #ccc", pb: 2, pl: 3 }}>
+                <h3 className="text-xl font-medium text-black mb-3">
+                  Biography:
+                </h3>
                 <Typography
                   variant="body1"
                   textAlign="justify"
@@ -200,12 +205,12 @@ export default function SingleApplication({ open, onClose, data, role }) {
                 >
                   {data?.candidate_profile.bio}
                 </Typography>
-              </Paper>
+              </Box>
 
-              <Paper sx={{ p: 3 }}>
-                <Typography variant="h6" fontWeight="medium" mb={2}>
-                  Cover Letter
-                </Typography>
+              <Box sx={{ borderBottom: "1px solid #ccc", pb: 2, pl: 3 }}>
+                <h3 className="text-xl font-medium text-black mb-3">
+                  Cover Letter:
+                </h3>
                 <Typography
                   variant="body1"
                   textAlign="justify"
@@ -213,50 +218,91 @@ export default function SingleApplication({ open, onClose, data, role }) {
                 >
                   {data?.cover_letter}
                 </Typography>
-              </Paper>
+              </Box>
+
+              <Box>
+                <CandidateSocialLink
+                  socialLinks={data?.candidate_profile.social_links}
+                />
+              </Box>
             </Box>
 
             {/* Right Column */}
             <Box sx={{ flex: 1 }}>
-              <Paper sx={{ p: 3, mb: 4 }}>
-                <Typography variant="h6" fontWeight="medium" mb={2}>
-                  Personal Details
-                </Typography>
+              <Box
+                sx={{
+                  p: 3,
+                  mb: 4,
+                  border: "1px solid #e0e0e0",
+                  borderRadius: 2,
+                  boxShadow: "none",
+                }}
+              >
+                <h3 className="text-xl font-medium text-black mb-3">
+                  Personal Details:
+                </h3>
                 <List disablePadding>
-                  <ListItem disableGutters>
-                    <ListItemIcon>
-                      <MapPin className="w-10 h-10 text-orange-500 mx-auto" />
-                    </ListItemIcon>
+                  <ListItem
+                    disableGutters
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                      mb: 1,
+                    }}
+                  >
+                    <MapPin className="w-6 h-6 text-orange-500" />
                     <ListItemText
                       primary="Province"
                       secondary={data?.candidate_profile.province.full_name_en}
+                      sx={{ margin: 0 }}
                     />
                   </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon>
-                      <MapPin className="w-10 h-10 text-orange-500 mx-auto" />
-                    </ListItemIcon>
+                  <ListItem
+                    disableGutters
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                      mb: 1,
+                    }}
+                  >
+                    <MapPin className="w-6 h-6 text-orange-500" />
                     <ListItemText
                       primary="District"
                       secondary={data?.candidate_profile.district.full_name_en}
+                      sx={{ margin: 0 }}
                     />
                   </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon>
-                      <PhoneCall className="w-9 h-9 text-emerald-500 mx-auto" />
-                    </ListItemIcon>
+                  <ListItem
+                    disableGutters
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                    }}
+                  >
+                    <PhoneCall className="w-6 h-6 text-emerald-500" />
                     <ListItemText
                       primary="Phone Number"
                       secondary={data?.candidate_profile.phone_number}
+                      sx={{ margin: 0 }}
                     />
                   </ListItem>
                 </List>
-              </Paper>
-
-              <Paper sx={{ p: 3, mb: 4 }}>
-                <Typography variant="h6" fontWeight="medium" mb={2}>
-                  Download CV
-                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  p: 3,
+                  mb: 4,
+                  border: "1px solid #e0e0e0",
+                  borderRadius: 2,
+                  boxShadow: "none",
+                }}
+              >
+                <h3 className="text-xl font-medium text-black mb-6">
+                  Download Resume:
+                </h3>
                 <MuiLink
                   href={data?.cv_url}
                   target="_blank"
@@ -283,16 +329,10 @@ export default function SingleApplication({ open, onClose, data, role }) {
                     <Download />
                   </Box>
                   <Typography variant="body1" fontWeight="medium">
-                    Download CV
+                    Download Resume
                   </Typography>
                 </MuiLink>
-              </Paper>
-
-              <Paper>
-                <CandidateSocialLink
-                  socialLinks={data?.candidate_profile.social_links}
-                />
-              </Paper>
+              </Box>
             </Box>
           </Box>
         </Box>

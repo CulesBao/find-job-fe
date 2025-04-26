@@ -58,8 +58,15 @@ const LoginForm = ({ formData, onInputChange, onModeChange }) => {
 
       <p className="text-center mt-0 opacity-60">or</p>
       <div className="flex justify-center items-center">
-        <button className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white">
-          <img src= {GoogleIcon} alt="Google" width={20} height={20} />
+        <button
+          type="button"
+          className="flex w-[258px] px-6 py-3 justify-center items-center gap-3 rounded border border-[#E4E5E8] bg-white"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = import.meta.env.VITE_APP_GOOGLE_AUTH_URL;
+          }}
+        >
+          <img src={GoogleIcon} alt="Google" width={20} height={20} />
           Sign in with Google
         </button>
       </div>
