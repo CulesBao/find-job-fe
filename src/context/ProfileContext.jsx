@@ -44,8 +44,11 @@ export const ProfileProvider = ({ children }) => {
     if (user) {
       setBasicCandidateProfile({
         bio: user?.candidate_profile?.bio || "",
-        date_of_birth:
-          user?.candidate_profile?.date_of_birth?.split("T")[0] || null,
+        date_of_birth: user?.candidate_profile?.date_of_birth
+          ? new Date(user.candidate_profile.date_of_birth)
+              .toISOString()
+              .split("T")[0]
+          : "",
         education: user?.candidate_profile?.education || "",
         first_name: user?.candidate_profile?.first_name || "",
         gender: (user?.candidate_profile?.gender == true ? 1 : 0) || 0,
@@ -57,8 +60,11 @@ export const ProfileProvider = ({ children }) => {
 
       setBasicEmployerProfile({
         about: user?.employer_profile?.about || "",
-        established_in:
-          user?.employer_profile?.established_in?.split("T")[0] || "",
+        established_in: user?.employer_profile?.established_in
+          ? new Date(user.employer_profile.established_in)
+              .toISOString()
+              .split("T")[0]
+          : "",
         name: user?.employer_profile?.name || "",
         vision: user?.employer_profile?.vision || "",
         website_url: user?.employer_profile?.website_url || "",

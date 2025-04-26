@@ -50,7 +50,7 @@ const BaiscCandidateInfoForm = ({ fn }) => {
             <TextField
               label="Date of birth"
               type="date"
-              value={basicCandidateProfile.date_of_birth}
+              value={basicCandidateProfile?.date_of_birth}
               onChange={handleChange("date_of_birth")}
               fullWidth
               InputLabelProps={{ shrink: true }}
