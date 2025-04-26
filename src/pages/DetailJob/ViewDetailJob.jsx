@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import JobHeader from "./components/JobHeader";
 import JobDescription from "./components/JobDescription";
 import JobResponsibilities from "./components/JobResponsibilities";
@@ -14,6 +14,7 @@ import { getJobById } from "@/services/jobService";
 import { getEmployerProfile } from "@/services/employerProfileService";
 import { formatJobType } from "@/constants/JobType";
 import handleSalaryAndCurrency from "@/utils/handleSalaryAndCurrency";
+import JobShortCard from "@/components/card/JobShortCard";
 
 export default function ViewDetailJob() {
   const { jobId } = useParams();
@@ -118,6 +119,16 @@ export default function ViewDetailJob() {
           <div className="relative gap-6">
             <JobDescription description={job.description} />
             <JobResponsibilities responsibility={job.responsibility} />
+            <h3 className="text-xl mt-6 font-medium leading-loose text-black">
+              Relative Jobs:
+            </h3>
+            <Grid container spacing={2} className="mt-6 ml-10">
+              <JobShortCard job={job}/>
+              <JobShortCard job={job}/>
+              <JobShortCard job={job}/>
+              <JobShortCard job={job}/>
+              <JobShortCard job={job}/>
+            </Grid>
           </div>
         </div>
 
