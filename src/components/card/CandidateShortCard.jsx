@@ -1,9 +1,11 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import { Briefcase } from "lucide-react";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import WcIcon from "@mui/icons-material/Wc";
 import { Link } from "react-router-dom";
+import { formatEducation } from "@/constants/Education";
 
-export default function EmployerShortCard({ employer }) {
+export default function CandidateShortCard({ candidate }) {
   return (
     <Box
       sx={{
@@ -15,19 +17,22 @@ export default function EmployerShortCard({ employer }) {
         outline: "1px solid",
         outlineColor: "grey.200",
         overflow: "hidden",
+        "&:hover": {
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+          transform: "translateY(-2px)"},
         p: 2,
       }}
     >
       {/* Clickable Section */}
       <Link
-        to={`/employer/details/${employer.id}`}
+        to={`/candidate/details/${candidate.id}`}
         style={{ display: "flex", textDecoration: "none", color: "inherit" }}
       >
         <Stack direction="row" spacing={2} alignItems="center">
           {/* Avatar */}
           <Avatar
-            src={employer.logo_url}
-            alt={`${employer.name} logo`}
+            src={candidate.avatar_url}
+            alt={`${candidate.first_name} ${candidate.last_name} avatar`}
             sx={{
               width: 64,
               height: 64,
@@ -36,18 +41,18 @@ export default function EmployerShortCard({ employer }) {
             }}
           />
 
-          {/* Employer Name and Location */}
+          {/* Candidate Name and Location */}
           <Box>
             <Typography variant="h6" fontWeight={600} color="text.primary" gutterBottom>
-              {employer.name}
+              {candidate.first_name} {candidate.last_name}
             </Typography>
 
             {/* Location */}
-            {employer.location && (
+            {candidate.location && (
               <Stack direction="row" spacing={0.5} alignItems="center">
                 <LocationOnOutlinedIcon fontSize="small" color="action" />
                 <Typography variant="body2" color="text.secondary">
-                  {employer.location}
+                  {candidate.location}
                 </Typography>
               </Stack>
             )}
@@ -55,13 +60,28 @@ export default function EmployerShortCard({ employer }) {
         </Stack>
       </Link>
 
-      {/* Job Count */}
+      {/* Candidate Education and Gender */}
       <Box sx={{ position: "absolute", bottom: 16, left: 32, right: 32 }}>
-        <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="flex-start">
-          <Briefcase size={16} color="#B0BEC5" />
-          <Typography variant="caption" color="text.secondary">
-            {employer.job_count} jobs available
-          </Typography>
+        <Stack direction="row" spacing={1.5} alignItems="center" justifyContent="space-between">
+          {/* Education */}
+          {candidate.education && (
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              <SchoolOutlinedIcon fontSize="small" color="action" />
+              <Typography variant="caption" color="text.secondary">
+                {formatEducation(candidate.education)}
+              </Typography>
+            </Stack>
+          )}
+
+          {/* Gender */}
+          {candidate.gender !== undefined && (
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              <WcIcon fontSize="small" color="action" />
+              <Typography variant="caption" color="text.secondary">
+                {candidate.gender ? "Male" : "Female"}
+              </Typography>
+            </Stack>
+          )}
         </Stack>
       </Box>
     </Box>

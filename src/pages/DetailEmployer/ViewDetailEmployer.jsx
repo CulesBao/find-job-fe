@@ -9,7 +9,7 @@ import EmployerSocialLink from "./Components/EmployerSocialLinks";
 import EmployerAbout from "./Components/EmployerAbout";
 import EmployerVision from "./Components/EmployerVision";
 import StarRating from "./Components/StarRating";
-import EmployerShortCard from "@/components/card/CandidateShortCard";
+import EmployerShortCard from "@/components/card/EmployerShortCard";
 
 export default function ViewDetailEmployer() {
   const { employerId } = useParams();
