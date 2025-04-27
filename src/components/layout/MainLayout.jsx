@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Navbar from "./Navbar";
 import Navigation from "./Navigation";
 import DashboardSidebar from "./DashboardSidebar";
+import ChatBot from "../chat/ChatBot";
 
 export default function MainLayout({ children, showSidebar = true }) {
   const { user } = useAuth();
@@ -25,7 +26,7 @@ export default function MainLayout({ children, showSidebar = true }) {
           {children}
         </main>
       </div>
-
+          <ChatBot />
     </div>
   );
 }
