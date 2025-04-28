@@ -91,9 +91,13 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
         width: 300,
         cursor: "pointer",
       }}
-      onClick={() => setOpen(true)} // Mở modal khi nhấn vào card
     >
-      <Box display="flex" gap={2} alignItems="center">
+      <Box
+        display="flex"
+        gap={2}
+        alignItems="center"
+        onClick={() => setOpen(true)}
+      >
         <Avatar
           sx={{ width: 48, height: 48, bgcolor: "grey.500" }}
           src={candidateInfo.avatarUrl}
@@ -108,9 +112,9 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
         </Box>
       </Box>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 2 }} onClick={() => setOpen(true)} />
 
-      <Stack spacing={0.5}>
+      <Stack spacing={0.5} onClick={() => setOpen(true)}>
         <Typography variant="body2" color="text.secondary">
           Applied: {candidateInfo.createdAt}
         </Typography>
@@ -121,7 +125,7 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
           <Select
             value={selectedProcess}
             onChange={(e) => handleProcessChange(e.target.value)}
-            onClick={(e) => e.stopPropagation()} // Ngăn sự kiện mở modal khi nhấn vào Select
+            onClick={(e) => e.stopPropagation()}
             displayEmpty
             IconComponent={() => null}
             disabled={candidateInfo?.jobProcess === "WITHDRAWN"}
@@ -147,7 +151,7 @@ export default function CandidateCard({ candidateInfo, onProcessChange }) {
         onClose={() => setOpen(false)}
         id={candidateInfo?.id}
         value={selectedProcess}
-        onValueChange={handleProcessChange} // Truyền hàm handleProcessChange vào SingleApplication
+        onValueChange={handleProcessChange}
       />
     </Card>
   );

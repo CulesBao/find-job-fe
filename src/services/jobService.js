@@ -34,3 +34,18 @@ export const getJobByFilter = (filterData, page, size = 5) =>
       },
     });
   });
+
+export const deleteJobById = (jobId) =>
+  safeApiCall(() => {
+    return axiosPrivate.delete(`/job/${jobId}`);
+  }, true);
+
+export const getJobByEmployerId = (employerId, page, size = 6) =>
+  safeApiCall(() => {
+    return axiosPrivate.get(`/job/employer/${employerId}`, {
+      params: {
+        page: page,
+        size: size,
+      },
+    });
+  });
