@@ -32,6 +32,7 @@ function FilterCandidatePage() {
 
   const fetchCandidates = async () => {
     try {
+      console.log("Fetching candidates with filters:", filters);
       setLoading(true);
       setError(null);
       const response = await filterCandidateProfile(filters, currentPage - 1);

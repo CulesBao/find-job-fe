@@ -1,6 +1,7 @@
 import EmployerLongCard from "@/components/card/EmployerLongCard";
 import Pagination from "@/components/layout/Pagination";
 import { getFollowedEmployers } from "@/services/candidateFollowerService";
+import { handleFindEmployer } from "@/utils/handleFindEmployer";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -29,7 +30,10 @@ const CandidateSavedEmployers = () => {
     <Box mt={6} width="100%">
       <h1 className="text-2xl font-bold mb-4">Saved Employers</h1>
       {employers?.map((employer) => (
-        <EmployerLongCard key={employer.id} employer={employer} />
+        <EmployerLongCard
+          key={employer.id}
+          employer={handleFindEmployer(employer)}
+        />
       ))}
       <Pagination
         totalPages={totalPage}

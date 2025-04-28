@@ -14,6 +14,9 @@ import EmployerVision from "./Components/EmployerVision";
 import StarRating from "./Components/StarRating";
 import EmployerShortCard from "@/components/card/EmployerShortCard";
 import { handleFindEmployerForShortCard } from "@/utils/handleFindEmployer";
+import { getJobByEmployerId } from "@/services/jobService";
+import JobShortCard from "@/components/card/JobShortCard";
+import { handleFindJobForShortCard } from "@/utils/handleFindJob";
 
 export default function ViewDetailEmployer() {
   const { employerId } = useParams();
@@ -22,17 +25,22 @@ export default function ViewDetailEmployer() {
   const [error, setError] = useState(null);
   const [currentRating, setCurrentRating] = useState(0);
   const [relativeEmployers, setRelativeEmployers] = useState([]);
+  const [myJobs, setMyJobs] = useState([]);
+  const [totalJobs, setTotalJobs] = useState(0);
 
   // Fetch employer details
   useEffect(() => {
     const fetchEmployerDetails = async () => {
       try {
         setLoading(true);
-        const response = await getEmployerProfile(employerId);
-        if (response && response.status === 200) {
-          setEmployer(response.data);
-        } else {
-          throw new Error("Failed to fetch employer details");
+        const employerResponse = await getEmployerProfile(employerId);
+        if (employerResponse && employerResponse.status === 200) {
+          setEmployer(employerResponse.data);
+        }
+        const jobsResponse = await getJobByEmployerId(employerId);
+        if (jobsResponse && jobsResponse.status === 200) {
+          setMyJobs(jobsResponse.data.content);
+          setTotalJobs(jobsResponse.data.total_elements);
         }
       } catch (error) {
         console.error("Error fetching employer details:", error);
@@ -157,6 +165,20 @@ export default function ViewDetailEmployer() {
             <EmployerAbout about={employer.about} />
             <EmployerVision vision={employer.vision} />
             <EmployerSocialLink socialLinks={employer.social_links} />
+            {totalJobs > 0 && (
+              <div>
+                <h3 className="text-2xl font-medium leading-loose ml-4 mt-3 text-black">
+                  See also our jobs:
+                </h3>
+                <Grid container spacing={3} className="mt-4">
+                  {myJobs.map((item) => (
+                    <Grid item xs={4} key={item.id}>
+                      <JobShortCard job={handleFindJobForShortCard(item)} isExternal={true}/>
+                    </Grid>
+                  ))}
+                </Grid>
+              </div>
+            )}
             <h3 className="text-2xl font-medium leading-loose ml-4 mt-3 text-black">
               Relative Companies:
             </h3>
