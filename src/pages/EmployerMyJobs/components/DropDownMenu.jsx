@@ -1,3 +1,4 @@
+import { deleteJobById } from "@/services/jobService";
 import { Menu, MenuItem } from "@mui/material";
 import { Pencil, ReceiptText, Trash } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -31,8 +32,12 @@ function DropdownMenu({ anchorEl, onClose, jobId }) {
 
       <MenuItem
         onClick={() => {
-          onClose();
-          console.log(`Delete job with ID: ${jobId}`);
+          const confirmDelete = async () => {
+            await deleteJobById(jobId);
+            onClose();
+            navigate(0);
+          };
+          confirmDelete();
         }}
         sx={{ color: "red" }}
       >
