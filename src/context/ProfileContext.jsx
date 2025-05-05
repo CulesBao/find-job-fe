@@ -13,7 +13,7 @@ export const useProfileContext = () => {
 
 export const ProfileProvider = ({ children }) => {
   const { user } = useAuth();
-
+  console.log("user", user);
   const [basicCandidateProfile, setBasicCandidateProfile] = useState({
     bio: "",
     date_of_birth: "",
@@ -84,32 +84,6 @@ export const ProfileProvider = ({ children }) => {
           user?.employer_profile?.social_links ||
           []
       );
-    } else {
-      setBasicCandidateProfile({
-        bio: "",
-        date_of_birth: "",
-        education: "",
-        first_name: "",
-        gender: null,
-        last_name: "",
-        phone_number: "",
-        province_code: "",
-        district_code: "",
-      });
-
-      setBasicEmployerProfile({
-        about: "",
-        established_in: "",
-        name: "",
-        vision: "",
-        website_url: "",
-        province_code: "",
-        district_code: "",
-        location: "",
-      });
-
-      setImage(null);
-      setSocialLinks([]);
     }
   }, [user]);
 

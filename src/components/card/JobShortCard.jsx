@@ -2,7 +2,7 @@ import { Box, Typography, Paper, Avatar } from "@mui/material";
 import { AccessTime, AttachMoney, Business } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-function JobShortCard({ job }) {
+function JobShortCard({ job, isExternal }) {
   return (
     <Paper
       elevation={2}
@@ -20,7 +20,9 @@ function JobShortCard({ job }) {
         },
       }}
     >
-      <Link to={`details/${job?.id}`}>
+      <Link
+        to={isExternal ? `/../../job/details/${job?.id}` : `details/${job?.id}`}
+      >
         <Avatar
           src={job?.logoUrl}
           alt={job?.employerName}
@@ -33,7 +35,9 @@ function JobShortCard({ job }) {
           variant="h6"
           sx={{ fontWeight: 600 }}
           component={Link}
-          to={`details/${job?.id}`}
+          to={
+            isExternal ? `/../../job/details/${job?.id}` : `details/${job?.id}`
+          }
           color="inherit"
           style={{ textDecoration: "none" }}
         >

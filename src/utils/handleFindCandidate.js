@@ -10,7 +10,7 @@ export function handleFindCandidate(candidate) {
     fullName: `${first_name} ${last_name}`,
     location,
     education: formatEducation(education),
-    gender: gender ? "Male" : "Female",
+    gender: gender ? "Female" : "Male",
   };
 }
 
@@ -23,6 +23,6 @@ export function handleFindCandidateForShortCard(candidate) {
     fullName: handleLongString(`${first_name} ${last_name}`, 15),
     location,
     education: formatEducation(education),
-    gender: gender ? "Male" : "Female",
+    gender: gender ? "Female" : "Male",
   };
 }

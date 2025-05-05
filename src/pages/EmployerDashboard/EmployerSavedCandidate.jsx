@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { getFollowedCandidates } from "@/services/employerFollowerService";
 import ViewCandidate from "../../components/card/CandidateLongCard";
 import Pagination from "@/components/layout/Pagination";
+import { handleFindCandidate } from "@/utils/handleFindCandidate";
 
 const EmployerSavedCandidate = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +32,10 @@ const EmployerSavedCandidate = () => {
     <Box mt={6} width="100%">
       <h1 className="text-2xl font-bold mb-4">Saved Candidates</h1>
       {candidates?.map((candidate) => (
-        <ViewCandidate key={candidate.id} candidate={candidate} />
+        <ViewCandidate
+          key={candidate.id}
+          candidate={handleFindCandidate(candidate)}
+        />
       ))}
       <Pagination
         totalPages={totalPages}
