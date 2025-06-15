@@ -10,7 +10,7 @@ import { formatEducation } from "@/constants/Education";
 import CandidateHeader from "./components/CandidateHeader";
 import CandidateBio from "./components/CandidateBio";
 import CandidateOverview from "./components/CandidateOverview";
-import CandidateSocialLink from "./Components/CandidateSocialLink";
+import CandidateSocialLink from "./components/CandidateSocialLink";
 import CandidateShortCard from "@/components/card/CandidateShortCard";
 import { handleFindCandidateForShortCard } from "@/utils/handleFindCandidate";
 

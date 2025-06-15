@@ -6,7 +6,7 @@ export function handleFindEmployer(employer) {
   return {
     id: employer.id,
     logoUrl: employer.logo_url,
-    name: handleLongString(name, 70),
+    name: handleLongString(name, 50),
     location,
     jobCount: `${job_count} jobs available`,
   };

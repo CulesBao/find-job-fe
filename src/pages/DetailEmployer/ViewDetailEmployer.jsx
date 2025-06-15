@@ -2,7 +2,6 @@ import {
   getEmployerProfile,
   filterEmployerProfile,
 } from "@/services/employerProfileService";
-import { formatDate } from "@/utils/formatDate";
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -17,6 +16,7 @@ import { handleFindEmployerForShortCard } from "@/utils/handleFindEmployer";
 import { getJobByEmployerId } from "@/services/jobService";
 import JobShortCard from "@/components/card/JobShortCard";
 import { handleFindJobForShortCard } from "@/utils/handleFindJob";
+import { formatDate } from "@/utils/formatDate";
 
 export default function ViewDetailEmployer() {
   const { employerId } = useParams();
@@ -143,7 +143,7 @@ export default function ViewDetailEmployer() {
             employerId={employer.id}
             logoUrl={employer.logo_url}
             companyName={employer.name}
-            createdAt={formatDate(employer.created_at)}
+            createdAt={formatDate(employer.established_in)}
             email={employer.email}
           />
           <StarRating
@@ -173,7 +173,10 @@ export default function ViewDetailEmployer() {
                 <Grid container spacing={3} className="mt-4">
                   {myJobs.map((item) => (
                     <Grid item xs={4} key={item.id}>
-                      <JobShortCard job={handleFindJobForShortCard(item)} isExternal={true}/>
+                      <JobShortCard
+                        job={handleFindJobForShortCard(item)}
+                        isExternal={true}
+                      />
                     </Grid>
                   ))}
                 </Grid>

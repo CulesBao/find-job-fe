@@ -1,5 +1,5 @@
 import { Card, Stack, Typography, Box, Avatar, Link } from "@mui/material";
-
+import { Link as RouterLink } from "react-router-dom";
 const CompanyInfo = ({
   id,
   establishedIn,
@@ -25,10 +25,16 @@ const CompanyInfo = ({
           src={logoUrl}
           alt={`${name} Logo`}
           sx={{ width: 70, height: 70 }}
-          component={Link}
-          to={`/../../job/details/${id}`}
+          component={RouterLink}
+          to={`/../../employer/details/${id}`}
         />
-        <Typography variant="h6" fontWeight="bold" color="text.primary">
+        <Typography
+          variant="h6"
+          fontWeight="bold"
+          color="text.primary"
+          component={RouterLink}
+          to={`/../../employer/details/${id}`}
+        >
           {name || "Unknown Company"}
         </Typography>
       </Stack>

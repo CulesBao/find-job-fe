@@ -304,7 +304,7 @@ export default function SingleApplication({
                   Download Resume:
                 </h3>
                 <MuiLink
-                  href={data?.cv_url}
+                  href={data?.cv_url?.replace("http://", "https://")}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
