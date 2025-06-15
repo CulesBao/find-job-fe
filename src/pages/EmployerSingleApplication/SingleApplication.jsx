@@ -44,7 +44,7 @@ export default function SingleApplication({
   const { user } = useAuth();
   const role = user?.role;
   const navigate = useNavigate();
-  const isDisabled = role !== "EMPLOYER";
+  const isEmployerRole = role !== "EMPLOYER";
   const [data, setData] = useState(null);
   useEffect(() => {
     const fetchApplication = async () => {
@@ -118,7 +118,7 @@ export default function SingleApplication({
                 </Button>
               )}
               <Tooltip
-                title={isDisabled ? "Only Employer can change this" : ""}
+                title={isEmployerRole ? "Only Employer can change this" : ""}
                 placement="top"
               >
                 <FormControl size="small" sx={{ minWidth: 200 }}>
@@ -148,9 +148,9 @@ export default function SingleApplication({
                         </Box>
                       );
                     }}
-                    disabled={isDisabled || data?.job_proccess == "WITHDRAWN"}
+                    disabled={isEmployerRole || data?.job_proccess == "WITHDRAWN"}
                     sx={{
-                      pointerEvents: isDisabled ? "none" : "auto",
+                      pointerEvents: isEmployerRole ? "none" : "auto",
                       opacity: 1,
                       "& .MuiSelect-select": {
                         padding: 0,
